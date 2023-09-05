@@ -1,0 +1,41 @@
+#logo{
+    width:30%;
+    margin-top: 30px;
+}
+#pw_title{
+    margin: 15px auto 15px auto;
+}
+#find_pw_form{
+    margin: 50px auto auto auto;
+    border: 2px solid rgb(105, 102, 102);
+    border-radius: 10px;
+    background-color: rgba(211, 211, 211, 0.733);
+    width:30%;
+    text-align: center;
+}
+input{
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 30px;
+    width: 350px;
+}
+#formbtn{
+    margin-bottom: 30px;
+}
+#find_id_btn{
+    margin-bottom: 30px;
+}
+#find_id_btn a{
+    text-decoration: none;
+    color: black;
+}
+#find_id_btn a:hover{
+    transition: 0.5s;
+    color:  rgb(24, 179, 4);
+
+}
+#change_pw_error,#change_confirm_error{
+    font-size: 12px;
+    height:40px;
+}

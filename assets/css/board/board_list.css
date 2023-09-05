@@ -1,0 +1,198 @@
+.title_Benchmark{
+    border-bottom: 1px solid gainsboro;
+}
+/* 메인 콘텐츠 위치조정 */
+.board_main{
+    margin: 30px 145px auto auto;
+    height: 100%;
+    float: right;
+    width: 1000px;
+    background-color: rgb(240, 238, 238);
+}
+.category{
+    width: 490px;
+}
+/* 운영자일경우 */
+#category_title1{
+    margin-right: 370px;
+    width:150px;
+}
+/* 일반 유저일경우 */
+#category_title2{
+    margin-right: 600px;
+    width:150px;
+}
+/* 게시물 제목 옵션 조정 */
+#board_optin{
+    margin: 15px auto auto 15px;
+}
+/* 리스트 카테고리 제목 위치조정 */
+#board_title{
+    line-height: 30px;
+}
+#option_right1,#option_right2,#option_right3{
+    margin-right: 15px;
+    float: right;
+}
+/* 게시물 리스트 기준 */
+#title{
+    margin: 30px auto 15px 30px;
+    font-weight: bold;
+    height: 45px;
+}
+/* 게시물 리스트 기준 제목 */
+#title_main{
+    width:430px;
+    text-align: center;
+}
+/* 게시물 리스트 기준 작성자 */
+#title_name{
+    padding-left: 30px;
+    width:150px;
+}
+/* 기준 나머지 */
+.title_td{
+    width:100px;
+}
+/* 운영자나 해당게시물회원이 아닐시 체크박스 */
+#none_check{
+    width:25px;
+
+}
+/* 게시글 밑줄 및 조정 */
+.board_list{
+    height: 60px;
+    border-bottom: 1px solid gainsboro;
+}
+/* 게시물 체크 위치조정 */
+#board_check{
+    margin: 15px 15px -5px 15px;
+}
+/* 게시물 제목 */
+#board_write_title{
+    width:455px;
+    text-align: left;
+    font-size: 14px;
+}
+/* 게시물 작성자 */
+#board_write_name{
+    width:120px;
+}
+/* 게시물 댓글수 */
+#board_comment{
+    width:65px;
+}
+/* 게시글좋아요수 */
+#board_date{
+    width:145px;
+}
+#board_heart{
+    width:170px;
+}
+#footer_button{
+    margin: 20px 145px 20px auto;
+    float: right;
+}
+/* 페이지 네이션 위치조정 */
+#pagenation{
+    text-align: center;
+    width: 310px;
+}
+#footer_option{
+    width:1000px;
+    text-align: center;
+}
+/* 하단 옵션 인라인 */
+#footer_option li{
+    display: inline-block;
+}
+/* 페이지네이션 색상 */
+.page-link{
+    color: black;
+}
+/* 공지 칸 위치조정 */
+#main_status_move_b{
+    margin: 15px auto 15px -45px;
+    border-bottom: 1px solid gainsboro;
+    width: 1000px;
+    float: right;
+    color:red;
+    font-weight: bold;
+    
+}
+/* 새글일경우 색상조정 */
+#new_board{
+    color: red;
+}
+/* 공지칸 리스트 점제거 */
+#main_status_move_b ul{
+    list-style: none;
+}
+/* 공지칸 한줄 만들기 */
+#main_status_move_b ul li{
+    display: inline-block;
+}
+/* 공지 아이콘 조정 */
+#main_status_b{
+    text-align: center;
+    width:40px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: red;
+    border: 1px solid red;
+    color: white;
+}
+/* 공지 제목 */
+#main_title_b{
+    text-align: center;
+    width:335px;
+}
+#main_title_b a{
+    color: red;
+}
+/* 공지 작성자 */
+#main_name_b{
+    width:185px;
+    text-align: center;
+}
+#main_name_b a{
+    color:red;
+}
+/* 공지 댓글 */
+#main_common_b{
+    text-align: center;
+    width:25px;
+}
+/* 공지 작성일 */
+#main_te_b{
+    text-align: center;
+    width: 180px;
+}
+/* 어드민 예정이 아닐때 list 위치조정 */
+#nonecheked{
+    width:40px;
+    height: 30px;
+}
+/* 하단 버튼 전체선택 위취조정 */
+.all_ck_left{
+    float: left;
+}
+/* 하단버튼 위치조정 */
+.board_btn_right{
+    float: right;
+}
+/* 하단 검색창 위치조정 및 크기 조정 */
+#category_board_search{
+    margin: 30px 140px auto auto;
+    width: 70%;
+    height: 200px;
+    float: right;
+    text-align: center;
+    background-color: gainsboro;
+}
+#footer_search_form{
+    margin: 90px auto;
+}
+.title_right_color{
+    color:rgb(243, 134, 10);
+}

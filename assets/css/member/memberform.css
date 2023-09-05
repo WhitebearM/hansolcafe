@@ -1,0 +1,96 @@
+body{
+    width: 1000px;
+    margin-left: 25%;
+}
+/* 회원가입 로고 위치 */
+#formlogo{
+    margin: 25px auto auto 25px;
+}
+/* 폼전체 조정 */
+#main_form{
+    border: 2px solid rgb(51, 43, 43);
+    border-radius: 7px;
+    text-align: center;
+    width:680px;
+    height: 750px;
+    margin: 50px auto auto 150px;
+    background-color: rgba(211, 211, 211, 0.733);
+    box-shadow: 0 15px 10px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+/* 각 input 태그 점제거 */
+#input_form{
+    list-style: none;
+}
+/* 아이디 1개 input위치조정 */
+#user_id{
+    text-align: center;
+    margin: auto auto 15px 30px;
+    width:300px;
+    height: 25px;
+    box-shadow: 0 15px 10px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+/* 나머지 input 위치조정 */
+.input_move{
+    text-align: center;
+    margin: 15px auto 15px -70px;
+    height: 25px;
+    width:300px;
+    box-shadow: 0 15px 10px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+/* 프로필사진 위치조정 */
+#previewContainer{
+    margin: 10px auto 10px 100px;
+    /* display: none; */
+    float: left;
+}
+/* 파일선택및 이름 위치조정 */
+#profilePicInput{
+    margin:100px auto auto auto;
+}
+#profile_text{
+    font-size: 12px;
+}
+#password_toggle{
+    margin:auto -30px auto auto;
+}
+/* 회원가입 버튼 위치조정 */
+#success{
+    margin: 50px 25px 10px auto;
+}
+/* 유효성검사 텍스트 위치조정 */
+.error{
+    font-size: 12px;
+    margin:-5px 65px -5px auto;
+}
+/* 버튼 커스텀 */
+button{
+    background: var(--button-bg-color);
+    color: var(--button-color);
+    
+    margin: 0;
+    padding: 0.5rem 1rem;
+    
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    
+    border: none;
+    border-radius: 4px;
+    
+    display: inline-block;
+    width: auto;
+    
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    
+    cursor: pointer;
+    
+    transition: 0.5s;
+  }
+  /* 버튼효과~ */
+button:hover{
+    --button-bg-color: #262c28;
+    --button-hover-bg-color: #ffffff;
+    color: white;
+}

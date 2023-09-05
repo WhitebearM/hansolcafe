@@ -1,0 +1,168 @@
+.title_Benchmark{
+    border-bottom: 1px solid gainsboro;
+}
+/* 메인 콘텐츠 위치조정 */
+.board_main{
+    margin: 30px 145px auto auto;
+    height: 100%;
+    float: right;
+    width: 1000px;
+    background-color: rgb(240, 238, 238);
+}
+#board_num{
+    width: 30px;
+    text-align: right;
+}
+/* 메인 타이틀 위치조정 */
+.board_title{
+    margin: 15px 15px;
+}
+.board_title ul{
+    list-style: none;
+}
+.board_title ul li{
+    display: inline-block;
+}
+#main_title_move_btn{
+    float: right;
+}
+/* 게시물 리스트 기준 */
+#title{
+    margin: 30px auto 15px 30px;
+    font-weight: bold;
+    height: 45px;
+}
+/* 게시물 리스트 기준 제목 */
+#title_main{
+    width:430px;
+    text-align: center;
+}
+/* 게시물 리스트 기준 작성자 */
+#title_name{
+    padding-left: 40px;
+    width:150px;
+}
+/* 기준 나머지 */
+.title_td{
+    width:100px;
+    padding-left: 7px;
+}
+/* 게시글 밑줄 및 조정 */
+.board_list{
+    height: 60px;
+    border-bottom: 1px solid gainsboro;
+}
+/* 게시물 제목 */
+#board_write_title{
+    padding-left: 15px;
+    width:500px;
+    text-align: left;
+}
+/* 게시물 작성자 */
+#board_write_name{
+    width:120px;
+}
+/* 게시물 댓글수 */
+#board_comment{
+    width:65px;
+}
+/* 게시글좋아요수 */
+#board_date{
+    width:145px;
+}
+#board_heart{
+    width:170px;
+}
+/* 공지 칸 위치조정 */
+#main_status_move{
+    margin: 15px auto 15px -45px;
+    border-bottom: 1px solid gainsboro;
+    width: 1000px;
+    float: right;
+    color:red;
+    font-weight: bold;
+}
+/* 공지칸 리스트 점제거 */
+#main_status_move ul{
+    list-style: none;
+}
+/* 공지칸 한줄 만들기 */
+#main_status_move ul li{
+    display: inline-block;
+}
+/* 공지 아이콘 조정 */
+#main_status{
+    text-align: center;
+    width:40px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: red;
+    border: 1px solid red;
+    color: white;
+}
+/* 공지 제목 */
+#main_title{
+    text-align: center;
+    width:335px;
+}
+#main_title a{
+    color:red;
+}
+/* 공지 작성자 */
+#main_name{
+    width:190px;
+    text-align: center;
+    padding-left: 30px;
+}
+#main_name a{
+    color:red;
+}
+/* 공지 댓글 */
+#main_common{
+    text-align: center;
+    width:25px;
+    padding-left: 17px;
+}
+/* 공지 작성일 */
+#main_te{
+    text-align: center;
+    width: 180px;
+    padding-left: 7px;
+}
+/* 공지 좋아요 */
+#main_heart{
+    padding-left: 5px;
+}
+.main_view_pagination{
+    text-align: center;
+    margin: 15px auto auto auto;
+}
+#footer_btn ul{
+    list-style: none;
+}
+#footer_btn ul li{
+    display: inline-block;
+    margin-top: 15px;
+}
+#footer_btn{
+    text-align: center;
+}
+.board_btn_right{
+    float: right;
+    margin-right: 150px;
+}
+/* 하단 검색창 */
+#main_board_search{
+    margin: 30px 140px auto auto;
+    width: 70%;
+    height: 200px;
+    float: right;
+    text-align: center;
+    background-color: gainsboro;
+}
+#main_footer_search_form{
+    margin: 90px auto;
+}
+.title_right_color{
+    color:rgb(243, 134, 10);
+}

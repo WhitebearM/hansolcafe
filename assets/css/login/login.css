@@ -1,0 +1,45 @@
+#logo{
+    margin-top: 30px;
+    width: 30%; 
+}
+/* 로그인h4 */
+#logintitle{
+    margin: 50px auto 20px auto;
+    width: 30%;  
+}
+/* 로그인폼 */
+#loginform{
+    border: 2px solid rgb(105, 102, 102);
+    border-radius: 15px;
+    background-color: rgba(211, 211, 211, 0.733);
+    width: 30%;
+    text-align: center;
+}
+/* input텍스트 위치조정 */
+.logininput{
+    margin:25px auto auto auto;
+    border: none;
+    border-radius: 10px;
+    width:50%;
+}
+/* 로그인버튼 위치조정 */
+#formbtn{
+    margin: 25px auto 25px auto;
+    width:52%;
+}
+#login_list{
+    margin-right: 45px;
+    list-style: none;
+}
+#login_list li{
+    list-style: none;
+    display: inline-block;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    transition: 0.5s;
+    color: rgb(24, 179, 4);
+}

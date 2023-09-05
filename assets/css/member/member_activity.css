@@ -1,0 +1,130 @@
+/* 활동내역 전체적인 크기 위치 조정 */
+#member_activity_body {
+    background-color: gainsboro;
+    width: 990px;
+    height: 100%;
+    float: right;
+    margin: 30px 150px 15px auto;
+}
+
+#member_activity_body ul {
+    list-style: none;
+}
+
+#member_activity_body ul li {
+    display: inline-block;
+}
+
+/* 해당회원 프로필 */
+#member_profile {
+    margin: 30px auto 30px 30px;
+    width: 100px;
+}
+
+/* 프로필 이름 글수 크기 및 위치조정 */
+#member_profile_info {
+    height: 100px;
+}
+
+/* 상단 a태그 위치조정 1~3*/
+.member_activity_btn_group1 {
+    text-align: left;
+    width: 100px;
+}
+
+.member_activity_btn_group2 {
+    text-align: left;
+    width: 705px;
+}
+
+/* 기준 타이틀 1~4 */
+.member_activity_criteria1 {
+    text-align: center;
+    width: 500px;
+}
+
+.member_activity_criteria2 {
+    text-align: center;
+    width: 130px;
+}
+
+.member_activity_criteria3 {
+    text-align: center;
+    width: 130px;
+}
+
+.member_activity_criteria4 {
+    text-align: center;
+    width: 130px;
+}
+
+/* 본문 게시판 위치조정  1~4*/
+.member_activity_title {
+    text-align: center;
+    width: 470px;
+}
+
+.member_activity_date {
+    text-align: center;
+    width: 150px;
+}
+
+.member_activity_comments {
+    text-align: center;
+    width: 110px;
+}
+
+.member_activity_heart {
+    text-align: center;
+    width: 155px;
+}
+
+/* 본문 댓글 위치조정 1~2*/
+.member_activity_criteria_comment2 {
+    text-align: center;
+    width: 130px;
+}
+
+.member_activity_criteria_comment3 {
+    text-align: right;
+    width: 225px;
+}
+
+/* 본문 댓글 게시글 위치조정 */
+.member_activity_board_comment {
+    text-align: center;
+    width: 155px;
+}
+.member_activity_date_comment{
+    text-align: right;
+    width: 225px;
+}
+/* 본문 삭제 위치조정 */
+.member_activity_delete_criteria1{
+    text-align: center;
+    width: 500px;
+}
+.member_activity_delete_criteria2{
+    text-align: right;
+    width:360px;
+}
+/* 삭제한 게시판 삭제일 */
+.member_activity_delete_date{
+    text-align: right;
+    width: 385px;
+}
+/* 버튼에 따라 화면 변경 초기 숨기기*/
+#activity_write_comment,#activity_delete_board{
+    display: none;
+}
+.activity_btn{
+    border:none;
+    background-color: gainsboro;
+}
+#activity_btn1{
+    background-color: gray;
+}
+.footer_btn{
+    text-align: right;
+    margin-left: 725px;
+}

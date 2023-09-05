@@ -1,0 +1,227 @@
+body{
+    width: 1440px;
+    height: auto;
+    margin-left: 15%;
+    height: 100%;
+}
+hr{
+    clear: both;
+}
+#member_info{
+    display: none;
+}
+/* 회원정보수정 모달창 위치조정 */
+#member_modify_confirm_form input{
+    margin: auto auto 10px auto;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    width: 250px;
+}
+/* 폰트 사이즈 조정 클래스 */
+.ft_size{
+    font-size: 12px;
+}
+/* 왼쪽상단 로고 */
+#logo{
+    margin: 25px auto 10px 35px;
+    width: 10%;
+    float:left;
+}
+/* li 점 제거 및 한줄만들기 */
+.subtitle{
+    margin-left: -10px;
+    list-style: none;
+}
+.subtitle li{
+    display: inline-block;
+}
+/* 전체적인 a태그 밑줄 및 색상조절 */
+a{
+    text-decoration: none;
+    color: black;
+}
+/* 로그인부분 div조절 */
+.memberform{
+    float:right;
+    margin:25px 150px auto auto;
+}
+/* 회원가입 로그인 회원정보수정 로그아웃 (부트스트랩) */
+.btn-outline-secondary{
+    width:90px;
+    height: 35px;
+    font-size: 5px;
+}
+/* 배너조절 */
+#banner{
+    text-align: center;
+    border: 2px double gray;
+    border-radius: 5px;
+    background-image: url("/assets/images/banner.jpg");
+    margin: 50px auto auto 25px;
+    width: 1265px;
+    height: 300px;
+    clear: both;
+}
+/* 배너 */
+#banner h3{
+    line-height: 300px;
+    color: rgb(51, 51, 51);
+}
+/* 헤더검색창 */
+#hdsearch{
+    clear: both;
+    text-align: right;
+    width:90%;
+    margin:5px 300px 5px auto;
+}
+/* 헤더검색창 검색텍스트칸 조절 */
+#sh_text{
+    margin-right: -5px;
+    border-radius: 1px;
+    width: 220px;
+    height: 33px;
+}
+/* 검색창 버튼 */
+.sh_btn{
+    width:75px;
+    height:35px;
+    border: none;
+    background-color: darkgray;
+}
+.btn-outline-success{
+    width:90px;
+}
+/* 사이드 */
+#article{
+    border-top:3px solid darkgray;
+    float:left;
+    width:252px;
+    height: 2200px;
+    margin: 30px 15px auto 25px;
+    
+}
+/* 나의활동 프로필사진 위치조정 */
+#profile{
+    margin:15px auto auto 25px;
+    float: left;
+}
+/* 카페정보 위치조정 */
+#profile_info{
+    float: right;
+    text-align: center;
+    margin: 10px auto 15px auto;
+    line-height: 30px;
+}
+/* 나의활동내역 점제거 */
+#profile_info li{
+    list-style: none;
+}
+/* 사이드 카페 글쓰기 위치조정 */
+#main_write{
+    padding-top: 15px;
+    text-align: center;
+    margin: auto auto auto 25px;
+    border: 1px solid darkgray;
+    background-color: darkgray;
+    clear: both;
+    width: 200px;
+}
+/* 사이드 카페 글쓰기 호버시 효과 */
+#main_write:hover{
+    color:white;
+}
+/* 전체글보기 위치조정 */
+#all_list{
+    text-align: center;
+}
+/* 카테고리 추가제거 버튼 위치조정 */
+.btn-group{
+    float: right;
+    margin-bottom: 15px;
+}
+/* 카테고리 추가제거버튼 커스텀 */
+.btn-primary{
+    font-weight: bold;
+    background-color: darkgrey;
+    border:none;
+}
+.btn-primary:hover{
+    background-color: black;
+    color: white;
+}
+/* 카테고리 float효과 제거 */
+#category_list{
+    clear: both;
+}
+/* 리스트 위치 변경 */
+#category_move{
+    margin: 10px 30px 10px auto;
+    text-align: center;
+}
+#category_list_style_none{
+    list-style: none;
+}
+.btn_cafe_info{
+    border:none;
+    background-color: white;
+}
+/* 카테고리 추가 가운데 정렬 */
+#addCategoryModal{
+    text-align: center;
+}
+/* 카테고리추가 보더조정 */
+#category_name{
+    width: 300px;
+    margin-bottom: 20px;
+}
+#category_name{
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: rgba(202, 202, 202, 0.877);
+    color: black;
+}
+/* 카테고리추가 버튼 */
+#submitCategory{
+    font-size: 12px;
+}
+/* 카테고리제거 전체 조정 */
+.modal-content {
+    background-color: rgba(202, 202, 202, 0.877);
+    text-align: center;
+}
+/* 제거 select칸 */
+#delete_list{
+    text-align: center;
+    margin-bottom: 20px;
+    border:none;
+    border-radius: 10px;
+    width: 300px;
+    height: 35px;
+}
+/* 모달 제거창 */
+#delete_btn{
+    font-size: 12px;
+}
+
+/* 푸터 */
+#footer{
+    clear: both;
+}
+/* 푸터 주소 위치조정 */
+#footer_move{
+    float: right;
+    margin-right: 150px;;
+}
+#date_board{
+    background-color: gainsboro;
+    float: left;
+    width:200px;
+    margin: 20px auto auto 27px;
+    text-align: center;
+}
+#date_board ul{
+    list-style: none;
+    font-size: 12px;
+}

@@ -1,0 +1,49 @@
+/* 로고 위치조정 */
+#logo{
+    width:30%;
+    margin-top: 30px;
+}
+/* 폼태그 위치조정 */
+#modify_form{
+    width: 45%;
+    text-align: center;
+    margin: 30px auto 30px auto;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: rgba(211, 211, 211, 0.733);
+}
+/* 제목 위치조정 */
+#modify_title{
+    margin: 30px auto 30px auto;
+}
+/* 프로필변경 사진 위치조정 */
+#previewContainer{
+    margin: auto auto 30px 150px;
+    float: left;
+}
+/* 프로필변경 사진 위치조정 2 */
+#preview_textContainer{
+    margin: 110px auto auto auto;
+    float: right;
+}
+#modify_input{
+    clear: both;
+}
+#modify_input ul{
+    list-style: none;
+}
+#modify_input ul li input{
+    margin: 35px 55px 10px 25px;
+    border:none;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+}
+#modify_btn{
+    margin: 30px auto 30px auto;
+}
+/* 버튼 크기조정 및 위치조정 */
+.btn-secondary{
+    font-size: 12px;
+    margin: auto 15px auto 15px;
+}

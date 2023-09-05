@@ -1,0 +1,101 @@
+body{
+    width: 1300px;
+    height: auto;
+    margin-left: 15%;
+    height: 100%;
+}
+a{
+    text-decoration: none;
+}
+/* 로고 */
+#logo{
+    margin: 25px auto 10px 23px;
+    width: 10%;
+    float:left;
+}
+/* 배너조정 */
+#banner{
+    text-align: center;
+    border: 2px double gray;
+    border-radius: 5px;
+    background-image: url("/assets/images/banner.jpg");
+    margin: 50px auto auto 25px;
+    width: 1265px;
+    height: 300px;
+    clear: both;
+}
+/* 배너 안에 타이틀조정*/
+#banner h3{
+    line-height: 300px;
+    color: rgb(51, 51, 51);
+}
+/* 게시판 타이틀조정 */
+#write_title{
+    float: left;
+    margin:30px auto 15px 45px;
+}
+/* 돌아가기 미리보기 등록 위치조정 */
+#btn_group{
+    margin:auto 10px auto auto;
+    float:right;
+}
+/* 버튼그룹 점제거 */
+#btn_group ul{
+    list-style: none;
+}
+/* 버튼그룹 한줄정렬 */
+#btn_group ul li{
+    display: inline-block;
+}
+/* 오른쪽 버튼그룹 위치조정 */
+.btn-outline-secondary{
+    margin-left: 15px;
+    width:75px;
+}
+hr{
+    clear: both;
+}
+/* 셀렉트 타이틀 크기 위치조정 */
+.move{
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(218, 215, 215);
+    width: 1260px;
+    margin: 15px auto 15px auto;
+}
+/* 폼태그 위치조정 */
+#write_form{
+    margin: auto auto auto 30px;
+    float: left;
+}
+/* 파일업로드 위치조정 */
+.filebox{
+    clear: both;
+    float: right;
+    margin: -50px 15px 50px auto;
+}
+.filebox label {
+    display: inline-block;
+    padding: .5em .75em;
+    color: #999;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: .25em;
+  }
+   /* 파일 필드 숨기기 */
+  .filebox input[type="file"] { 
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0;
+  }

@@ -1,0 +1,240 @@
+/* 메인조정 */
+#datail_body{
+    float: right;
+    margin: 30px 140px auto auto;
+    background-color: gainsboro;
+    width: 1000px;
+    height: 100%;
+}
+/* 왼쪽상단 카테고리 이동 위치조정 */
+#detail_category_title{
+    margin: 15px auto 30px 30px;
+}
+/* 왼쪽상단 카테고리 이동 색상조정 */
+#category_move_detail{
+    color:rgb(97, 161, 0);
+}
+/* 상단 공지 표시 제목 위치조정 */
+#detail_header_one ul{
+    list-style: none;
+}
+#detail_header_one ul li{
+    display: inline-block;
+}
+/* 공지 아이콘 조정 */
+#detail_gongji{
+    text-align: center;
+    width:40px;
+    height: 25px;
+    border-radius: 10px;
+    background-color: rgb(224, 44, 44);
+    border: 1px solid rgb(209, 12, 12);
+    color: white;
+}
+#picture{
+    float: left;
+    margin: auto 10px 20px 30px;
+}
+/* 프로필사진 및 회원정보 위치조정 */
+#picture_info ul{
+    list-style: none;
+    float: left;
+}
+/* 오른쪽상단 버튼과 댓글  변경 */
+#detail_option{
+    float: right;
+}
+/* 첨부파일 위치변경 */
+.content_file{
+    float: right;
+}
+#detail_option ul li{
+    display: inline-block;
+}
+/* 댓글과 공지버튼사이 */
+.option_detween{
+    margin: auto 40px auto 10px;
+}
+/* 공지변경 버튼 */
+#gongji_btn{
+    font-size: 12px;
+    width:80px;
+    height: 30px;
+}
+/* 댓글 전체적인 위치조정 */
+#detail_content{
+    margin: 20px;
+}
+/* 좋아요랑 댓글 아이콘 리스트 점제거 */
+#detail_heart ul{
+    list-style: none;
+}
+/* 좋아요랑 댓글 한줄만들기 */
+#detail_heart ul li{
+    display: inline-block;
+}
+.edit_recomment_id{
+
+}
+/* 댓글 타이틀 버튼 점제거 */
+#detail_comment ul{
+    list-style: none;
+}
+/* 댓글 타이틀 버튼 한줄만들기 */
+#detail_comment ul li{
+    display: inline-block;
+}
+#detail_comment_btn_1{
+    margin: auto 15px auto 15px;
+}
+#detail_comment_btn_2{
+    margin: auto 15px auto 15px;
+}
+#detail_comments_profile{
+    width:50px;
+    height: 100px;
+}
+#detail_comments_sub_btn1{
+    float: right;
+    margin-right: 20px;
+}
+#detail_comments_sub_btn2{
+    float: right;
+    margin-right: 20px;
+}
+.detail_comments_member{
+    position: relative;
+    border-bottom: 1px solid rgba(126, 126, 126, 0.527);
+    margin-bottom: 25px;
+}
+#detail_comments_write{
+    border-radius: 10px;
+    background-color: white;
+    width: 945px;
+    height: 190px;
+    margin: 10px auto 10px 25px;
+}
+#detail_comments_write_name{
+    padding: 15px;
+}
+#detail_comments_write_text{
+    margin: auto auto auto 22px;
+    height: 75px;
+    width: 900px;
+    border: none;
+}
+/* 작성자 색상 굵기변경 */
+#detail_comment_write_name{
+    font-weight: bold;
+    color: red;
+    font-size: 12px;
+    border:1px solid red;
+    border-radius: 10px;
+}
+.edit-comment-section{
+    display: none;
+}
+#detail_comments_write_text_submit{
+    margin: 10px 15px auto auto;
+    float: right;
+}
+#detail_comment_modify{
+    width:900px;
+    text-align: center;
+    background-color: white;
+    margin:10px auto 10px 50px;
+}
+#detail_comment_modify input{
+    width:850px;
+    margin:15px auto;
+    border: none;
+}
+#detail_footer_btn_group ul{
+    list-style: none;
+}
+#detail_footer_btn_group ul li{
+    display: inline-block;
+}
+#detail_footer_btn_right{
+    margin-right: 450px;
+}
+/* 댓글 수정 위치조정 */
+.detail_comment_content{
+    margin: auto auto auto 100px;
+    float: left;
+    width:80%;
+    height: 100px;
+    border:none;
+}
+/* 댓글 수정 아이디 위치조정 */
+.detail_comment_content{
+    text-align: center;
+}
+.edit_btn{
+    width: 7%;
+    height: 100px;
+    
+    
+}
+
+#semi_list{
+    background-color: gainsboro;
+    width: 1000px;
+    height: 30px;
+    margin: 10px auto auto auto;
+    border-radius: 10px;
+    text-align: right;
+}
+#semi_list ul{
+    list-style: none;
+}
+#semi_list ul li{
+    display: inline-block;
+}
+#semi_title{
+    margin: auto auto 30px 30px;
+}
+#semi_first{
+    float: left;
+}
+#semi_middle{
+    margin-right: 300px;
+}
+#semi_last{
+    float: right;
+}
+/* 답글부분 */
+.edit-recomment-section{
+    display: none;
+    margin:auto auto 20px 30px;
+}
+
+.edit-recomment-section input{
+    width:80%;
+    height: 75px;
+}
+.comment-container{
+    font-size: 14px;
+}
+.comment-container button{
+    width:70px;
+    height: 30px;
+    font-size: 10px;
+}
+/* 상세페이지 상단 메뉴 */
+#detail_header_menu{
+    list-style: none;
+}
+#detail_header_menu li{
+    display: inline-block;
+}
+.detail_header_menu_btn{
+    float: right;
+    margin: 20px 20px auto auto;
+}
+.detail_header_menu_btn a button{
+    border: 2px middle black;
+    border-radius: 10px;
+    
+}
+

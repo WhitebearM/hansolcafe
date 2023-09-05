@@ -1,0 +1,44 @@
+/* 로고 */
+#logo{
+    margin-top: 30px;
+    width:30%;
+}
+/* 아이디찾기 타이틀 위치조정 */
+#find_id_title{
+    margin-top: 30px;
+}
+/* 폼태그 위치조정 */
+#find_id_form{
+    margin:25px auto auto auto;
+    width: 30%;
+    height: 343px;
+    border-radius: 10px;
+    border: 2px solid rgb(105, 102, 102);
+    text-align: center;
+    background-color: rgba(211, 211, 211, 0.733);
+}
+/* 입력칸 커스텀 및 위치조정 */
+input{
+    text-align: center;
+    margin: 30px auto 20px auto;
+    border:none;
+    border-radius: 10px;
+    width: 350px;
+}
+#find_result{
+    background-color: white;
+    border-radius: 10px;
+    width:350px;
+    margin: 30px auto 30px auto;
+}
+#move_find_pw{
+    margin-top: 30px;
+}
+#move_find_pw a{
+    text-decoration: none;
+    color: black;
+}
+#move_find_pw a:hover{
+    transition: 0.5s;
+    color: rgb(24, 179, 4);
+}
