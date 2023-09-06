@@ -122,6 +122,8 @@ $(document).ready(function () {
 
         window.location.href = '/board/board_write/reply_board_view?num=' + detail_article_num;
     });
+
+    
 });
 
 // 댓글 열리고 닫기

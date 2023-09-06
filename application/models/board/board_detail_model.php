@@ -30,7 +30,16 @@ class board_detail_model extends CI_Model
             return $row;
         }
     }
+    // 이전글
+    function previous_post($board_num,$category_num){
+        return $this->db->query("select * FROM board WHERE article_num < '$board_num' and category_num = '$category_num' ORDER BY article_num DESC LIMIT 1; ")->row();
+    }
 
+    //다음글
+    function next_post($board_num,$category_num){
+        return $this->db->query("select * FROM board WHERE article_num > '$board_num' and category_num = '$category_num' ORDER BY article_num ASC LIMIT 1;")->row();
+        
+    }
     function board_comments($board_num)
     {
         return $this->db->query("select COUNT(*) AS comments_count
@@ -52,17 +61,15 @@ class board_detail_model extends CI_Model
 
     }
 
-    function delete($board_num)
+    function delete($board_num,$category_num)
     {
-        $current_date = date('Y-m-d H:i:s');
-
-        // $this->db->query("update board SET category_num = 0, board_status = 2, delete_date = '$current_date' WHERE article_num = $board_num AND board_status = 1");
         $current_date = date('Y-m-d H:i:s'); // 현재 날짜 및 시간
 
         $data = array(
             'category_num' => 0,
             'board_status' => 2,
-            'delete_date' => $current_date
+            'delete_date' => $current_date,
+            'del_category' => $category_num
         );
 
         $this->db->where('article_num', $board_num);
@@ -99,7 +106,8 @@ class board_detail_model extends CI_Model
             'user_id' => $comment_user_id,
             'article_num' => $comment_article_num,
             'content' => $comment_content,
-            'grp' => $next_grp,
+            'grp' => $next_grp  ,
+            'seq' => 1,
             'depth' => 0, // Depth is always 0 for top-level comments
         );
 
@@ -118,51 +126,58 @@ class board_detail_model extends CI_Model
     {
         return $this->db->query("with RECURSIVE CommentHierarchy AS (
             SELECT
-                comment_num,
-                article_num,
-                parent_id,
-                user_id,
-                grp,
-                depth,
-                content,
-                write_date
+                c.comment_num,
+                c.parent_id,
+                c.content,
+                c.user_id,
+                c.write_date,
+                c.grp,
+                c.seq,
+                c.depth,
+                c.article_num,
+                m.image_path 
             FROM
-                comments
+                comments c
+            LEFT JOIN
+                member m ON c.user_id = m.user_id 
             WHERE
-                parent_id = 0
-                AND article_num = '$board_num'
-                
+                c.parent_id = 0
             UNION ALL
-            
             SELECT
                 c.comment_num,
-                c.article_num,
                 c.parent_id,
-                c.user_id,
-                c.grp,
-                c.depth,
                 c.content,
-                c.write_date
+                c.user_id,
+                c.write_date,
+                c.grp,
+                c.seq,
+                c.depth,
+                c.article_num,
+                m.image_path
             FROM
                 comments c
             JOIN
                 CommentHierarchy ch ON c.parent_id = ch.comment_num
+            LEFT JOIN
+                member m ON c.user_id = m.user_id 
         )
         SELECT
             comment_num,
-            article_num,
             parent_id,
-            user_id,
-            grp,
-            depth,
             content,
-            write_date
+            user_id,
+            write_date,
+            grp,
+            seq,
+            depth,
+            article_num,
+            image_path 
         FROM
             CommentHierarchy
+        WHERE
+            article_num = '$board_num'
         ORDER BY
-            grp, depth, write_date;
-        
-        
+            grp, seq;
         ")->result();
 
     }
@@ -228,11 +243,21 @@ class board_detail_model extends CI_Model
         if (!$parent_comment) {
             return false;
         }
+
+
+        //해당 그룹내에 동일한 seq 가 존재한다면 그 동일한 seq값 >= + 1
+        $this->db->where('grp', $parent_comment->grp)
+        ->where('seq >=', $parent_comment->seq)
+        ->where('comment_num !=', $parent_comment->comment_num) // 부모 댓글 제외
+        ->set('seq', 'seq+1', FALSE)
+        ->update('comments');
+
         $data = array(
             'parent_id' => $parent_comment->comment_num,
             'article_num' => $parent_comment->article_num,
             'user_id' => $id,
             'grp' => $parent_comment->grp,
+            'seq' => $parent_comment->seq + 1,
             'depth' => $parent_comment->depth + 1,
             'content' => $content
         );

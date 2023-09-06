@@ -75,6 +75,7 @@
                 <!-- 파일업로드 -->
                 <label for="fileupload">파일 업로드</label>
                 <input type="file" name="file" id="fileupload" onchange="fileName()">
+                <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 취소됩니다.</div>
                 <span id="file_info"></span>
             </div>
             <select class="move" name="category_pick">
@@ -134,6 +135,7 @@
                 <!-- 파일업로드 -->
                 <label for="fileupload">파일 업로드</label>
                 <input type="file" name="file" id="fileupload" onchange="fileName()">
+                <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 취소됩니다.</div>
                 <span id="file_info"></span>
             </div>
             <select class="move" name="category_pick">
@@ -150,6 +152,7 @@
         </form>
     <? } ?>
 
+    <!-- 답게시글 다는부분 -->
     <? if ($write == 3) { ?>
         <form id="write_form" action="/board/board_write/reply_board_write" method="post" enctype="multipart/form-data">
             <div id="btn_group">
@@ -189,19 +192,14 @@
                 <!-- 파일업로드 -->
                 <label for="fileupload">파일 업로드</label>
                 <input type="file" name="file" id="fileupload" onchange="fileName()">
+                <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 취소됩니다.</div>
                 <span id="file_info"></span>
             </div>
-            <select class="move" name="category_pick">
-                <? foreach ($result as $category_list) { ?>
-                    <? if ($category_list['category_num'] != 0) { ?>
-                        <option value="<?= $category_list['category_num'] ?>"><?= $category_list['category_name'] ?></option>
-                    <? } ?>
-                <? } ?>
-            </select>
+            <input class="move" name="category_pick" type="hidden" value="<?=$parent_info->category_num?>">
 
             
             <input type="hidden" id="parent_num" name="parent_num" value="<?=$article_num?>">
-            <input class="move" type="text" id="title" name="title" placeholder="제목">
+            <input class="move" type="text" id="title" name="title" placeholder="<?=$parent_info->title?>">
 
             <textarea id="f_content" name="content" placeholder="내용"></textarea>
         </form>

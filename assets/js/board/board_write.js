@@ -63,7 +63,21 @@ document.addEventListener("DOMContentLoaded", function () {
         
     });
 
+    document.getElementById("fileupload").addEventListener('change', function(){
+        const fileInput = document.getElementById("fileupload");
+        const maxSize = 2 * 1024 * 1024;
 
+        if(fileInput.files.length > 0){
+            const file = fileInput.files[0];
+            if(file.size > maxSize){
+                document.getElementById("fileSizeError").style.display = 'block';
+                document.getElementById("fileSizeError").style.color = 'red';
+                fileInput.value = "";
+            }else{
+                document.getElementById("fileSizeError").style.display = 'none';
+            }
+        }
+    });
 });
 
 //돌아가는함수

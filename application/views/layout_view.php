@@ -187,6 +187,7 @@
             <a href="/layout/full_board_list">전체글보기</a>
         </div>
         <hr>
+        <?if($authority == 2){?>
         <div class="btn-group">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                 data-bs-target="#addCategoryModal">+</button>
@@ -194,6 +195,7 @@
                 data-bs-target="#staticBackdrop">-</button>
         </div>
         <hr>
+        <?}?>
         <!-- foreach문돌리기 -->
         <div id="category_list">
             <ul id="category_move">

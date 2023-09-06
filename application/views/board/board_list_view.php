@@ -64,29 +64,11 @@
                                 <option value="30" <?= ($per_page == 30) ? 'selected' : '' ?>>30개</option>
                             </select>
                         </th>
-                    <? } else { ?>
-                        <!-- <th class="option_right">
-                            <? if (isset($option1) && isset($option2)) { ?>
-                                <input type="hidden" class="save_option1" value="<?= $option1 ?>">
-                                <input type="hidden" class="save_option2" value="<?= $option2 ?>">
-                                <input type="hidden" class="save_option3" value="<?= $option3 ?>">
-                            <? } ?>
-                            <input type="hidden" class="category_num2" value="<?= $category_num ?>">
-                            <input type="hidden" class="category_name2" value="<?= $category_name ?>">
-                            <select id="board_select_two" class="form-select" aria-label="Default select example">
-                                <option value="5" <?= ($per_page == 5) ? 'selected' : '' ?>>5개</option>
-                                <option value="10" <?= ($per_page == 10) ? 'selected' : '' ?>>10개</option>
-                                <option value="15" <?= ($per_page == 15) ? 'selected' : '' ?>>15개</option>
-                                <option value="20" <?= ($per_page == 20) ? 'selected' : '' ?>>20개</option>
-                                <option value="25" <?= ($per_page == 25) ? 'selected' : '' ?>>25개</option>
-                                <option value="30" <?= ($per_page == 30) ? 'selected' : '' ?>>30개</option>
-                            </select>
-                        </th> -->
                     <? } ?>
+
                 </tr>
             </table>
         </div>
-
         <div>
             <div class="title_Benchmark">
                 <table id="title">
@@ -99,7 +81,6 @@
                     </tr>
                 </table>
             </div>
-
 
             <div>
                 <table>
@@ -120,7 +101,7 @@
                                             <?= $gongji_board->comment_count ?>
                                         </li>
                                         <li id="main_te_b">
-                                            <?= date('Y-m-d', strtotime($gongji_board->write_date)) ?>
+                                            <?= date('Y-m-d H:i', strtotime($gongji_board->write_date)) ?>
                                         </li>
                                         <li>
                                             <?= $gongji_board->heart_count ?>
@@ -138,21 +119,31 @@
                                     <? if ($authority == 2) { ?>
                                         <th>
                                             <div id="board_check">
-                                                <input type="checkbox" value="<?= $board->article_num ?>" id="board_checked"
-                                                    name="selected_board[]" class="postcheckbox">
-                                                <input type="hidden" id="exception_article_num" name="exception_article_num"
+                                                <input type="checkbox" value="<?= $board->article_num ?>" name="selected_board[]" class="postcheckbox">
+                                                <input type="hidden" class="exception_article_num" name="exception_article_num"
                                                     value="<?= $category_num ?>">
-                                                <input type="hidden" id="exception_article_name" name="exception_article_name"
+                                                <input type="hidden" class="exception_article_name" name="exception_article_name"
                                                     value="<?= $category_name ?>">
+                                                <input type="hidden" class="exception_category_num" name="exception_category_num"
+                                                    value="<?= $board->category_num?>">    
                                             </div>
                                         </th>
                                     <? } else { ?>
                                         <th id="nonecheked">
 
                                         </th>
+
                                     <? } ?>
-                                    <th id="board_write_title"><a
-                                            href="/board/board_detail?category=<?= $category_num ?>&board_num=<?= $board->article_num ?>">
+
+
+                                    <? $depth = $board->depth;
+                                        $margin_left = ($depth + 1) * 25;
+                                    ?>
+                                    <th id="board_write_title">
+                                        <a style="margin-left:<?= $margin_left ?>px;" href="/board/board_detail?category=<?= $category_num ?>&board_num=<?= $board->article_num ?>">
+                                            <? if ($board->depth != "0") { ?>
+                                                └
+                                            <? } ?>
                                             <?= $board->title ?>
                                         </a>
                                         <? if (!$board->file_path == "") { ?>
@@ -179,7 +170,7 @@
                                         <?= $board->comment_count ?>
                                     </th>
                                     <th id="board_date">
-                                        <?= (strtotime('now') - strtotime($board->write_date)) / (60 * 60) < 12 ? date('H:i:s', strtotime($board->write_date)) : date('Y-m-d', strtotime($board->write_date)); ?>
+                                        <?= (strtotime('now') - strtotime($board->write_date)) / (60 * 60) < 12 ? date('H:i', strtotime($board->write_date)) : date('Y-m-d', strtotime($board->write_date)); ?>
                                     </th>
                                     <th id="board_heart">
                                         <?= $board->heart_count ?>
@@ -207,9 +198,9 @@
                         data-bs-target="#staticBackdrop_k">이동</button>
                     <button type="submit" class="btn btn-outline-secondary">삭제</button>
                 <? } ?>
-                <?if(isset($id)){?>
-                <a href="/board/board_write"><button type="button" class="btn btn-outline-secondary">글쓰기</button></a>
-                <?}?>
+                <? if (isset($id)) { ?>
+                    <a href="/board/board_write"><button type="button" class="btn btn-outline-secondary">글쓰기</button></a>
+                <? } ?>
             </li>
         </ul>
 

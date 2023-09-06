@@ -128,3 +128,7 @@
     text-align: right;
     margin-left: 725px;
 }
+/* 댓글갯수 색상 */
+#comment_count{
+    color: rgb(230, 168, 34);
+}

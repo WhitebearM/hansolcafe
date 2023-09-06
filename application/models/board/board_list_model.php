@@ -6,33 +6,6 @@ class board_list_model extends CI_Model{
         $this->load->database();
     }
 
-    // function board_list($category_num){
-      
-    //     $sql = $this->db->query("select 
-    //     board.*,
-    //     COALESCE(comment_counts.comment_count, 0) AS comment_count,
-    //     COALESCE(heart_counts.heart_count, 0) AS heart_count,
-    //     fileupload.file_path 
-    // FROM 
-    //     board
-    // LEFT JOIN (
-    //     SELECT article_num, COUNT(*) AS comment_count
-    //     FROM comments
-    //     GROUP BY article_num
-    // ) AS comment_counts ON board.article_num = comment_counts.article_num
-    // LEFT JOIN (
-    //     SELECT article_num, COUNT(*) AS heart_count
-    //     FROM heart
-    //     GROUP BY article_num
-    // ) AS heart_counts ON board.article_num = heart_counts.article_num
-    // LEFT JOIN fileupload ON board.article_num = fileupload.article_num
-    // WHERE
-    //     board.category_num = '$category_num';
-    // ");
-        
-    //     return $sql->result();
-    // }
-
     function board_count($category_num){
         $this->db->from("board");
         $this->db->where("category_num",$category_num);
@@ -44,28 +17,67 @@ class board_list_model extends CI_Model{
     public function board_list($category_num, $limit, $offset)
     {    
 
-        $sql = "select
-            board.*,
+        $sql = "with RECURSIVE PostHierarchy AS (
+            SELECT
+                article_num,
+                category_num,
+                title,
+                parent_id,
+                grp,
+                seq,
+                depth
+            FROM
+                board
+            WHERE
+                parent_id = 0
+                and board_status = 1
+            UNION ALL
+            SELECT
+                b.article_num,
+                b.category_num,
+                b.title,
+                b.parent_id,
+                b.grp,
+                b.seq,
+                b.depth
+            FROM
+                board b
+            JOIN
+                PostHierarchy ph ON b.parent_id = ph.article_num
+        )
+        SELECT
+            ph.article_num,
+            ph.category_num,
+            ph.title,
+            ph.parent_id,
+            ph.grp,
+            ph.seq,
+            ph.depth,
             COALESCE(comment_counts.comment_count, 0) AS comment_count,
             COALESCE(heart_counts.heart_count, 0) AS heart_count,
-            fileupload.file_path
+            fu.file_path,
+            b.content,
+            b.user_id,
+            b.write_date
         FROM
-            board
+            PostHierarchy ph
         LEFT JOIN (
             SELECT article_num, COUNT(*) AS comment_count
             FROM comments
             GROUP BY article_num
-        ) AS comment_counts ON board.article_num = comment_counts.article_num
+        ) AS comment_counts ON ph.article_num = comment_counts.article_num
         LEFT JOIN (
             SELECT article_num, COUNT(*) AS heart_count
             FROM heart
             GROUP BY article_num
-        ) AS heart_counts ON board.article_num = heart_counts.article_num
-        LEFT JOIN fileupload ON board.article_num = fileupload.article_num
+        ) AS heart_counts ON ph.article_num = heart_counts.article_num
+        LEFT JOIN fileupload fu ON ph.article_num = fu.article_num
+        LEFT JOIN board b ON ph.article_num = b.article_num
         WHERE
-            board.category_num = '$category_num'
-            and board.board_status = 1
-        LIMIT $offset,$limit";
+            ph.category_num = '$category_num'
+        ORDER BY
+            ph.grp, ph.seq
+        LIMIT $offset, $limit;";
 
         $query = $this->db->query($sql);
         return $query->result();
@@ -99,8 +111,8 @@ class board_list_model extends CI_Model{
 
     }
 
-    function select_board_delete($board){
-        $this->db->query("update board set category_num = 0, board_status = 2 where article_num = '$board'");
+    function select_board_delete($board,$category_num){
+        $this->db->query("update board set category_num = 0, board_status = 2, del_category = '$category_num' where article_num = '$board'");
     }
 
     function category_list(){

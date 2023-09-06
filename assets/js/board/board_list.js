@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // 체크박스 전체선택
 function selected_ck(selectAll) {
-    const checkboxes = document.querySelectorAll('#board_checked');
+    const checkboxes = document.querySelectorAll('.postcheckbox');
 
     checkboxes.forEach((checkbox) => {
         checkbox.checked = selectAll.checked;

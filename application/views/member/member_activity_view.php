@@ -15,7 +15,7 @@
                 <ul>
                     <li>
                         <div id="member_profile">
-                            <img src="<?= $member->image_path?>" width="75" height="75">
+                            <img src="<?= $member->image_path ?>" width="75" height="75">
                         </div>
                     </li>
                     <li id="member_profile_info">
@@ -63,6 +63,15 @@
                                         <li class="member_activity_title">
                                             <a
                                                 href="/board/board_detail?category=<?= $board->category_num ?>&board_num=<?= $board->article_num ?>"><?= $board->title ?></a>
+                                            <? if ($board->file_path) { ?>
+                                                <span><img src="/assets/images/fileimg.png" width="25" height="25" rel="img"></span>
+                                            <? } ?>
+                                            <? if (strpos($board->content, "<img")) { ?>
+                                                <span><img src="/assets/images/img.png" width="25" height="25"></span>
+                                            <? } ?>
+                                            <span id="comment_count">[
+                                                <?= $board->comment_count ?>]
+                                            </span>
                                         </li>
                                         <li class="member_activity_date">
                                             <?= date('Y-m-d', strtotime($board->write_date)) ?>

@@ -40,12 +40,13 @@ class board_write_model extends CI_Model
         $data = array(
             'user_id' => $id,
             'main_status' => $gongji,
+            'parent_id' => 0,
             'disclosure' => $dcsr,
             'category_num' => $category,
             'title' => $title,
             'content' => $content,
             'grp' => $grp,
-            'seq' => 0,
+            'seq' => 1,
             'depth' => 0
         );
 
@@ -105,90 +106,31 @@ class board_write_model extends CI_Model
         }
     }
 
+    // 답글 다는부분
     function reply_write_board($id, $gongji, $dcsr, $category, $title, $content, $parent_num)
     {
-        // $parent_data = $this->db->get_where('board', array("article_num" => $parent_num))->row();
+        $parent_post = $this->db->get_where('board', array("article_num" => $parent_num))->row();
 
-        // // 부모 글의 마지막 답글 seq 값을 가져옵니다.
-        // $max_seq = $this->db
-        //     ->select_max('seq')
-        //     ->where('grp', $parent_data->grp)
-        //     ->get('board')
-        //     ->row()
-        //     ->seq;
-
-        // $new_seq = $parent_data->seq + 1; // 부모 글의 seq + 1
-
-        // // 중복된 seq 값이 이미 존재하는 경우
-        // if ($new_seq <= $max_seq) {
-        //     // 중복을 피하기 위해 최대 seq 값 + 1로 조정
-        //     $new_seq = $max_seq + 1;
-        // }
-
-        // $data = array(
-        //     'user_id' => $id,
-        //     'main_status' => $gongji,
-        //     'disclosure' => $dcsr,
-        //     'category_num' => $category,
-        //     'title' => $title,
-        //     'content' => $content,
-        //     'parent_id' => $parent_num,
-        //     'grp' => $parent_data->grp,
-        //     'seq' => $new_seq,
-        //     'depth' => $parent_data->depth + 1
-        // );
-
-        // $this->db->insert('board', $data);
-        // $insert_id = $this->db->insert_id();
-
-        // $insert_board_info = $this->db->get_where('board', array('article_num' => $insert_id))->row();
-
-        // $data = array(
-        //     'article_num' => $insert_board_info->article_num,
-        //     'category_num' => $insert_board_info->category_num
-        // );
-
-        // return $data;
-        $parent_data = $this->db->get_where('board', array("article_num" => $parent_num))->row();
-
-        $new_depth = $parent_data->depth + 1; // 부모 답글의 깊이 + 1
-        
-        // 같은 grp 내에서 중복된 seq 값을 확인하고 조정
-        $existing_seq = $this->db
-            ->where('grp', $parent_data->grp)
-            ->where('depth', $new_depth)
-            ->get('board')
-            ->row();
-        
-        if ($existing_seq) {
-            // 같은 grp 내에서 중복된 seq 값이 이미 존재하는 경우
-            // 부모 답글과의 seq 값을 조정
-            $parent_seq = $parent_data->seq;
-            $existing_seq->seq = $parent_seq + 1;
-        
-            // 해당 seq 값보다 큰 다른 답글들의 seq 값을 증가
-            $this->db->where('grp', $parent_data->grp)
-                     ->where('depth', $new_depth)
-                     ->where('seq >', $parent_seq)
-                     ->set('seq', 'seq+1', false)
-                     ->update('board');
-        } else {
-            // 중복된 seq 값이 없는 경우, 부모 답글의 seq 값을 사용
-            $parent_seq = $parent_data->seq;
+        if (!$parent_post) {
+            return false;
         }
 
+        $this->db->where('grp', $parent_post->grp)
+            ->where('seq >=', $parent_post->seq)
+            ->where('article_num !=', $parent_post->article_num) // 부모 게시글 제외
+            ->set('seq', 'seq+1', FALSE)
+            ->update('board');
+
+        // 새로운 게시글 데이터 생성
         $data = array(
             'user_id' => $id,
-            'main_status' => $gongji,
-            'disclosure' => $dcsr,
             'category_num' => $category,
             'title' => $title,
             'content' => $content,
             'parent_id' => $parent_num,
-            'grp' => $parent_data->grp,
-            'seq' => $parent_seq + 1,
-            // 부모 답글의 seq 값에 1을 더하여 설정
-            'depth' => $new_depth
+            'grp' => $parent_post->grp,
+            'seq' => $parent_post->seq + 1,
+            'depth' => $parent_post->depth + 1
         );
 
         $this->db->insert('board', $data);
@@ -202,11 +144,14 @@ class board_write_model extends CI_Model
         );
 
         return $data;
-
-
-
-
-
     }
 
+    function parent_board_info($board_num){
+        $this->db->select('*');
+        $this->db->from('board');
+        $this->db->where('article_num' , $board_num);
+        $query = $this->db->get();
+
+        return $query->row();
+    }
 }

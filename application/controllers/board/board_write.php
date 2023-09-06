@@ -56,9 +56,13 @@ class board_write extends CI_Controller
         $write = 3;
         $id = $this->session->userdata("id");
         if ($id) {
+            $num = $this->input->get("num");
+            $parent_board_info = $this->board_write_model->parent_board_info($num);
+
+            $data['parent_info'] = $parent_board_info;
+            $data['article_num'] = $num;
             $data['write'] = $write;
             $data['result'] = $this->board_write_model->list_category();
-            $data['article_num'] = $this->input->get("num");
             $this->load->view("/board/board_write_view", $data);
         } else {
             echo "<script>

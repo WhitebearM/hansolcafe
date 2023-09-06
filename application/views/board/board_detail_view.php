@@ -20,13 +20,15 @@
                     </a>
                 </div>
             </li>
-
-            <? if (isset($category->category_num) && isset($board_num) && isset($user_id)) { ?>
-                <li class="detail_header_menu_btn"><a
-                        href="/board/board_detail?category=<?= $category->category_num ?>&board_num=<?= $board_num + 1 ?>"><button>다음글</button></a>
+            
+            <? if (isset($user_id)) { ?>
+                
+                <li class="detail_header_menu_btn" id="next">
+                    <a href="/board/board_detail/next_post?category=<?=$category->category_num?>&board_num=<?=$board->article_num?>"><button>다음글</button></a>
                 </li>
-                <li class="detail_header_menu_btn"><a
-                        href="/board/board_detail?category=<?= $category->category_num ?>&board_num=<?= $board_num - 1 ?>"><button>이전글</button></a>
+                
+                <li class="detail_header_menu_btn" id="privious">
+                    <a href="/board/board_detail/previous_post?category=<?=$category->category_num?>&board_num=<?=$board->article_num?>"><button>이전글</button></a>
                 </li>
             <? } ?>
         </ul>
@@ -50,7 +52,7 @@
                         <?= $board->user_id ?>
                     </li>
                     <li>
-                        <?= date('Y-m-d', strtotime($board->write_date)) ?>
+                        <?= date('Y-m-d H:i', strtotime($board->write_date)) ?>
                     </li>
                 </ul>
                 <div id="detail_option">
@@ -137,7 +139,7 @@
                     $margin_left = ($depth + 1) * 25;
                     ?>
                     <div class="comment-container" style="margin-left:<?= $margin_left ?>px;">
-                        <img id="picture" src="/assets/images/profile.png" width="60" height="60">
+                        <img id="picture" src="<?=$comment->image_path?>" width="60" height="60">
                         <ul>
                             <li>
                                 <?= $comment->user_id ?>
@@ -153,7 +155,7 @@
                             </p>
                             <ul>
                                 <li>
-                                    <?= date('Y-m-d', strtotime($comment->write_date)) ?>
+                                    <?= date('Y-m-d H:i', strtotime($comment->write_date)) ?>
                                 </li>
                                 <? if (isset($user_id)) { ?>
                                     <li><a href="" class="toggle-recomment_form"
@@ -241,9 +243,9 @@
         <!-- 하단 버튼들 -->
         <div id="detail_footer_btn_group">
             <ul>
+                <li><a href="/board/board_write"><button type="button" class="btn btn-secondary">글쓰기</button></a></li>
+                <li><button type="button" class="btn btn-secondary reply_board">답글</button></li>
                 <? if ($user_id == $board->user_id || $id_authority == 2) { ?>
-                    <li><a href="/board/board_write"><button type="button" class="btn btn-secondary">글쓰기</button></a></li>
-                    <li><button type="button" class="btn btn-secondary reply_board">답글</button></li>
                     <li><button type="button" id="modify_category" class="btn btn-secondary" data-bs-toggle="modal"
                             data-bs-target="#staticBackdrop_k">이동</button></li>
                     <li><a
@@ -308,7 +310,7 @@
                                 <?= $semi_list->user_id ?>
                             </li>
                             <li id="semi_last">
-                                <?= date('Y-m-d', strtotime($semi_list->write_date)) ?>
+                                <?= date('Y-m-d H:i', strtotime($semi_list->write_date)) ?>
                             </li>
                         </ul>
                     </div>

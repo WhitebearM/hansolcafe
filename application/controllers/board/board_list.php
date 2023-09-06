@@ -162,12 +162,13 @@ class board_list extends CI_Controller
     {
         $post_num = $this->input->post("exception_article_num");
         $post_name = $this->input->post("exception_article_name");
+        $category_num = $this->input->post("exception_category_num");
 
         if (isset($_POST['selected_board']) && is_array($_POST['selected_board']) && count($_POST['selected_board']) > 0) {
             $selected_board = $this->input->post("selected_board");
 
             foreach ($selected_board as $board) {
-                $this->board_list_model->select_board_delete($board);
+                $this->board_list_model->select_board_delete($board,$category_num);
             }
 
             echo "<script>
@@ -195,14 +196,16 @@ class board_list extends CI_Controller
 
             $select_article_num = json_decode($select_board);
 
+            var_dump($select_article_num);
+
             $gtr_name = $this->board_list_model->get_category_name($select_category);
             foreach ($select_article_num as $sel_list) {
                 $this->board_list_model->select_board_move($sel_list, $select_category);
             }
 
-            echo "<script>
-            alert('게시물이 이동되었습니다.');
-            location.href='/board/board_list?name=$gtr_name->category_name&num=$gtr_name->category_num';</script>";
+            // echo "<script>
+            // alert('게시물이 이동되었습니다.');
+            // location.href='/board/board_list?name=$gtr_name->category_name&num=$gtr_name->category_num';</script>";
         }
     }
 
