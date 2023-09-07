@@ -2,7 +2,7 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="/assets/css/main/main.css">
-    <script src="/asstes/js/main/main.js"></script>
+    <script src="/assets/js/main/main.js"></script>
 </head>
 
 <body>
@@ -215,7 +215,7 @@
                     <option value="comment_writer">댓글 작성자</option>
                 </select>
 
-                <input type="text" name="board_footer_search">
+                <input type="text" name="board_footer_search" id="main_footer_go">
                 <button type="submit">검색</button>
             </form>
         </div>

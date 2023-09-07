@@ -206,7 +206,7 @@ class layout extends CI_Controller
             $config['uri_segment'] = 4;
             $config['total_rows'] = $this->layout_model->header_search_count($search_title);
 
-            echo $config['total_rows'];
+
             $per_page = $config['per_page'] = 10;
             $config['num_links'] = 1;
 

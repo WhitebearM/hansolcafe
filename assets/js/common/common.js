@@ -47,6 +47,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    $('#header_search_form').submit(function (event) {
+        event.preventDefault();
+
+        var searchText = $('#sh_text').val();
+
+        var sanitizedText = searchText.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, '');
+
+        $('#sh_text').val(sanitizedText);
+
+        $('#header_search_form').get(0).submit();
+
+    });
+
 });
 
 // 카페정보부분
@@ -97,5 +110,7 @@ function member_login_info() {
         }
     });
 }
+
+
 
 

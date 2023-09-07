@@ -128,12 +128,12 @@
                 <li id="detail_comment_title">
                     <h5>댓글</h5>
                 </li>
-                <li id="detail_comment_btn_1"><a href="#">등록순</a></li>
+                <li id="detail_comment_btn_1"><a href="#" onclick="comments_reupdate('등록순',event)">등록순</a></li>
                 <li>|</li>
-                <li id="detail_comment_btn_2"><a href="#">최신순</a></li>
+                <li id="detail_comment_btn_2"><a href="#" onclick="comments_reupdate('최신순',event)">최신순</a></li>
             </ul>
             <!-- 댓글 단사람 프로필과 내용 -->
-            <div class="detail_comments_member">
+            <div class="detail_comments_member" id="asdasd">
                 <? foreach ($comments as $comment) { ?>
                     <? $depth = $comment->depth;
                     $margin_left = ($depth + 1) * 25;
@@ -200,7 +200,7 @@
                         <form id="detail_recomment_write_form" action="/board/board_detail/board_recomment_writes"
                             method="post">
                             <div>
-                                <input type="hidden" name="category_num" value="<?= $category->category_num ?>">
+                                <input type="hidden" name="category_num" id="ctct1" value="<?= $category->category_num ?>">
                                 <input type="hidden" name="article_number" value="<?= $board->article_num ?>">
                                 <input type="hidden" name="detail_comment_num" value="<?= $comment->comment_num ?>">
                                 <input type="hidden" name="recomment_parentID"

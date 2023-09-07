@@ -196,16 +196,17 @@ class board_list extends CI_Controller
 
             $select_article_num = json_decode($select_board);
 
-            var_dump($select_article_num);
+           
 
             $gtr_name = $this->board_list_model->get_category_name($select_category);
             foreach ($select_article_num as $sel_list) {
                 $this->board_list_model->select_board_move($sel_list, $select_category);
+                // echo $sel_list.'=';
             }
 
-            // echo "<script>
-            // alert('게시물이 이동되었습니다.');
-            // location.href='/board/board_list?name=$gtr_name->category_name&num=$gtr_name->category_num';</script>";
+            echo "<script>
+            alert('게시물이 이동되었습니다.');
+            location.href='/board/board_list?name=$gtr_name->category_name&num=$gtr_name->category_num';</script>";
         }
     }
 
@@ -223,6 +224,11 @@ class board_list extends CI_Controller
 
         $search_title3 = $this->input->get("board_footer_search");
 
+        if($search_title3 == ""){
+            echo "<script>
+            alert('검색타이틀을 넣어주세요.');
+            location.href='/board/board_list?name=$category_name&num=$category_num';</script>";
+        }
 
         $config['base_url'] = base_url("/board/board_list/footer_search?category_option_1=$search_option1&category_option_2=$search_option2&footer_search_categoryNum=$category_num&footer_search_categoryName=$category_name&board_footer_search=$search_title3");
         $config['uri_segment'] = 4;

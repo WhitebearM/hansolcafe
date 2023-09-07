@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
             width: 800, // 최대 이미지 폭
             height: 600 // 최대 이미지 높이
         },
-        
+
 
         file_picker_callback: function (callback, value, meta) {
             // 파일 선택 창을 열기 위해 임시 input 태그 생성
@@ -59,40 +59,66 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         plugins: 'image link table code',
         toolbar: 'image | bold italic underline | numlist bullist | link image | table | code',
-        
-        
+
+
     });
 
-    document.getElementById("fileupload").addEventListener('change', function(){
+    document.getElementById("fileupload").addEventListener('change', function () {
         const fileInput = document.getElementById("fileupload");
         const maxSize = 2 * 1024 * 1024;
 
-        if(fileInput.files.length > 0){
+        if (fileInput.files.length > 0) {
             const file = fileInput.files[0];
-            if(file.size > maxSize){
+            if (file.size > maxSize) {
                 document.getElementById("fileSizeError").style.display = 'block';
                 document.getElementById("fileSizeError").style.color = 'red';
                 fileInput.value = "";
-            }else{
+            } else {
                 document.getElementById("fileSizeError").style.display = 'none';
             }
         }
     });
 });
 
+// 에디터 content값 가져오기
+tinymce.init({
+    selector: "#f_content",
+  });
+
 //돌아가는함수
 function goBack() {
     window.history.back();
 }
 
-function fileName(){
+function fileName() {
     const fileInput = document.getElementById("fileupload");
     const fileInfo = document.getElementById("file_info");
 
-    if(fileInput.files.length > 0){
+    if (fileInput.files.length > 0) {
         const fileName = fileInput.files[0].name;
         fileInfo.textContent = fileName;
-    }else{
+    } else {
         fileInfo.textContent = '';
     }
+}
+
+// 게시판 작성 미리보기
+function showPreview(e) {
+    var title = document.getElementById("title").value;
+    var content = tinymce.get("f_content").getContent();
+
+    // var content = document.getElementById("f_content").value;
+
+
+    var previewWindow = window.open('', '미리보기', 'width=800,height=800');
+
+    previewWindow.document.write('<html>'
+        + '<head>'
+        + ' <title>미리보기</title>'
+        + '</head>'
+        + '<body style="text-align:center;">'
+        + '<h3 style="margin:100px auto 180px auto;">' + title + '</h3>'
+        + '<p>' + content + '</p>'
+        + '</body>'
+        + '</html>');
 }

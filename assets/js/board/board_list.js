@@ -31,43 +31,44 @@ document.addEventListener("DOMContentLoaded", function () {
         $("#select_delete_form").submit();
     });
 
-
+    
     //체크후 카테고리이동
     var selectedArticleNum = [];
 
-    $(".postcheckbox").on("change" , function(){
+    $(".postcheckbox").on("change", function () {
+
         var articleNum = $(this).val();
 
-        if($(this).is(":checked")){
+        if ($(this).is(":checked")) {
             selectedArticleNum.push(articleNum);
-        }else{
+        } else {
             var index = selectedArticleNum.indexOf(articleNum);
-            if(index !== -1){
+            if (index !== -1) {
                 selectedArticleNum.splice(index, 1);
             }
         }
     });
 
-    $("#category_modify1").on("click",function(){
+    $("#category_modify1").on("click", function () {
         $("#sel_modify_form").append(
             $("<input>")
-                .attr("type" , "hidden")
-                .attr("name" , "selected_article")
+                .attr("type", "hidden")
+                .attr("name", "selected_article")
                 .val(JSON.stringify(selectedArticleNum))
         );
     });
-    $("#category_modify2").on("click",function(){
+    $("#category_modify2").on("click", function () {
         $("#sel_modify_form").append(
             $("<input>")
-                .attr("type" , "hidden")
-                .attr("name" , "selected_article")
+                .attr("type", "hidden")
+                .attr("name", "selected_article")
                 .val(JSON.stringify(selectedArticleNum))
         );
     });
 
     // 출력개수 조정
     const selectPerPage = document.getElementById("board_select_number");
-    selectPerPage.addEventListener('change' , function(){
+    selectPerPage.addEventListener('change', function () {
         const selectValue = selectPerPage.value;
         var categoryNum = document.querySelector('.category_num').value;
         var categoryName = document.querySelector('.category_name').value;
@@ -85,8 +86,21 @@ document.addEventListener("DOMContentLoaded", function () {
     //     var seloption3 = document.querySelector('.save_option3').value;
 
     //     window.location.href = `/board/board_list/footer_search?category_option_1=${seloption1}&category_option_2=${seloption2}&footer_search_categoryNum=${categoryNum}&footer_search_categoryName=${categoryName}&board_footer_search=${seloption3}&selected_page=${selectValue}`;
-        
+
     // });
+
+
+    $('#footer_search_form').submit(function (event){
+        event.preventDefault();
+    
+        var searchText = $('#footer_search_gogo').val();
+
+        var sanitizedText = searchText.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, '');
+    
+        $('#footer_search_gogo').val(sanitizedText);
+    
+        $('#footer_search_form').get(0).submit();
+    });
 });
 
 
@@ -96,7 +110,10 @@ function selected_ck(selectAll) {
     const checkboxes = document.querySelectorAll('.postcheckbox');
 
     checkboxes.forEach((checkbox) => {
+
         checkbox.checked = selectAll.checked;
+        var event = new Event('change' , {bubbles: true});
+        checkbox.dispatchEvent(event);
     });
 }
 

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <head>
     <meta charset="UTF-8">
     <title>게시판 글쓰기/글수정</title>
@@ -12,6 +13,8 @@
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <link rel="stylesheet" href="/assets/css/board/board_write.css">
     <script src="/assets/js/board/board_write.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- tinymce -->
     <script
         src="https://cdn.tiny.cloud/1/35y22h3oeycwqdph0547cq5a3s51r0o7is1hfpihgjyavf7t/tinymce/6/tinymce.min.js"></script>
@@ -47,8 +50,8 @@
                         </button>
                     </li>
                     <li>
-                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" id="previewButton"
-                            data-bs-target="#staticBackdrop"
+                        <button type="button" class="btn btn-outline-secondary" id="previewButton"
+                            onclick="showPreview(event)"
                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                             미리보기
                         </button>
@@ -88,7 +91,7 @@
 
             <input class="move" type="text" id="title" name="title" placeholder="제목">
 
-            <textarea id="f_content" name="content" placeholder="내용"></textarea>
+            <textarea class="hahee" id="f_content" name="content" placeholder="내용"></textarea>
         </form>
     <? } ?>
 
@@ -106,8 +109,8 @@
                         </button>
                     </li>
                     <li>
-                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" id="previewButton"
-                            data-bs-target="#staticBackdrop"
+                        <button type="button" class="btn btn-outline-secondary" id="previewButton"
+                            onclick="showPreview(event)"
                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                             미리보기
                         </button>
@@ -148,7 +151,7 @@
 
             <input class="move" type="text" id="title" name="title" value="<?= $board->title ?>" required>
 
-            <textarea id="f_content" name="content" required><?= $board->content ?></textarea>
+            <textarea class="hahee" id="f_content" name="content" required><?= $board->content ?></textarea>
         </form>
     <? } ?>
 
@@ -164,8 +167,8 @@
                         </button>
                     </li>
                     <li>
-                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" id="previewButton"
-                            data-bs-target="#staticBackdrop"
+                        <button type="button" class="btn btn-outline-secondary" id="previewButton"
+                            onclick="showPreview(event)"
                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                             미리보기
                         </button>
@@ -195,16 +198,16 @@
                 <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 취소됩니다.</div>
                 <span id="file_info"></span>
             </div>
-            <input class="move" name="category_pick" type="hidden" value="<?=$parent_info->category_num?>">
+            <input class="move" name="category_pick" type="hidden" value="<?= $parent_info->category_num ?>">
 
-            
-            <input type="hidden" id="parent_num" name="parent_num" value="<?=$article_num?>">
-            <input class="move" type="text" id="title" name="title" placeholder="<?=$parent_info->title?>">
+
+            <input type="hidden" id="parent_num" name="parent_num" value="<?= $article_num ?>">
+            <input class="move" type="text" id="title" name="title" placeholder="<?= $parent_info->title ?>">
 
             <textarea id="f_content" name="content" placeholder="내용"></textarea>
         </form>
     <? } ?>
 
-
 </body>
+
 </html>

@@ -84,7 +84,7 @@
         </a>
 
         <div id="hdsearch">
-            <form action="/layout/board_search" method="get">
+            <form action="/layout/board_search" method="get" id="header_search_form">
                 <input id="sh_text" type="text" name="hd_search">
                 <button class="sh_btn" type="submit">검색</button>
             </form>

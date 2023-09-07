@@ -25,12 +25,13 @@ class board_list_model extends CI_Model{
                 parent_id,
                 grp,
                 seq,
-                depth
+                depth,
+                b.write_date AS post_write_date
             FROM
-                board
+                board b
             WHERE
                 parent_id = 0
-                and board_status = 1
+                AND board_status = 1
             UNION ALL
             SELECT
                 b.article_num,
@@ -39,7 +40,8 @@ class board_list_model extends CI_Model{
                 b.parent_id,
                 b.grp,
                 b.seq,
-                b.depth
+                b.depth,
+                ph.post_write_date
             FROM
                 board b
             JOIN
@@ -58,7 +60,7 @@ class board_list_model extends CI_Model{
             fu.file_path,
             b.content,
             b.user_id,
-            b.write_date
+            ph.post_write_date AS write_date 
         FROM
             PostHierarchy ph
         LEFT JOIN (
@@ -76,6 +78,7 @@ class board_list_model extends CI_Model{
         WHERE
             ph.category_num = '$category_num'
         ORDER BY
+            ph.post_write_date DESC, 
             ph.grp, ph.seq
         LIMIT $offset, $limit;";
 
@@ -151,7 +154,7 @@ class board_list_model extends CI_Model{
         $start_date = null;
         $end_date = date('Y-m-d');
 
-        $sql = "select board.*, COALESCE(comment_counts.comment_count, 0) AS comment_count, COALESCE(heart_counts.heart_count, 0) AS heart_count, fileupload.file_path
+        $sql = "select DISTINCT board.*, COALESCE(comment_counts.comment_count, 0) AS comment_count, COALESCE(heart_counts.heart_count, 0) AS heart_count, fileupload.file_path
         FROM board
         LEFT JOIN (
             SELECT article_num, COUNT(*) AS comment_count
@@ -198,6 +201,7 @@ class board_list_model extends CI_Model{
             $sql .= " and c.user_id LIKE '%$title%'";
         }
 
+        
         $sql .= "LIMIT $offset,$limit";
 
         $query = $this->db->query($sql);

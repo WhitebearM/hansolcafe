@@ -123,7 +123,7 @@ $(document).ready(function () {
         window.location.href = '/board/board_write/reply_board_view?num=' + detail_article_num;
     });
 
-    
+
 });
 
 // 댓글 열리고 닫기
@@ -175,4 +175,13 @@ function comment_update($comment_num) {
     });
 
 }
+
+// function comments_reupdate(value,e){
+//     e.preventDefault();
+//     var boardNum = $('#detail_article_num').val();
+//     var categoryNum = $('#ctct1').val();
+//     var valueSel = value;
+
+//     window.location.href = '/board/board_detail?category=' + categoryNum + '&board_num=' + boardNum + '&comments_val=' + valueSel;
+// }
 

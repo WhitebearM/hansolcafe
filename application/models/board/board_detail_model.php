@@ -272,4 +272,121 @@ class board_detail_model extends CI_Model
 
         return $user_info;
     }
+
+    // function re_new_comments_list($board_num){
+    //     return $this->db->query("with RECURSIVE CommentHierarchy AS (
+    //         SELECT
+    //             c.comment_num,
+    //             c.parent_id,
+    //             c.content,
+    //             c.user_id,
+    //             c.write_date,
+    //             c.grp,
+    //             c.seq,
+    //             c.depth,
+    //             c.article_num,
+    //             m.image_path 
+    //         FROM
+    //             comments c
+    //         LEFT JOIN
+    //             member m ON c.user_id = m.user_id 
+    //         WHERE
+    //             c.parent_id = 0
+    //         UNION ALL
+    //         SELECT
+    //             c.comment_num,
+    //             c.parent_id,
+    //             c.content,
+    //             c.user_id,
+    //             c.write_date,
+    //             c.grp,
+    //             c.seq,
+    //             c.depth,
+    //             c.article_num,
+    //             m.image_path
+    //         FROM
+    //             comments c
+    //         JOIN
+    //             CommentHierarchy ch ON c.parent_id = ch.comment_num
+    //         LEFT JOIN
+    //             member m ON c.user_id = m.user_id 
+    //     )
+    //     SELECT
+    //         comment_num,
+    //         parent_id,
+    //         content,
+    //         user_id,
+    //         write_date,
+    //         grp,
+    //         seq,
+    //         depth,
+    //         article_num,
+    //         image_path 
+    //     FROM
+    //         CommentHierarchy
+    //     WHERE
+    //         article_num = '$board_num'
+    //     ORDER BY
+    //         grp, seq
+    //     ")->result();
+    // }
+
+
+    // function re_write_comments_list($board_num){
+    //     return $this->db->query("with RECURSIVE CommentHierarchy AS (
+    //         SELECT
+    //             c.comment_num,
+    //             c.parent_id,
+    //             c.content,
+    //             c.user_id,
+    //             c.write_date,
+    //             c.grp,
+    //             c.seq,
+    //             c.depth,
+    //             c.article_num,
+    //             m.image_path 
+    //         FROM
+    //             comments c
+    //         LEFT JOIN
+    //             member m ON c.user_id = m.user_id 
+    //         WHERE
+    //             c.parent_id = 0
+    //         UNION ALL
+    //         SELECT
+    //             c.comment_num,
+    //             c.parent_id,
+    //             c.content,
+    //             c.user_id,
+    //             c.write_date,
+    //             c.grp,
+    //             c.seq,
+    //             c.depth,
+    //             c.article_num,
+    //             m.image_path
+    //         FROM
+    //             comments c
+    //         JOIN
+    //             CommentHierarchy ch ON c.parent_id = ch.comment_num
+    //         LEFT JOIN
+    //             member m ON c.user_id = m.user_id 
+    //     )
+    //     SELECT
+    //         comment_num,
+    //         parent_id,
+    //         content,
+    //         user_id,
+    //         write_date,
+    //         grp,
+    //         seq,
+    //         depth,
+    //         article_num,
+    //         image_path 
+    //     FROM
+    //         CommentHierarchy
+    //     WHERE
+    //         article_num = '$board_num'
+    //     ORDER BY
+    //         grp, seq;
+    //     ")->result();
+    // }
 }

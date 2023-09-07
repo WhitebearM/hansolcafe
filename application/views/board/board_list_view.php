@@ -153,8 +153,7 @@
                                             <img src="/assets/images/img.png" width="20px" height="20px">
                                         <? } ?>
                                         <? if ($board->comment_count != 0) { ?>
-                                            <span class="title_right_color">[
-                                                <?= $board->comment_count ?>]
+                                            <span class="title_right_color">[<?= $board->comment_count ?>]
                                             </span>
                                         <? } else { ?>
 
@@ -230,7 +229,7 @@
             <input type="hidden" name="footer_search_categoryNum" value="<?= $category_num ?>">
             <input type="hidden" name="footer_search_categoryName" value="<?= $category_name ?>">
 
-            <input type="text" name="board_footer_search">
+            <input type="text" name="board_footer_search" id="footer_search_gogo">
             <button type="submit">검색</button>
         </form>
     </div>

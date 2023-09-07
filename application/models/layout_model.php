@@ -163,7 +163,7 @@ class layout_model extends CI_Model
         $start_date = null;
         $end_date = date('Y-m-d');
 
-        $sql = "select board.*, COALESCE(comment_counts.comment_count, 0) AS comment_count, COALESCE(heart_counts.heart_count, 0) AS heart_count, fileupload.file_path
+        $sql = "select DISTINCT board.*, COALESCE(comment_counts.comment_count, 0) AS comment_count, COALESCE(heart_counts.heart_count, 0) AS heart_count, fileupload.file_path
         FROM board
         LEFT JOIN (
             SELECT article_num, COUNT(*) AS comment_count
@@ -289,6 +289,8 @@ class layout_model extends CI_Model
 
     function header_search_list($per_page, $offset, $search_title)
     {
+
+        $this->db->distinct();
         $this->db->select('board.*, COALESCE(comment_counts.comment_count, 0) AS comment_count, COALESCE(heart_counts.heart_count, 0) AS heart_count, fileupload.file_path');
         $this->db->from('board');
         $this->db->join('(SELECT article_num, COUNT(*) AS comment_count FROM comments GROUP BY article_num) AS comment_counts', 'board.article_num = comment_counts.article_num', 'left');
