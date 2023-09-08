@@ -85,44 +85,51 @@ class layout extends CI_Controller
         $search_sel = $this->input->get("category_option_2");
         $search_title = $this->input->get("board_footer_search");
 
-        $config['base_url'] = base_url("/layout/full_board_list");
-        $config['uri_segment'] = 4;
-        $config['total_rows'] = $this->layout_model->main_board_search_count($day, $search_sel, $search_title);
+        if ($search_title != "") {
 
-        $per_page = $config['per_page'] = 10;
-        $config['num_links'] = 1;
+            $config['base_url'] = base_url("/layout/full_board_list");
+            $config['uri_segment'] = 4;
+            $config['total_rows'] = $this->layout_model->main_board_search_count($day, $search_sel, $search_title);
 
-        $config['page_query_string'] = true; //쿼리스트링 변환
+            $per_page = $config['per_page'] = 10;
+            $config['num_links'] = 1;
 
-        $config['query_string_segment'] = 'page';
+            $config['page_query_string'] = true; //쿼리스트링 변환
 
-        $this->pagination->initialize($config);
+            $config['query_string_segment'] = 'page';
 
-        $page = $this->input->get("page");
+            $this->pagination->initialize($config);
 
-        if ($page <= 0) {
-            $page = 1;
+            $page = $this->input->get("page");
+
+            if ($page <= 0) {
+                $page = 1;
+            }
+
+            $offset = $page - 1;
+
+            $pagination = $this->pagination->create_links();
+
+            $search_main_list = $this->layout_model->main_board_search($day, $search_sel, $search_title, $per_page, $offset);
+
+            $authority = $this->session->userdata("authority");
+            $gongji = $this->layout_model->gongji_board();
+
+            $this->layout_common->view(
+                "/main/main_view",
+                array(
+                    "result" => $search_main_list,
+                    "ct_num" => $ct_num,
+                    "all_gongji_board" => $gongji,
+                    "authority" => $authority,
+                    "pagination" => $pagination
+                )
+            );
+        }else{
+            echo "<script>
+            alert('검색어를 입력해주세요.');
+            location.href='/layout/full_board_list';</script>";
         }
-
-        $offset = $page - 1;
-
-        $pagination = $this->pagination->create_links();
-
-        $search_main_list = $this->layout_model->main_board_search($day, $search_sel, $search_title,$per_page,$offset);
-
-        $authority = $this->session->userdata("authority");
-        $gongji = $this->layout_model->gongji_board();
-
-        $this->layout_common->view(
-            "/main/main_view",
-            array(
-                "result" => $search_main_list,
-                "ct_num" => $ct_num,
-                "all_gongji_board" => $gongji,
-                "authority" => $authority,
-                "pagination" => $pagination
-            )
-        );
     }
 
     public function ck_login()

@@ -176,12 +176,12 @@ function comment_update($comment_num) {
 
 }
 
-// function comments_reupdate(value,e){
-//     e.preventDefault();
-//     var boardNum = $('#detail_article_num').val();
-//     var categoryNum = $('#ctct1').val();
-//     var valueSel = value;
+function comments_reupdate(value,e){
+    e.preventDefault();
+    var boardNum = $('#detail_article_num').val();
+    var categoryNum = $('#ctct1').val();
+    var valueSel = value;
 
-//     window.location.href = '/board/board_detail?category=' + categoryNum + '&board_num=' + boardNum + '&comments_val=' + valueSel;
-// }
+    window.location.href = '/board/board_detail?category=' + categoryNum + '&board_num=' + boardNum + '&comments_val=' + valueSel;
+}
 

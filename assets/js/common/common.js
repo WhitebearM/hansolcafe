@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var searchText = $('#sh_text').val();
 
-        var sanitizedText = searchText.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, '');
+        var sanitizedText = searchText.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\s]/gi, '');
 
         $('#sh_text').val(sanitizedText);
 

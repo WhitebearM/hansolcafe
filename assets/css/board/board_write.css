@@ -16,9 +16,6 @@ a{
 /* 배너조정 */
 #banner{
     text-align: center;
-    border: 2px double gray;
-    border-radius: 5px;
-    background-image: url("/assets/images/banner.jpg");
     margin: 50px auto auto 25px;
     width: 1265px;
     height: 300px;

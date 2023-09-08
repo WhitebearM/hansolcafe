@@ -1,18 +1,23 @@
 .title_Benchmark{
     border-bottom: 1px solid gainsboro;
 }
+.title_Benchmark ul{    
+    list-style: none;
+}
+.title_Benchmark ul li{    
+    display: inline-block;
+}
 /* 메인 콘텐츠 위치조정 */
 .board_main{
-    margin: 30px 145px auto auto;
-    height: 100%;
-    float: right;
-    width: 1000px;
+    font-size: 12px;
+    margin: 30px 320px auto auto;
+    width: 880px;
     background-color: rgb(240, 238, 238);
 }
-#board_num{
+/* #board_num{
     width: 30px;
     text-align: right;
-}
+} */
 /* 메인 타이틀 위치조정 */
 .board_title{
     margin: 15px 15px;
@@ -32,53 +37,40 @@
     font-weight: bold;
     height: 45px;
 }
-/* 게시물 리스트 기준 제목 */
-#title_main{
-    width:430px;
-    text-align: center;
-}
-/* 게시물 리스트 기준 작성자 */
-#title_name{
-    padding-left: 40px;
-    width:150px;
-}
-/* 기준 나머지 */
-.title_td{
-    width:100px;
-    padding-left: 7px;
-}
 /* 게시글 밑줄 및 조정 */
 .board_list{
-    height: 60px;
+    list-style: none;
+    height: 40px;
     border-bottom: 1px solid gainsboro;
 }
-/* 게시물 제목 */
+.board_list li{
+    display: inline-block;
+}
+/* 게시물 제목
 #board_write_title{
     padding-left: 15px;
     width:500px;
     text-align: left;
-}
+} */
 /* 게시물 작성자 */
-#board_write_name{
+/* #board_write_name{
     width:120px;
-}
+} */
 /* 게시물 댓글수 */
-#board_comment{
+/* #board_comment{
     width:65px;
-}
+} */
 /* 게시글좋아요수 */
-#board_date{
+/* #board_date{
     width:145px;
 }
 #board_heart{
     width:170px;
-}
+} */
 /* 공지 칸 위치조정 */
 #main_status_move{
-    margin: 15px auto 15px -45px;
+    margin: 15px auto 15px -12px;
     border-bottom: 1px solid gainsboro;
-    width: 1000px;
-    float: right;
     color:red;
     font-weight: bold;
 }
@@ -92,76 +84,74 @@
 }
 /* 공지 아이콘 조정 */
 #main_status{
-    text-align: center;
     width:40px;
-    height: 30px;
+    height: 20px;
     border-radius: 10px;
     background-color: red;
     border: 1px solid red;
     color: white;
 }
 /* 공지 제목 */
-#main_title{
+/* #main_title{
     text-align: center;
     width:335px;
-}
+} */
 #main_title a{
     color:red;
 }
 /* 공지 작성자 */
-#main_name{
+/* #main_name{
     width:190px;
     text-align: center;
     padding-left: 30px;
-}
+} */
 #main_name a{
     color:red;
 }
 /* 공지 댓글 */
-#main_common{
+/* #main_common{
     text-align: center;
     width:25px;
     padding-left: 17px;
 }
-/* 공지 작성일 */
-#main_te{
+/* 공지 작성일 */ */
+/* #main_te{
     text-align: center;
     width: 180px;
     padding-left: 7px;
-}
+} */
 /* 공지 좋아요 */
-#main_heart{
+/* #main_heart{
     padding-left: 5px;
-}
+} */
 .main_view_pagination{
     text-align: center;
     margin: 15px auto auto auto;
+}
+#footer_option{
+    float: right;
+    margin-right: 320px;
 }
 #footer_btn ul{
     list-style: none;
 }
 #footer_btn ul li{
     display: inline-block;
-    margin-top: 15px;
-}
-#footer_btn{
-    text-align: center;
 }
 .board_btn_right{
-    float: right;
-    margin-right: 150px;
+    margin-left: 350px;
 }
 /* 하단 검색창 */
 #main_board_search{
-    margin: 30px 140px auto auto;
-    width: 70%;
-    height: 200px;
+    margin-right: 320px;
+    width:880px;
+    height: 100px;
     float: right;
     text-align: center;
     background-color: gainsboro;
 }
 #main_footer_search_form{
-    margin: 90px auto;
+    margin: 40px auto auto auto;
 }
 .title_right_color{
     color:rgb(243, 134, 10);

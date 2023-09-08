@@ -1,9 +1,9 @@
 /* 메인조정 */
 #datail_body{
     float: right;
-    margin: 30px 140px auto auto;
+    margin-right: 320px;
     background-color: gainsboro;
-    width: 1000px;
+    width: 880px;
     height: 100%;
 }
 /* 왼쪽상단 카테고리 이동 위치조정 */
@@ -110,8 +110,8 @@
 #detail_comments_write{
     border-radius: 10px;
     background-color: white;
-    width: 945px;
-    height: 190px;
+    width: 830px;
+    height: 180px;
     margin: 10px auto 10px 25px;
 }
 #detail_comments_write_name{
@@ -120,7 +120,7 @@
 #detail_comments_write_text{
     margin: auto auto auto 22px;
     height: 75px;
-    width: 900px;
+    width: 780px;
     border: none;
 }
 /* 작성자 색상 굵기변경 */
@@ -136,6 +136,7 @@
 }
 #detail_comments_write_text_submit{
     margin: 10px 15px auto auto;
+    font-size: 10px;
     float: right;
 }
 #detail_comment_modify{
@@ -155,8 +156,8 @@
 #detail_footer_btn_group ul li{
     display: inline-block;
 }
-#detail_footer_btn_right{
-    margin-right: 450px;
+#detail_footer_btn_group ul li button,a{
+    font-size: 10px;
 }
 /* 댓글 수정 위치조정 */
 .detail_comment_content{
@@ -173,17 +174,13 @@
 .edit_btn{
     width: 7%;
     height: 100px;
-    
-    
 }
-
 #semi_list{
-    background-color: gainsboro;
-    width: 1000px;
+    width: 800px;
     height: 30px;
     margin: 10px auto auto auto;
-    border-radius: 10px;
     text-align: right;
+    font-size: 12px;
 }
 #semi_list ul{
     list-style: none;
@@ -199,6 +196,7 @@
 }
 #semi_middle{
     margin-right: 300px;
+    text-align: center;
 }
 #semi_last{
     float: right;
@@ -235,5 +233,7 @@
 .detail_header_menu_btn a button{
     border: 2px middle black;
     border-radius: 10px;
-    
+}
+.detail_footer_btn_right{
+    float: right;
 }

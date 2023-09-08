@@ -26,7 +26,7 @@
     </div>
     <a href="/layout">
         <div id="banner">
-            <h3>한솔 카페에 오신걸 환경합니다.</h3>
+        <img src="/assets/images/banner.jpg" width="1175px" height="300px">
         </div>
     </a>
     <div id="write_title">

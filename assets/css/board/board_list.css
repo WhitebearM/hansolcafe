@@ -1,26 +1,29 @@
 .title_Benchmark{
+    font-weight: bold;
+    margin:50px auto 20px auto;
     border-bottom: 1px solid gainsboro;
+}
+.title_Benchmark ul{
+    list-style: none;
+}
+.title_Benchmark ul li{
+    display: inline-block;
 }
 /* 메인 콘텐츠 위치조정 */
 .board_main{
-    margin: 30px 145px auto auto;
-    height: 100%;
-    float: right;
-    width: 1000px;
+    font-size: 12px;
+    margin: 30px 320px auto auto;
+    width: 880px;
     background-color: rgb(240, 238, 238);
 }
+.category_list{
+    list-style: none;
+}
+.category_list li{
+    display: inline-block;
+}
 .category{
-    width: 490px;
-}
-/* 운영자일경우 */
-#category_title1{
-    margin-right: 370px;
-    width:150px;
-}
-/* 일반 유저일경우 */
-#category_title2{
-    margin-right: 600px;
-    width:150px;
+    margin-right: 100px;
 }
 /* 게시물 제목 옵션 조정 */
 #board_optin{
@@ -30,53 +33,50 @@
 #board_title{
     line-height: 30px;
 }
-#option_right1,#option_right2,#option_right3{
-    margin-right: 15px;
-    float: right;
-}
 /* 게시물 리스트 기준 */
-#title{
-    margin: 30px auto 15px 30px;
-    font-weight: bold;
-    height: 45px;
+.title_title{
+    margin-left: 235px;
 }
-/* 게시물 리스트 기준 제목 */
-#title_main{
-    width:430px;
-    text-align: center;
+.title_writer{
+    margin-left:225px;
 }
-/* 게시물 리스트 기준 작성자 */
-#title_name{
-    padding-left: 30px;
-    width:150px;
+.title_comment{
+    margin-left:75px;
 }
-/* 기준 나머지 */
-.title_td{
-    width:100px;
+.title_date{
+    margin-left: 65px;
+}
+.title_heart{
+    margin-left: 50px;
 }
 /* 운영자나 해당게시물회원이 아닐시 체크박스 */
 #none_check{
     width:25px;
-
 }
 /* 게시글 밑줄 및 조정 */
 .board_list{
-    height: 60px;
+    height: 50px;
+    padding-top: 12px;
     border-bottom: 1px solid gainsboro;
+    list-style: none;
+}
+.board_list li{
+    display: inline-block;
 }
 /* 게시물 체크 위치조정 */
 #board_check{
-    margin: 15px 15px -5px 15px;
+    margin-left: 15px;
 }
 /* 게시물 제목 */
 #board_write_title{
-    width:455px;
-    text-align: left;
+    text-align: center;
+    width:370px;
     font-size: 14px;
 }
 /* 게시물 작성자 */
 #board_write_name{
-    width:120px;
+    width:140px;
+    text-align: center;
 }
 /* 게시물 댓글수 */
 #board_comment{
@@ -84,14 +84,13 @@
 }
 /* 게시글좋아요수 */
 #board_date{
-    width:145px;
+    width:130px;
 }
 #board_heart{
-    width:170px;
+    width:40px;
 }
 #footer_button{
-    margin: 20px 145px 20px auto;
-    float: right;
+  float: right;
 }
 /* 페이지 네이션 위치조정 */
 #pagenation{
@@ -99,7 +98,7 @@
     width: 310px;
 }
 #footer_option{
-    width:1000px;
+    width:865px;
     text-align: center;
 }
 /* 하단 옵션 인라인 */
@@ -110,33 +109,20 @@
 .page-link{
     color: black;
 }
-/* 공지 칸 위치조정 */
-#main_status_move_b{
-    margin: 15px auto 15px -45px;
-    border-bottom: 1px solid gainsboro;
-    width: 1000px;
-    float: right;
-    color:red;
-    font-weight: bold;
-    
-}
-/* 새글일경우 색상조정 */
-#new_board{
-    color: red;
-}
-/* 공지칸 리스트 점제거 */
-#main_status_move_b ul{
-    list-style: none;
-}
 /* 공지칸 한줄 만들기 */
-#main_status_move_b ul li{
+#main_status_move_b li{
     display: inline-block;
+}
+.main_gongji{
+    border-bottom: 1px solid gainsboro;
+    font-weight: bold;
+    color: red;
+    margin-top: 15px;
 }
 /* 공지 아이콘 조정 */
 #main_status_b{
     text-align: center;
     width:40px;
-    height: 30px;
     border-radius: 10px;
     background-color: red;
     border: 1px solid red;
@@ -144,29 +130,32 @@
 }
 /* 공지 제목 */
 #main_title_b{
+    width:350px;
     text-align: center;
-    width:335px;
 }
 #main_title_b a{
     color: red;
 }
 /* 공지 작성자 */
 #main_name_b{
-    width:185px;
+    width: 155px;
     text-align: center;
 }
 #main_name_b a{
-    color:red;
 }
 /* 공지 댓글 */
 #main_common_b{
+    width: 50px;
     text-align: center;
-    width:25px;
 }
 /* 공지 작성일 */
 #main_te_b{
+    width: 145px;
     text-align: center;
-    width: 180px;
+}
+#main_heart_b{
+    text-align: center;
+    width: 25px;
 }
 /* 어드민 예정이 아닐때 list 위치조정 */
 #nonecheked{
@@ -176,6 +165,7 @@
 /* 하단 버튼 전체선택 위취조정 */
 .all_ck_left{
     float: left;
+    font-size: 14px;
 }
 /* 하단버튼 위치조정 */
 .board_btn_right{
@@ -183,16 +173,33 @@
 }
 /* 하단 검색창 위치조정 및 크기 조정 */
 #category_board_search{
-    margin: 30px 140px auto auto;
-    width: 70%;
-    height: 200px;
+    width: 880px;
+    height: 100px;
     float: right;
     text-align: center;
     background-color: gainsboro;
 }
 #footer_search_form{
-    margin: 90px auto;
+    margin: 40px auto auto auto;
 }
 .title_right_color{
     color:rgb(243, 134, 10);
+}
+#category_modify2,#header_select_delete_btn{
+    width:50px;
+    height: 20px;
+    line-height: 10px;
+}
+.option_right select{
+    font-size: 12px;
+    width: 75px;
+    float: right;
+}
+.board_btn_right button{
+    height: 20px;
+    width: 70px;
+    line-height: 10px;
+}
+.right_right{
+    float: right;
 }

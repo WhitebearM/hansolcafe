@@ -20,15 +20,17 @@
                     </a>
                 </div>
             </li>
-            
+
             <? if (isset($user_id)) { ?>
-                
+
                 <li class="detail_header_menu_btn" id="next">
-                    <a href="/board/board_detail/next_post?category=<?=$category->category_num?>&board_num=<?=$board->article_num?>"><button>다음글</button></a>
+                    <a
+                        href="/board/board_detail/next_post?category=<?= $category->category_num ?>&board_num=<?= $board->article_num ?>"><button>다음글</button></a>
                 </li>
-                
+
                 <li class="detail_header_menu_btn" id="privious">
-                    <a href="/board/board_detail/previous_post?category=<?=$category->category_num?>&board_num=<?=$board->article_num?>"><button>이전글</button></a>
+                    <a
+                        href="/board/board_detail/previous_post?category=<?= $category->category_num ?>&board_num=<?= $board->article_num ?>"><button>이전글</button></a>
                 </li>
             <? } ?>
         </ul>
@@ -139,7 +141,7 @@
                     $margin_left = ($depth + 1) * 25;
                     ?>
                     <div class="comment-container" style="margin-left:<?= $margin_left ?>px;">
-                        <img id="picture" src="<?=$comment->image_path?>" width="60" height="60">
+                        <img id="picture" src="<?= $comment->image_path ?>" width="60" height="60">
                         <ul>
                             <li>
                                 <?= $comment->user_id ?>
@@ -251,13 +253,14 @@
                     <li><a
                             href="/board/board_detail/detail_delete?board=<?= $board->article_num ?>&category=<?= $category->category_num ?>"><button
                                 type="button" class="btn btn-secondary">삭제</button></a></li>
-                    <li id="detail_footer_btn_right"><a
+                    <li><a
                             href="/board/board_write/modify?board_num=<?= $board->article_num ?>"><button type="button"
                                 class="btn btn-secondary">수정</button></a></li>
                 <? } ?>
-                <li><a href="/board/board_list?num=<?= $category->category_num ?>&name=<?= $category->category_name ?>"><button
-                            type="button" class="btn btn-secondary">목록</button></a></li>
-                <li><a href="#"><button type="button" class="btn btn-secondary">▲TOP</button></a></li>
+                <li class="detail_footer_btn_right"><a href="/board/board_list?num=<?= $category->category_num ?>&name=<?= $category->category_name ?>"><button
+                            type="button" class="btn btn-secondary">목록</button></a>
+                    <a href="#"><button type="button" class="btn btn-secondary">▲TOP</button></a>
+                </li>
             </ul>
         </div>
 
@@ -310,7 +313,7 @@
                                 <?= $semi_list->user_id ?>
                             </li>
                             <li id="semi_last">
-                                <?= date('Y-m-d H:i', strtotime($semi_list->write_date)) ?>
+                                <?= date('Y-m-d', strtotime($semi_list->write_date)) ?>
                             </li>
                         </ul>
                     </div>

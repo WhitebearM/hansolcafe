@@ -1,13 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     const checkbox = document.getElementById("flexCheckDefault");
-    const gongjibox = document.getElementById("main_gongji");
+    const gongjiboxs = document.querySelectorAll(".main_gongji");
 
     checkbox.addEventListener("click", function () {
         if (checkbox.checked) {
-            gongjibox.style.display = "none";
+            gongjiboxs.forEach(function (gongjibox){
+                gongjibox.style.display = "none";
+            });
         } else {
-            gongjibox.style.display = "block";
+            gongjiboxs.forEach(function (gongjibox){
+                gongjibox.style.display = "block";
+            });
         }
     });
 
@@ -95,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
         var searchText = $('#footer_search_gogo').val();
 
-        var sanitizedText = searchText.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, '');
+        var sanitizedText = searchText.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\s]/gi, '');
     
         $('#footer_search_gogo').val(sanitizedText);
     

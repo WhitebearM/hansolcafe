@@ -1,8 +1,7 @@
 body{
-    width: 1440px;
-    height: auto;
-    margin-left: 15%;
-    height: 100%;
+    width:1440px;
+    margin: 0 auto;
+    /* background-color: #b36D4C; */
 }
 hr{
     clear: both;
@@ -18,33 +17,41 @@ hr{
     text-align: center;
     width: 250px;
 }
+#header{
+    width:1080px;
+    margin: 0 auto;
+}
 /* 폰트 사이즈 조정 클래스 */
 .ft_size{
     font-size: 12px;
 }
 /* 왼쪽상단 로고 */
 #logo{
-    margin: 25px auto 10px 35px;
-    width: 10%;
-    float:left;
+    float: left;
+    width:200px;
+}
+.member_btn{
+    width:500px;
+    float: right;
+    margin: 25px auto auto auto;
 }
 /* li 점 제거 및 한줄만들기 */
-.subtitle{
-    margin-left: -10px;
+.subtitlee{
+    text-align: right;
     list-style: none;
 }
-.subtitle li{
+.subtitlee li{
     display: inline-block;
+}
+.subtitlee li a button{
+    width: 75px;
+    height:25px;
+    line-height: 10px;
 }
 /* 전체적인 a태그 밑줄 및 색상조절 */
 a{
     text-decoration: none;
     color: black;
-}
-/* 로그인부분 div조절 */
-.memberform{
-    float:right;
-    margin:25px 150px auto auto;
 }
 /* 회원가입 로그인 회원정보수정 로그아웃 (부트스트랩) */
 .btn-outline-secondary{
@@ -52,54 +59,55 @@ a{
     height: 35px;
     font-size: 5px;
 }
-/* 배너조절 */
-#banner{
-    text-align: center;
-    border: 2px double gray;
-    border-radius: 5px;
-    background-image: url("/assets/images/banner.jpg");
-    margin: 50px auto auto 25px;
-    width: 1265px;
-    height: 300px;
-    clear: both;
-}
-/* 배너 */
-#banner h3{
-    line-height: 300px;
-    color: rgb(51, 51, 51);
+#banner img{
+    border-radius: 6px;
 }
 /* 헤더검색창 */
 #hdsearch{
     clear: both;
-    text-align: right;
-    width:90%;
-    margin:5px 300px 5px auto;
+    float: right;
 }
 /* 헤더검색창 검색텍스트칸 조절 */
 #sh_text{
-    margin-right: -5px;
+    margin-right: -6px;
     border-radius: 1px;
     width: 220px;
     height: 33px;
 }
 /* 검색창 버튼 */
 .sh_btn{
-    width:75px;
-    height:35px;
+    width:65px;
+    height:34.5px;
     border: none;
-    background-color: darkgray;
+    background-color: rgb(231, 138, 32);
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px 5px #dadce0;
 }
 .btn-outline-success{
     width:90px;
 }
 /* 사이드 */
+.member_side_article{
+    margin-left: 180px;
+    font-size: 12px;
+}
 #article{
-    border-top:3px solid darkgray;
+    text-align: center;
     float:left;
-    width:252px;
-    height: 2200px;
-    margin: 30px 15px auto 25px;
-    
+    width:200px;
+    height: 100%;
+    background-color: #c48466;
+    border-radius: 10px;
+}
+.member_btn_cafebtn{
+    list-style: none;
+    margin-left: -30px;
+}
+.op1 button{
+    background-color: #c48466;
+}
+.member_btn_cafebtn li{
+    display: inline-block;
 }
 /* 나의활동 프로필사진 위치조정 */
 #profile{
@@ -108,42 +116,54 @@ a{
 }
 /* 카페정보 위치조정 */
 #profile_info{
-    float: right;
     text-align: center;
     margin: 10px auto 15px auto;
-    line-height: 30px;
+    line-height: 25px;
 }
 /* 나의활동내역 점제거 */
 #profile_info li{
     list-style: none;
 }
+#profile_info li span{
+    font-size: 6px;
+}
 /* 사이드 카페 글쓰기 위치조정 */
 #main_write{
     padding-top: 15px;
     text-align: center;
-    margin: auto auto auto 25px;
-    border: 1px solid darkgray;
-    background-color: darkgray;
+    margin: auto auto auto auto;
     clear: both;
     width: 200px;
+    font-size: 12px;
 }
 /* 사이드 카페 글쓰기 호버시 효과 */
-#main_write:hover{
+#main_write a:hover{
     color:white;
+    transition: 0.75s;
 }
 /* 전체글보기 위치조정 */
 #all_list{
     text-align: center;
+    font-size: 12px;
+    margin: 35px auto 15px auto;
+}
+#all_list a:hover{
+    color:rgba(243, 130, 24, 0.781);
+    transition: 0.75s;
 }
 /* 카테고리 추가제거 버튼 위치조정 */
 .btn-group{
-    float: right;
     margin-bottom: 15px;
+    float: right;
+}
+.btn-group span{
+    padding-top: 11px;
+    margin-right: 10px;
 }
 /* 카테고리 추가제거버튼 커스텀 */
 .btn-primary{
     font-weight: bold;
-    background-color: darkgrey;
+    background-color: #c48466;
     border:none;
 }
 .btn-primary:hover{
@@ -153,6 +173,13 @@ a{
 /* 카테고리 float효과 제거 */
 #category_list{
     clear: both;
+    font-size: 12px;
+    border-radius: 10px;
+    width:200px;
+}
+#category_list a:hover{
+    color:rgba(243, 130, 24, 0.781);
+    transition: 0.75s;
 }
 /* 리스트 위치 변경 */
 #category_move{
@@ -161,6 +188,8 @@ a{
 }
 #category_list_style_none{
     list-style: none;
+    margin: 15px auto 15px auto;
+    width: 100px;
 }
 .btn_cafe_info{
     border:none;
@@ -215,13 +244,19 @@ a{
     margin-right: 150px;;
 }
 #date_board{
-    background-color: gainsboro;
-    float: left;
+    background-color: rgba(212, 106, 7, 0.781);
     width:200px;
-    margin: 20px auto auto 27px;
-    text-align: center;
+    margin-top: 50px;
+    font-weight: bold;
 }
 #date_board ul{
     list-style: none;
     font-size: 12px;
+}
+.board_tttt li{
+    margin-left: -30px;
+}
+.layout_content{
+    width:1580px;
+    height: 100%;
 }

@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded' ,function(){
 
         var searchText = $('#main_footer_go').val();
         
-        var sanitizedText = searchText.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi, '');
+        var sanitizedText = searchText.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\s]/gi, '');
 
         $('#main_footer_go').val(sanitizedText);
 

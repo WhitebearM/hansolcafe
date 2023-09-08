@@ -19,50 +19,49 @@
             </div>
 
             <div>
-                <div class="title_Benchmark">
-                    <table id="title">
-                        <tr>
-                            <td id="title_main">제목</td>
-                            <td id="title_name">작성자</td>
-                            <td class="title_td">댓글</td>
-                            <td class="title_td">작성일</td>
-                            <td class="title_td">좋아요</td>
-                        </tr>
-                    </table>
+                <div class="title_Benchmark" class="text-center">
+                        <ul>
+                            <li id="title_main" class="text-center col-1">　</li>
+                            <li id="title_main" class="text-center col-4">제목</li>
+                            <li id="title_name" class="text-center col-2">작성자</li>
+                            <li class="title_td text-center col-1">댓글</li>
+                            <li class="title_td text-center col-2">작성일</li>
+                            <li class="title_td text-center col-1">좋아요</li>
+                        </ul>
                 </div>
 
                 <div>
-                    <table>
+                    <div>
                         <? foreach ($result as $board) { ?>
                             <? if ($board->main_status == 2 && $board->board_status == 1) { ?>
                                 <div id="main_status_move">
                                     <ul>
-                                        <li id="main_status">공지</li>
-                                        <li id="main_title">
+                                        <li id="main_status" class="text-center">공지</li>
+                                        <li id="main_title" class="text-center col-5">
                                             <a
                                                 href="/board/board_detail?category=<?= $board->category_num ?>&board_num=<?= $board->article_num ?>"><?= $board->title ?></a>
                                         </li>
-                                        <li id="main_name">
+                                        <li id="main_name" class="text-center col-1">
                                             <?= $board->user_id ?>
                                         </li>
-                                        <li id="main_common">
+                                        <li id="main_common" class="text-center col-2">
                                             <?= $board->comment_count ?>
                                         </li>
-                                        <li id="main_te">
+                                        <li id="main_te" class="text-center col-1">
                                             <?= date('Y-m-d', strtotime($board->write_date)) ?>
                                         </li>
-                                        <li id="main_heart">
+                                        <li id="main_heart" class="text-center col-2">
                                             <?= $board->heart_count ?>
                                         </li>
                                     </ul>
                                 </div>
                             <? } ?>
 
-                            <tr class="board_list">
-                                <th id="board_num">
+                            <ul class="board_list">
+                                <li id="board_num" class="text-center col-1">
                                     <?= $board->article_num ?>
-                                </th>
-                                <th id="board_write_title"><a
+                                </li>
+                                <li id="board_write_title" class="text-center col-4"><a
                                         href="/board/board_detail?category=<?= $board->category_num ?>&board_num=<?= $board->article_num ?>">
                                         <?= $board->title ?>
                                     </a>
@@ -75,23 +74,23 @@
                                     <? if ($board->comment_count != 0) { ?>
                                         <span class="title_right_color">[<?= $board->comment_count ?>]</span>
                                     <? } ?>
-                                </th>
-                                <th id="board_write_name">
+                                </li>
+                                <li id="board_write_name" class="text-center col-2">
                                     <?= $board->user_id ?>
-                                </th>
-                                <th id="board_comment">
+                                </li>
+                                <li id="board_comment" class="text-center col-1">
                                     <?= $board->comment_count ?>
-                                </th>
-                                <th id="board_date">
+                                </li>
+                                <li id="board_date" class="text-center col-2">
                                     <?= date('Y-m-d', strtotime($board->write_date)) ?>
-                                </th>
-                                <th id="board_heart">
+                                </li>
+                                <li id="board_heart" class="text-center col-1">
                                     <?= $board->heart_count ?>
-                                </th>
-                            </tr>
+                                </li>
+                            </ul>
 
                         <? } ?>
-                    </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,16 +104,15 @@
             </div>
 
             <div>
-                <div class="title_Benchmark">
-                    <table id="title">
-                        <tr>
-                            <td id="title_main">제목</td>
-                            <td id="title_name">작성자</td>
-                            <td class="title_td">댓글</td>
-                            <td class="title_td">작성일</td>
-                            <td class="title_td">좋아요</td>
-                        </tr>
-                    </table>
+                <div class="title_Benchmark" class="text-center">
+                        <ul>
+                            <li id="title_main" class="text-center col-1">　</li>
+                            <li id="title_main" class="text-center col-4">제목</li>
+                            <li id="title_name" class="text-center col-2">작성자</li>
+                            <li class="title_td text-center col-1">댓글</li>
+                            <li class="title_td text-center col-2">작성일</li>
+                            <li class="title_td text-center col-1">좋아요</li>
+                        </ul>
                 </div>
 
                 <div>
@@ -123,21 +121,21 @@
                             <? if ($gong->main_status == 2 && $gong->board_status == 1) { ?>
                                 <div id="main_status_move">
                                     <ul>
-                                        <li id="main_status">공지</li>
-                                        <li id="main_title">
+                                        <li id="main_status" class="text-center col-1">공지</li>
+                                        <li id="main_title" class="text-center col-5">
                                             <a
                                                 href="/board/board_detail?category=<?= $gong->category_num ?>&board_num=<?= $gong->article_num ?>"><?= $gong->title ?></a>
                                         </li>
-                                        <li id="main_name">
+                                        <li id="main_name" class="text-center col-1">
                                             <?= $gong->user_id ?>
                                         </li>
-                                        <li id="main_common">
+                                        <li id="main_common" class="text-center col-2">
                                             <?= $gong->comment_count ?>
                                         </li>
-                                        <li id="main_te">
+                                        <li id="main_te" class="text-center col-1">
                                             <?= date('Y-m-d', strtotime($gong->write_date)) ?>
                                         </li>
-                                        <li id="main_heart">
+                                        <li id="main_heart" class="text-center col-2">
                                             <?= $gong->heart_count ?>
                                         </li>
                                     </ul>
@@ -146,11 +144,11 @@
                         <? } ?>
                         <? foreach ($result as $board) { ?>
                             <? if ($board->board_status == 1) { ?>
-                                <tr class="board_list">
-                                    <th id="board_num">
+                                <ul class="board_list">
+                                    <li id="board_num" class="text-center col-1">
                                         <?= $board->article_num ?>
-                                    </th>
-                                    <th id="board_write_title"><a
+                                    </li>
+                                    <li id="board_write_title" class="text-center col-4"><a
                                             href="/board/board_detail?category=<?= $board->category_num ?>&board_num=<?= $board->article_num ?>">
                                             <?= $board->title ?>
                                         </a>
@@ -163,20 +161,20 @@
                                         <? if ($board->comment_count != 0) { ?>
                                             <span class="title_right_color">[<?= $board->comment_count ?>] </span>
                                         <? } ?>
-                                    </th>
-                                    <th id="board_write_name">
+                                    </li>
+                                    <li id="board_write_name" class="text-center col-2">
                                         <?= $board->user_id ?>
-                                    </th>
-                                    <th id="board_comment">
+                                    </li>
+                                    <li id="board_comment" class="text-center col-1">
                                         <?= $board->comment_count ?>
-                                    </th>
-                                    <th id="board_date">
+                                    </li>
+                                    <li id="board_date" class="text-center col-2">
                                         <?= date('Y-m-d', strtotime($board->write_date)) ?>
-                                    </th>
-                                    <th id="board_heart">
+                                    </li>
+                                    <li id="board_heart" class="text-center col-1">
                                         <?= $board->heart_count ?>
-                                    </th>
-                                </tr>
+                                    </li>
+                                </ul>
                             <? } ?>
                         <? } ?>
                     </table>
@@ -189,9 +187,7 @@
                     <?= $pagination ?>
                 </li>
                 <li class="board_btn_right">
-                <?if(isset($id)){?>
                     <a href="/board/board_write"><button type="button" class="btn btn-outline-secondary">글쓰기</button></a>
-                <?}?>
                 </li>
             </ul>
         </div>
