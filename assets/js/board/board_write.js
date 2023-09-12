@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         images_upload_url: '/upload',//컨트롤러
         images_upload_base_path: '/uploads',//실제 업로드 되는위치
         file_picker_types: 'file image media',
+        extended_valid_elements: 'script[src|async|defer|type|charset]',
         images_max_dimensions: {
             width: 800, // 최대 이미지 폭
             height: 600 // 최대 이미지 높이

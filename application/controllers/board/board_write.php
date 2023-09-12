@@ -102,7 +102,6 @@ class board_write extends CI_Controller
                 $title = $this->input->post("title"); // 제목
                 $title = html_escape($title);
                 $content = $this->input->post("content"); //내용
-                $content = html_escape($content);
                 $fileupload = $this->input->post("fileupload"); //파일업로드
 
                 if ($gongji == "on") {
@@ -192,7 +191,9 @@ class board_write extends CI_Controller
                 
                 $category = $this->input->post("category_pick"); //카테고리
                 $title = $this->input->post("title"); // 제목
+                $title = html_escape($title);
                 $content = $this->input->post("content"); //내용
+                
                 $fileupload = $this->input->post("fileupload"); //파일업로드
 
                 if ($gongji == "on") {
@@ -302,6 +303,7 @@ class board_write extends CI_Controller
                 }
                 $category = $this->input->post("category_pick"); //카테고리
                 $title = $this->input->post("title"); // 제목
+                $title = html_escape($title);
                 $content = $this->input->post("content"); //내용
                 $fileupload = $this->input->post("fileupload"); //파일업로드
 

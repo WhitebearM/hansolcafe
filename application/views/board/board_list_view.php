@@ -124,9 +124,9 @@
                             <form action="/board/board_list/sel_delete_board" method="post" id="select_delete_form">
                                 <? foreach ($result as $board) { ?>
 
-                                    <ul class="board_list">
+                                    <div class="board_list">
                                         <? if ($authority == 2 && isset($id)) { ?>
-                                            <li id="board_check">
+                                            <span id="board_check">
                                                 <input type="checkbox" value="<?= $board->article_num ?>"
                                                     name="selected_board[]" class="postcheckbox">
                                                 <input type="hidden" class="exception_article_num" name="exception_article_num"
@@ -135,11 +135,11 @@
                                                     name="exception_article_name" value="<?= $category_name ?>">
                                                 <input type="hidden" class="exception_category_num"
                                                     name="exception_category_num" value="<?= $board->category_num ?>">
-                                            </li>
+                                            </span>
                                         <? } else { ?>
-                                            <li id="nonecheked">
-
-                                            </li>
+                                            <span id="nonecheked">
+                                                <input type="checkbox" id="gost_ck">
+                                            </span>
 
                                         <? } ?>
 
@@ -152,7 +152,7 @@
                                             $margin_left = 0;
                                         }
                                         ?>
-                                        <li id="board_write_title">
+                                        <span id="board_write_title">
                                             <a style="margin-left:<?= $margin_left ?>px;"
                                                 href="/board/board_detail?category=<?= $category_num ?>&board_num=<?= $board->article_num ?>">
                                                 <? if ($board->depth != "0") { ?>
@@ -167,8 +167,7 @@
                                                 <img src="/assets/images/img.png" width="20px" height="20px">
                                             <? } ?>
                                             <? if ($board->comment_count != 0) { ?>
-                                                <span class="title_right_color">[
-                                                    <?= $board->comment_count ?>]
+                                                <span class="title_right_color">[<?= $board->comment_count ?>]
                                                 </span>
                                             <? } else { ?>
 
@@ -176,20 +175,20 @@
                                             <span id="new_board">
                                                 <?= (strtotime('now') - strtotime($board->write_date)) / (60 * 60) < 12 ? "[new]" : ""; ?>
                                             </span>
-                                        </li>
-                                        <li id="board_write_name" class="text-center">
+                                        </span>
+                                        <span id="board_write_name" class="text-center">
                                             <?= $board->user_id ?>
-                                        </li>
-                                        <li id="board_comment" class="text-center">
+                                        </span>
+                                        <span id="board_comment" class="text-center">
                                             <?= $board->comment_count ?>
-                                        </li>
-                                        <li id="board_date" class="text-center">
+                                        </span>
+                                        <span id="board_date" class="text-center">
                                             <?= (strtotime('now') - strtotime($board->write_date)) / (60 * 60) < 12 ? date('H:i', strtotime($board->write_date)) : date('Y-m-d', strtotime($board->write_date)); ?>
-                                        </li>
-                                        <li id="board_heart" class="text-center">
+                                        </span>
+                                        <span id="board_heart" class="text-center">
                                             <?= $board->heart_count ?>
-                                        </li>
-                                    </ul>
+                                        </span>
+                                    </div>
                                 <? } ?>
                         </div>
                     </div>
