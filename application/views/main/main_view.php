@@ -116,7 +116,6 @@
                 </div>
 
                 <div>
-                    <table>
                         <? foreach ($all_gongji_board as $gong) { ?>
                             <? if ($gong->main_status == 2 && $gong->board_status == 1) { ?>
                                 <div id="main_status_move">
@@ -177,7 +176,6 @@
                                 </ul>
                             <? } ?>
                         <? } ?>
-                    </table>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-<head>
+<head></head>
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="/assets/css/board/board_detail.css">
@@ -46,6 +46,7 @@
                 </li>
             </ul>
         </div>
+        <input type="hidden" id="board_detail_category_num" value="<?=$category->category_num?>">
         <div id="detail_write_profile">
             <div id="picture_info">
                 <img id="picture" src="<?= $user_info->image_path ?>" width="50" height="50">
@@ -141,7 +142,7 @@
                     $margin_left = ($depth + 1) * 25;
                     ?>
                     <div class="comment-container" style="margin-left:<?= $margin_left ?>px;">
-                        <img id="picture" src="<?= $comment->image_path ?>" width="60" height="60">
+                        <img id="picture" src="<?= $comment->image_path ?>" width="40" height="40">
                         <ul>
                             <li>
                                 <?= $comment->user_id ?>

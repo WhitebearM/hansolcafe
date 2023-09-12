@@ -35,8 +35,11 @@ class member_modify extends CI_Controller
 
             $user_id = $this->input->post("user_id");
             $nickname = $this->input->post("user_nickname");
+            $nickname = html_escape($nickname);
             $pw = $this->input->post("user_pw");
+            $pw = html_escape($pw);
             $email = $this->input->post("user_email");
+            $email = html_escape($email);
 
             $password_hashed = password_hash($pw, PASSWORD_DEFAULT);
 

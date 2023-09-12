@@ -260,3 +260,13 @@ a{
     width:1580px;
     height: 100%;
 }
+.member_delete_box{
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.member_delete{
+    font-size: 14px;
+}
+.member_delete a{
+    color: white;
+}

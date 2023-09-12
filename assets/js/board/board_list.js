@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     checkbox.addEventListener("click", function () {
         if (checkbox.checked) {
-            gongjiboxs.forEach(function (gongjibox){
+            gongjiboxs.forEach(function (gongjibox) {
                 gongjibox.style.display = "none";
             });
         } else {
-            gongjiboxs.forEach(function (gongjibox){
+            gongjiboxs.forEach(function (gongjibox) {
                 gongjibox.style.display = "block";
             });
         }
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         $("#select_delete_form").submit();
     });
 
-    
+
     //체크후 카테고리이동
     var selectedArticleNum = [];
 
@@ -70,44 +70,19 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     });
 
-    // 출력개수 조정
-    const selectPerPage = document.getElementById("board_select_number");
-    selectPerPage.addEventListener('change', function () {
-        const selectValue = selectPerPage.value;
-        var categoryNum = document.querySelector('.category_num').value;
-        var categoryName = document.querySelector('.category_name').value;
-
-        window.location.href = `/board/board_list/pagination?name=${categoryName}&num=${categoryNum}&selected_page=${selectValue}`;
-    });
-
-    // const selPP = document.getElementById("board_select_two");
-    // selPP.addEventListener('change' , function(){
-    //     const selectValue = selPP.value;
-    //     var categoryNum = document.querySelector('.category_num2').value;
-    //     var categoryName = document.querySelector('.category_name2').value;
-    //     var seloption1 = document.querySelector('.save_option1').value;
-    //     var seloption2 = document.querySelector('.save_option2').value;
-    //     var seloption3 = document.querySelector('.save_option3').value;
-
-    //     window.location.href = `/board/board_list/footer_search?category_option_1=${seloption1}&category_option_2=${seloption2}&footer_search_categoryNum=${categoryNum}&footer_search_categoryName=${categoryName}&board_footer_search=${seloption3}&selected_page=${selectValue}`;
-
-    // });
-
-
-    $('#footer_search_form').submit(function (event){
+    // 하단 검색창 특수문자 자르기
+    $('#footer_search_form').submit(function (event) {
         event.preventDefault();
-    
+
         var searchText = $('#footer_search_gogo').val();
 
         var sanitizedText = searchText.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\s]/gi, '');
-    
+
         $('#footer_search_gogo').val(sanitizedText);
-    
+
         $('#footer_search_form').get(0).submit();
     });
 });
-
-
 
 // 체크박스 전체선택
 function selected_ck(selectAll) {
@@ -116,9 +91,28 @@ function selected_ck(selectAll) {
     checkboxes.forEach((checkbox) => {
 
         checkbox.checked = selectAll.checked;
-        var event = new Event('change' , {bubbles: true});
+        var event = new Event('change', { bubbles: true });
         checkbox.dispatchEvent(event);
     });
+}
+
+function changePerpage(selectPerPage) {
+    const selectValue = selectPerPage.value;
+    var categoryNum = document.querySelector('.category_num').value;
+    var categoryName = document.querySelector('.category_name').value;
+
+    window.location.href = `/board/board_list/pagination?name=${categoryName}&num=${categoryNum}&selected_page=${selectValue}`;
+}
+
+function changeSearchPerpage(search_selectPerPage) {
+    const selectValue = search_selectPerPage.value;
+    var categoryNum = document.querySelector('.category_num').value;
+    var categoryName = document.querySelector('.category_name').value;
+    var option1 = document.querySelector('.option1').value;
+    var option2 = document.querySelector('.option2').value;
+    var option3 = document.querySelector('.option3').value;
+
+    window.location.href = `/board/board_list/footer_search?category_option_1=${option1}&category_option_2=${option2}&footer_search_categoryNum=${categoryNum}&footer_search_categoryName=${categoryName}&board_footer_search=${option3}&selected_page=${selectValue}`;
 }
 
 

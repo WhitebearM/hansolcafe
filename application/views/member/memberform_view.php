@@ -21,9 +21,9 @@
             </li>
             <li><span class="error" id="userid_error" style="color: red;"></span></li>
 
-            <li><input class="input_move" type="password" name="user_pw" id="user_pw" placeholder="비밀번호"
-                        required>
-                    <a href="" id="password_toggle"><img src="/assets/images/password.png" width="25" height="25"></a></li>
+            <li><input class="input_move" type="password" name="user_pw" id="user_pw" placeholder="비밀번호" required>
+                <a href="" id="password_toggle"><img src="/assets/images/password.png" width="25" height="25"></a>
+            </li>
             <li><span class="error" id="userpw_error" style="color: red;"></span></li>
 
             <li><input class="input_move" type="password" name="user_pw_verify" id="user_pw_verify"

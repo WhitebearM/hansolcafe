@@ -140,7 +140,11 @@
             <? if (isset($member) && isset($count)) { ?>
                 <div id="member_info">
                     <div id="profile">
-                        <a><img src="<?= $member->image_path ?>" width="70px" height="70px"></a>
+                        <? if ($member->image_path != "") { ?>
+                            <a><img src="<?= $member->image_path ?>" width="70px" height="70px"></a>
+                        <? } else { ?>
+                            <a><img src="/assets/images/profile.png" width="70px" height="70px"></a>
+                        <? } ?>
                     </div>
                     <div id="profile_info">
                         <ul>
@@ -220,6 +224,11 @@
                     </ul>
                 <? } ?>
             </div>
+            <? if (isset($id)) { ?>
+                <div class="member_delete_box">
+                    <span class="member_delete"><a href="/member/member_delete">회원탈퇴</a></span>
+                </div>
+            <? } ?>
         </div>
     </div>
 

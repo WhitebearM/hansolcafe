@@ -20,39 +20,58 @@
                             </span>
                         <? } else if ($authority == 1) { ?>
                                 <span class="category">
-                                    <h6">
+                                    <h6>
                                     <?= $category_name ?>
+                                    </h6>
+                            <? } else { ?>
+                                    <span class="category">
+                                        <h6>
+                                        <?= $category_name ?>
                                         </h6>
-                                <? } else { ?>
-                                        <span class="category">
-                                            <h6>
-                                            <?= $category_name ?>
-                                            </h6>
-                                        </span>
-                                <? } ?>
-                                <div class="right_right">
-                                    <span><input class="form-check-input" type="checkbox" value=""
-                                            id="flexCheckDefault">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            공지사항 숨기기
-                                        </label>
                                     </span>
-                                    <? if ($authority == 2 && isset($id)) { ?>
-                                        <span><button type="button" id="category_modify2"
-                                                class="btn btn-outline-secondary top_modify_category" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop_k">이동</button>
-                                        </span>
-                                        <span><button type="button" id="header_select_delete_btn"
-                                                class="btn btn-outline-secondary">삭제</button>
-                                        </span>
-                                    <? } ?>
+                            <? } ?>
+                            <div class="right_right">
 
-                                    <? if ($division == 1) { ?>
-                                        <input type="hidden" class="category_num" value="<?= $category_num ?>">
-                                        <input type="hidden" class="category_name" value="<?= $category_name ?>">
+                                <span class="option_222"><input class="form-check-input" type="checkbox" value=""
+                                        id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        공지사항 숨기기
+                                    </label>
+                                </span>
+                                <? if ($authority == 2 && isset($id)) { ?>
+                                    <span><button type="button" id="category_modify2"
+                                            class="btn btn-outline-secondary top_modify_category" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop_k">이동</button>
+                                    </span>
+                                    <span><button type="button" id="header_select_delete_btn"
+                                            class="btn btn-outline-secondary">삭제</button>
+                                    </span>
+                                <? } ?>
+
+                                <input type="hidden" class="category_num" value="<?= $category_num ?>">
+                                <input type="hidden" class="category_name" value="<?= $category_name ?>">
+
+                                <? if ($division == false) { ?>
+                                    <? if (isset($option1) && isset($option2) && isset($option3)) { ?>
+                                        <input type="hidden" class="option1" value="<?= $option1 ?>">
+                                        <input type="hidden" class="option2" value="<?= $option2 ?>">
+                                        <input type="hidden" class="option3" value="<?= $option3 ?>">
+                                    <? } ?>
+                                    <span class="option_right">
+                                        <select id="footer_search_select_number" class="form-select"
+                                            aria-label="Default select example" onchange="changeSearchPerpage(this)">
+                                            <option value="5" <?= ($per_page == 5) ? 'selected' : '' ?>>5개</option>
+                                            <option value="10" <?= ($per_page == 10) ? 'selected' : '' ?>>10개</option>
+                                            <option value="15" <?= ($per_page == 15) ? 'selected' : '' ?>>15개</option>
+                                            <option value="20" <?= ($per_page == 20) ? 'selected' : '' ?>>20개</option>
+                                            <option value="25" <?= ($per_page == 25) ? 'selected' : '' ?>>25개</option>
+                                            <option value="30" <?= ($per_page == 30) ? 'selected' : '' ?>>30개</option>
+                                        </select>
+                                    </span>
+                                <? } else if ($division == true) { ?>
                                         <span class="option_right">
                                             <select id="board_select_number" class="form-select"
-                                                aria-label="Default select example">
+                                                aria-label="Default select example" onchange="changePerpage(this)">
                                                 <option value="5" <?= ($per_page == 5) ? 'selected' : '' ?>>5개</option>
                                                 <option value="10" <?= ($per_page == 10) ? 'selected' : '' ?>>10개</option>
                                                 <option value="15" <?= ($per_page == 15) ? 'selected' : '' ?>>15개</option>
@@ -61,8 +80,8 @@
                                                 <option value="30" <?= ($per_page == 30) ? 'selected' : '' ?>>30개</option>
                                             </select>
                                         </span>
-                                    <? } ?>
-                                </div>
+                                <? } ?>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -99,14 +118,14 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <? } ?>
                             <? } ?>
+                        <? } ?>
                         <div class="board_list_ha">
                             <form action="/board/board_list/sel_delete_board" method="post" id="select_delete_form">
                                 <? foreach ($result as $board) { ?>
 
                                     <ul class="board_list">
-                                        <? if ($authority == 2) { ?>
+                                        <? if ($authority == 2 && isset($id)) { ?>
                                             <li id="board_check">
                                                 <input type="checkbox" value="<?= $board->article_num ?>"
                                                     name="selected_board[]" class="postcheckbox">
@@ -125,8 +144,13 @@
                                         <? } ?>
 
 
-                                        <? $depth = $board->depth;
-                                        $margin_left = ($depth + 1) * 25;
+                                        <?
+                                        if ($board->depth != 0) {
+                                            $depth = $board->depth;
+                                            $margin_left = ($depth + 1) * 20;
+                                        } else {
+                                            $margin_left = 0;
+                                        }
                                         ?>
                                         <li id="board_write_title">
                                             <a style="margin-left:<?= $margin_left ?>px;"

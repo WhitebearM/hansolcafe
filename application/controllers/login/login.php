@@ -29,33 +29,39 @@ class login extends CI_Controller{
         $pw = $this->input->post("user_pw");
 
         $result = $this->login_model->login($id);
+        
         // 입력한 id 와 서버에 id가 일치할경우
-        if($id == $result->user_id){ 
-            // 입력한 pw 와 서버에서 가져와 복호화한 pw일치할경우
-            if(password_verify($pw,$result->user_pw)){
-                // 세션에 id 추가
-                $this->session->set_userdata("id",$result->user_id);
-                $this->session->set_userdata("id_authority",$result->authority);
-                $this->session->set_userdata("authority",$result->authority);
-                //세션에 추가 되었을경우만 방문횟수 증가
-                if($this->session->userdata('id')){
-                    $this->login_model->visit($id);
-                }
-                redirect("/layout");
+        if(isset($result)){ 
+            if($id == $result->user_id ){
+                    // 입력한 pw 와 서버에서 가져와 복호화한 pw일치할경우
+                    if (password_verify($pw, $result->user_pw) && isset($result)) {
+                        // 세션에 id 추가
+                        $this->session->set_userdata("id", $result->user_id);
+                        $this->session->set_userdata("id_authority", $result->authority);
+                        $this->session->set_userdata("authority", $result->authority);
+                        //세션에 추가 되었을경우만 방문횟수 증가
+                        if ($this->session->userdata('id')) {
+                            $this->login_model->visit($id);
+                        }
+                        redirect("/layout");
+                    } else {
+                        echo "<script>
+                    alert('아이디나 비밀번호가 틀렸습니다.');
+                    location.href='/login/login';</script>";
+                    }
             }else{
                 echo "<script>
                 alert('아이디나 비밀번호가 틀렸습니다.');
-                location.href='/login/login';</script>"; 
+                location.href='/login/login';</script>";
             }
         }else{
             echo "<script>
-            alert('존재하지않는 아이디입니다.');
-            location.href='/login/login';</script>";
+                alert('아이디나 비밀번호가 틀렸습니다.');
+                location.href='/login/login';</script>"; 
         }
 
     }
 }
-
     public function logout_member(){
         unset($_SESSION['id']);
         unset($_SESSION['id_authority']);

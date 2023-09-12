@@ -84,13 +84,14 @@ class board_list extends CI_Controller
     }
     function pagination()
     {
-        $division = 1;
+        $division = true;
 
         $category_name = $this->input->get("name");
         $category_num = $this->input->get("num");
         $select_val = $this->input->get("selected_page");
 
-        if ($select_val === null) {
+
+        if ($select_val == null) {
             // 만약 선택값이 없다면 세션에서 값을 읽어옴
             $select_val = $this->session->userdata('select_val');
         } else {
@@ -168,7 +169,7 @@ class board_list extends CI_Controller
             $selected_board = $this->input->post("selected_board");
 
             foreach ($selected_board as $board) {
-                $this->board_list_model->select_board_delete($board,$category_num);
+                $this->board_list_model->select_board_delete($board, $category_num);
             }
 
             echo "<script>
@@ -196,7 +197,7 @@ class board_list extends CI_Controller
 
             $select_article_num = json_decode($select_board);
 
-           
+
 
             $gtr_name = $this->board_list_model->get_category_name($select_category);
             foreach ($select_article_num as $sel_list) {
@@ -212,11 +213,12 @@ class board_list extends CI_Controller
 
     function footer_search()
     {
-        
-        $division = 2;
+
+        $division = false;
 
         $category_name = $this->input->get("footer_search_categoryName");
         $category_num = $this->input->get("footer_search_categoryNum");
+        $select_val = $this->input->get("selected_page");
 
 
         $search_option1 = $this->input->get("category_option_1");
@@ -224,17 +226,30 @@ class board_list extends CI_Controller
 
         $search_title3 = $this->input->get("board_footer_search");
 
-        if($search_title3 == ""){
+
+        if ($search_title3 == "") {
             echo "<script>
             alert('검색타이틀을 넣어주세요.');
             location.href='/board/board_list?name=$category_name&num=$category_num';</script>";
+        }
+
+        if ($select_val == null) {
+            // 만약 선택값이 없다면 세션에서 값을 읽어옴
+            $select_val = $this->session->userdata('select_val');
+        } else {
+            // 선택값이 있다면 세션에 저장
+            $this->session->set_userdata('select_val', $select_val);
         }
 
         $config['base_url'] = base_url("/board/board_list/footer_search?category_option_1=$search_option1&category_option_2=$search_option2&footer_search_categoryNum=$category_num&footer_search_categoryName=$category_name&board_footer_search=$search_title3");
         $config['uri_segment'] = 4;
 
         $config['total_rows'] = $this->board_list_model->footer_search_count($category_num, $search_option1, $search_option2, $search_title3);
-        $per_page = $config['per_page'] = 10;
+        if ($select_val == null) {
+            $per_page = $config['per_page'] = 5;
+        } else {
+            $per_page = $config['per_page'] = $select_val;
+        }
 
         $config['num_links'] = 1;
 
@@ -253,7 +268,7 @@ class board_list extends CI_Controller
         $pagenation = $this->pagination->create_links();
 
         if ($category_name != "미분류게시판" && $category_num != 0) {
-            $result = $this->board_list_model->footer_search($category_num, $search_option1, $search_option2, $search_title3,$per_page,$offset);
+            $result = $this->board_list_model->footer_search($category_num, $search_option1, $search_option2, $search_title3, $per_page, $offset);
             $id = $this->session->userdata("id");
             $authority = $this->session->userdata("authority");
 

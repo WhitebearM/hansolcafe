@@ -44,9 +44,13 @@ class memberform extends CI_Controller
             location.href='/member/memberform';</script>";
         } else {
             $id = $this->input->post("user_id");
+            $id = html_escape($id);
             $pw = $this->input->post("user_pw");
+            $pw = html_escape($pw);
             $email = $this->input->post("user_email");
+            $email = html_escape($email);
             $name = $this->input->post("user_name");
+            $name = html_escape($name);
 
             //비밀번호 hash로 암호화
             $hashed_password = password_hash($pw, PASSWORD_DEFAULT);
@@ -61,7 +65,11 @@ class memberform extends CI_Controller
             if (!$this->upload->do_upload('profilePic')) { //업로드실패
                 $data = $this->upload->data();
                 $error = array('error' => $this->upload->display_errors());
-                print_r($error);
+                $relative_image_path = "";
+                $this->memberform_model->uinsert($id, $hashed_password, $email, $name, $relative_image_path);
+                echo "<script>
+                alert('회원가입이 정상적으로 완료되었습니다.');
+                location.href='/login/login';</script>";
             } else {
                 $data = $this->upload->data();
                 $image_path = $data['full_path']; //풀네임경로

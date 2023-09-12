@@ -16,14 +16,12 @@
     width: 880px;
     background-color: rgb(240, 238, 238);
 }
-.category_list{
-    list-style: none;
-}
+
 .category_list li{
     display: inline-block;
 }
 .category{
-    margin-right: 100px;
+    margin-top: 30px;
 }
 /* 게시물 제목 옵션 조정 */
 #board_optin{
@@ -56,7 +54,7 @@
 /* 게시글 밑줄 및 조정 */
 .board_list{
     height: 50px;
-    padding-top: 12px;
+    padding-top: 15px;
     border-bottom: 1px solid gainsboro;
     list-style: none;
 }
@@ -69,25 +67,26 @@
 }
 /* 게시물 제목 */
 #board_write_title{
-    text-align: center;
-    width:370px;
-    font-size: 14px;
+    width:328px;
+    margin-right: 30px;
+    font-size: 12px;
+    padding-left: 60px;
 }
 /* 게시물 작성자 */
 #board_write_name{
-    width:140px;
+    width:165px;
     text-align: center;
 }
 /* 게시물 댓글수 */
 #board_comment{
-    width:65px;
+    width:40px;
+}
+#board_date{
+    width:155px;
 }
 /* 게시글좋아요수 */
-#board_date{
-    width:130px;
-}
 #board_heart{
-    width:40px;
+    width:15px;
 }
 #footer_button{
   float: right;
@@ -201,5 +200,11 @@
     line-height: 10px;
 }
 .right_right{
+    text-align: right;
+}
+.member_delete{
     float: right;
+}
+#new_board{
+    color:coral;
 }

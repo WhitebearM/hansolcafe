@@ -1,10 +1,11 @@
 /* 활동내역 전체적인 크기 위치 조정 */
 #member_activity_body {
     background-color: gainsboro;
-    width: 990px;
+    width: 880px;
     height: 100%;
     float: right;
-    margin: 30px 150px 15px auto;
+    margin: auto 320px 15px auto;
+    font-size: 12px;
 }
 
 #member_activity_body ul {
@@ -34,52 +35,56 @@
 
 .member_activity_btn_group2 {
     text-align: left;
-    width: 705px;
+    width:600px;
 }
 
 /* 기준 타이틀 1~4 */
 .member_activity_criteria1 {
     text-align: center;
-    width: 500px;
+    width: 430px;
 }
 
 .member_activity_criteria2 {
     text-align: center;
-    width: 130px;
+    width: 175px;
 }
 
 .member_activity_criteria3 {
     text-align: center;
-    width: 130px;
+    width: 90px;
 }
 
 .member_activity_criteria4 {
     text-align: center;
-    width: 130px;
+    width: 45px;
 }
 
 /* 본문 게시판 위치조정  1~4*/
 .member_activity_title {
     text-align: center;
-    width: 470px;
+    width: 420px;
 }
 
 .member_activity_date {
     text-align: center;
-    width: 150px;
+    width: 165px;
 }
 
 .member_activity_comments {
     text-align: center;
-    width: 110px;
+    width: 95px;
 }
 
 .member_activity_heart {
     text-align: center;
-    width: 155px;
+    width: 45px;
 }
 
 /* 본문 댓글 위치조정 1~2*/
+.member_activity_criteria_comment1{
+    text-align: center;
+    width: 450px;
+}
 .member_activity_criteria_comment2 {
     text-align: center;
     width: 130px;
@@ -102,16 +107,16 @@
 /* 본문 삭제 위치조정 */
 .member_activity_delete_criteria1{
     text-align: center;
-    width: 500px;
+    width: 450px;
 }
 .member_activity_delete_criteria2{
     text-align: right;
-    width:360px;
+    width:305px;
 }
 /* 삭제한 게시판 삭제일 */
 .member_activity_delete_date{
     text-align: right;
-    width: 385px;
+    width: 330px;
 }
 /* 버튼에 따라 화면 변경 초기 숨기기*/
 #activity_write_comment,#activity_delete_board{

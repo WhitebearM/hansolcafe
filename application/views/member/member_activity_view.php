@@ -9,7 +9,6 @@
 
 <body>
     <div id="member_activity_body">
-
         <div id="activity_write_board">
             <div id="member_activity_profile">
                 <ul>
@@ -101,7 +100,7 @@
             <div id="activity_write_comment">
                 <div>
                     <ul>
-                        <li class="member_activity_criteria1">댓글</li>
+                        <li class="member_activity_criteria_comment1">댓글</li>
                         <li class="member_activity_criteria_comment2">게시글</li>
                         <li class="member_activity_criteria_comment3">등록일</li>
                     </ul>

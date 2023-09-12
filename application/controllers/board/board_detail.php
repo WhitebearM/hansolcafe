@@ -42,7 +42,7 @@ class board_detail extends CI_Controller
                 $comments_num = $comments_num[0]->comments_count;
 
                 //해당 게시글 댓글 불러오기
-                /*   if (isset($_GET['comments_val']) && isset($_GET['board_num'])) {
+                  if (isset($_GET['comments_val']) && isset($_GET['board_num'])) {
                       $comments_val = $this->input->get("comments_val");
 
                       if ($comments_val == '최신순') {
@@ -50,9 +50,9 @@ class board_detail extends CI_Controller
                       } else if ($comments_val == '등록순') {
                           $comments = $this->board_detail_model->re_write_comments_list($board_num);
                       }
-                  } else { */
+                  } else {
                 $comments = $this->board_detail_model->board_comment($board_num);
-                // }
+                }
                 //하단 해당 게시글의 게시글 최근글 5개
                 $mini_list = $this->board_detail_model->board_semi_list($board_num);
 
@@ -185,6 +185,7 @@ class board_detail extends CI_Controller
             redirect("/board/board_detail", "refresh");
         } else {
             $comment_content = $this->input->post("commenttext");
+            $comment_content = html_escape($comment_content);
             $comment_user_id = $this->input->post("user_id");
             $comment_article_num = $this->input->post("article_num");
 
@@ -215,6 +216,7 @@ class board_detail extends CI_Controller
         } else {
             $comment_num = $this->input->post("detail_comment_num");
             $content = $this->input->post("detail_comment_content");
+            $content = html_escape($content);
 
             $this->board_detail_model->comment_update($comment_num, $content);
 
@@ -267,6 +269,7 @@ class board_detail extends CI_Controller
             $id = $this->session->userdata("id");
 
             $recomment_content = $this->input->post("detail_recomment_content");
+            $recomment_content = html_escape($recomment_content);
             $recomment_parentId = $this->input->post("recomment_parentID");
 
 
@@ -299,6 +302,7 @@ class board_detail extends CI_Controller
         }
     }
 
+    // 이전글
     function previous_post()
     {
         $user_id = $this->session->userdata("id");
@@ -423,6 +427,7 @@ class board_detail extends CI_Controller
         }
     }
 
+    // 다음글
     function next_post()
     {
         $user_id = $this->session->userdata("id");
@@ -431,6 +436,10 @@ class board_detail extends CI_Controller
         $board_num = $this->input->get("board_num");
 
         $board_detail_info = $this->board_detail_model->next_post($board_num, $category);
+        /* while($board_detail_info->board_status == 2){
+            $board_num =+ 1;
+            $board_detail_info = $this->board_detail_model->next_post($board_num, $category);
+        } */
         if ($board_detail_info->disclosure == 1 && isset($user_id) && $board_detail_info != "") {
             if ($board_detail_info->board_status == 1) {
                 $all_category = $this->board_detail_model->category_all();
