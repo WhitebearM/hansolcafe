@@ -132,20 +132,10 @@ class board_detail extends CI_Controller
                 )
             );
         } else if ($board_detail_info == "") {
-            echo "<script>
-                alert('존재하지않는 게시물입니다.');</script>";
-
             redirect($this->agent->referrer());
-
         } else if (!isset($board_detail_info->disclosure)) {
-            echo "<script>
-                alert('존재하지않는 게시물입니다.');</script>";
-
             redirect($this->agent->referrer());
         } else {
-            echo "<script>
-            alert('접근할수 없는 환경입니다.');</script>";
-
             redirect($this->agent->referrer());
         }
     }

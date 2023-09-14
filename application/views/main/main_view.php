@@ -32,7 +32,7 @@
 
                 <div>
                     <div>
-                        <? foreach ($result as $board) { ?>
+                            <? foreach ($result as $board) { ?>
                             <? if ($board->main_status == 2 && $board->board_status == 1) { ?>
                                 <div id="main_status_move">
                                     <ul>
@@ -56,7 +56,8 @@
                                     </ul>
                                 </div>
                             <? } ?>
-
+                            <?}?>
+                            <? foreach ($result as $board) { ?>
                             <ul class="board_list">
                                 <li id="board_num" class="text-center col-1">
                                     <?= $board->article_num ?>
@@ -88,8 +89,7 @@
                                     <?= $board->heart_count ?>
                                 </li>
                             </ul>
-
-                        <? } ?>
+                            <? } ?>
                     </div>
                 </div>
             </div>
