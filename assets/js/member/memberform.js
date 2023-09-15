@@ -1,6 +1,9 @@
 
 document.addEventListener('DOMContentLoaded', function () {
-  //이미지 업로드 부분 (모든 html이 로드 되고나서 해야함)
+  const registerButton = document.getElementById("formbtn");
+
+  registerButton.style.display = 'none';
+
   document.getElementById('profilePicInput').addEventListener('change', function () {
     const previewImage = document.getElementById('previewImage');
     const file = this.files[0];
@@ -45,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
     checkFormValidity();
   });
 
-
   // 폼 입력 값 변경 이벤트 등록
   function checkFormValidity() {
     const user_id_error = document.getElementById('userid_error').textContent;
@@ -62,8 +64,16 @@ document.addEventListener('DOMContentLoaded', function () {
       user_name_error === '정확히 입력하셨습니다.';
 
     // 버튼의 disabled 속성 설정
-    const registerButton = document.getElementById("formbtn");
-    registerButton.disabled = !isFormValid;
+    if(user_id_error ==='사용 가능한 아이디 입니다.'
+     && user_pw_error === '올바른 비밀번호입니다.'
+      && user_confirm_error === '비밀번호가 일치합니다!' 
+       && user_email_error === '정확히 입력하셨습니다.'
+        && user_name_error === '정확히 입력하셨습니다.'){
+      const registerButton = document.getElementById("formbtn");
+      registerButton.disabled = !isFormValid;
+      registerButton.style.display = 'block';
+      registerButton.style.marginLeft = '280px';
+    }
 
     return isFormValid;
   }

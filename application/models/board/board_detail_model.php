@@ -55,9 +55,9 @@ class board_detail_model extends CI_Model
                                     WHERE article_num = '$board_num'")->result();
     }
 
-    function board_semi_list()
+    function board_semi_list($category_num)
     {
-        return $this->db->query("select * from board order by write_date desc limit 5")->result();
+        return $this->db->query("select * from board where category_num = '$category_num' order by write_date desc limit 5")->result();
 
     }
 
@@ -95,7 +95,7 @@ class board_detail_model extends CI_Model
             WHERE article_num = '$article_num'");
     }
 
-    function write_comment($comment_content, $comment_user_id, $comment_article_num, $comment_parent_id)
+    function write_comment($comment_content, $comment_user_id, $comment_article_num, $comment_parent_id,$image_path)
     {
         $max_grp_query = $this->db->query("select MAX(grp) AS max_grp FROM comments WHERE parent_id = 0");
         $max_grp_result = $max_grp_query->row();
@@ -109,6 +109,7 @@ class board_detail_model extends CI_Model
             'grp' => $next_grp  ,
             'seq' => 1,
             'depth' => 0, // Depth is always 0 for top-level comments
+            'image_path' => $image_path
         );
 
         $this->db->insert('comments', $data);
@@ -135,6 +136,7 @@ class board_detail_model extends CI_Model
                 c.seq,
                 c.depth,
                 c.article_num,
+                c.image_path as img_path,
                 m.image_path 
             FROM
                 comments c
@@ -153,6 +155,7 @@ class board_detail_model extends CI_Model
                 c.seq,
                 c.depth,
                 c.article_num,
+                c.image_path as img_path,
                 m.image_path
             FROM
                 comments c
@@ -171,6 +174,7 @@ class board_detail_model extends CI_Model
             seq,
             depth,
             article_num,
+            img_path,
             image_path 
         FROM
             CommentHierarchy
@@ -187,7 +191,7 @@ class board_detail_model extends CI_Model
     {
         $sql = $this->db->get_where("fileupload", array("article_num" => $article_num));
 
-        return $sql->row();
+        return $sql->result();
     }
 
     function comment_delete($comment_num)

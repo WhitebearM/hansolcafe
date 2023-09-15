@@ -23,20 +23,20 @@
             <div class="member_btn">
                 <ul class="subtitlee">
                     <li>
-                        <a><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                        <a><button type="button" class="btn btn btn-success layout_main_member_btn" data-bs-toggle="modal"
                                 data-bs-target="#member_modify">정보수정</button></a>
                     </li>
                     <li><a href="/login/login/logout_member"><button type="button"
-                                class="btn btn-outline-secondary">로그아웃</button></a></li>
+                                class="btn btn btn-danger layout_main_member_btn">로그아웃</button></a></li>
                 </ul>
             </div>
         <? } else { ?>
             <div class="member_btn">
                 <ul class="subtitlee">
                     <li><a href="/member/memberform"><button type="button"
-                                class="btn btn-outline-secondary">회원가입</button></a>
+                                class="btn btn btn-success layout_main_member_btn">회원가입</button></a>
                     </li>
-                    <li><a href="/login/login"><button type="button" class="btn btn-outline-secondary">로그인</button></a></li>
+                    <li><a href="/login/login"><button type="button" class="btn btn btn-danger layout_main_member_btn">로그인</button></a></li>
                 </ul>
                 </a>
             </div>
@@ -96,7 +96,7 @@
             <ul class="member_btn_cafebtn">
                 <li>
                     <div class="op1">
-                        <button class="btn_cafe_info" type="button" onclick="info_move('cafe')">카페정보</button>
+                        <button id="article_btn_1" class="btn_cafe_info" type="button" onclick="info_move('cafe')">카페정보</button>
                     </div>
                 </li>
                 <li>
@@ -106,7 +106,7 @@
                 </li>
                 <li>
                     <div class="op1">
-                        <button class="btn_cafe_info" type="button" onclick="info_move('member')"
+                        <button id="article_btn_2" class="btn_cafe_info" type="button" onclick="info_move('member')"
                             onclick="member_login_info($id)">나의활동</button>
                     </div>
                 </li>
@@ -188,7 +188,7 @@
 
             <? if ($authority == 2) { ?>
                 <div class="btn-group">
-                    <span>카테고리 추가/제거</span>
+                    <span><img alt="가위" src="/assets/images/cut.png" width="15" height="15">카테고리 추가/제거</span>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#addCategoryModal">+</button>
                     <button type="button" id="delete_category" class="btn btn-primary" data-bs-toggle="modal"
@@ -199,13 +199,13 @@
             <!-- foreach문돌리기 -->
             <div id="category_list">
                 <div id="all_list">
-                    <a href="/layout/full_board_list">전체글보기</a>
+                    <img alt="카테고리이미지" src="/assets/images/category_img.png" width="15" height="15"><a href="/layout/full_board_list">전체글보기</a>
                 </div>
                 <ul id="category_move">
                     <? foreach ($category_list as $category) { ?>
                         <? if ($category->category_num != 0) { ?>
                             <li id="category_list_style_none">
-                                <a
+                            <img alt="카테고리이미지" src="/assets/images/category_img.png" width="15" height="15"><a
                                     href="/board/board_list?name=<?= $category->category_name ?>&num=<?= $category->category_num ?>">
                                     <?= $category->category_name ?>
                                 </a>
@@ -216,7 +216,7 @@
             </div>
 
             <div id="date_board">
-                <span>최근게시글</span>
+                <span><img alt="최근게시글이미지" src="/assets/images/date_board.png" width="15" height="15"> 최근게시글</span>
                 <? foreach ($date_board as $board) { ?>
                     <ul class="board_tttt">
                         <li><a

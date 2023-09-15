@@ -1,10 +1,10 @@
 /* 메인조정 */
 #datail_body{
     float: right;
-    margin-right: 320px;
-    background-color: gainsboro;
-    width: 880px;
+    margin: 10px 320px auto auto;
     height: 100%;
+    width: 860px;
+    border: 1px solid gainsboro;
 }
 /* 왼쪽상단 카테고리 이동 위치조정 */
 #detail_category_title{
@@ -73,9 +73,6 @@
 #detail_heart ul li{
     display: inline-block;
 }
-.edit_recomment_id{
-
-}
 /* 댓글 타이틀 버튼 점제거 */
 #detail_comment ul{
     list-style: none;
@@ -104,23 +101,24 @@
 }
 .detail_comments_member{
     position: relative;
-    border-bottom: 1px solid rgba(126, 126, 126, 0.527);
-    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(95, 89, 89, 0.527);
+    background-color: #e5e5e7;
+    padding-top: 10px;
 }
 #detail_comments_write{
     border-radius: 10px;
     background-color: white;
     width: 830px;
-    height: 180px;
-    margin: 10px auto 10px 25px;
+    height: 170px;
+    margin: 10px auto 10px 10px;
 }
 #detail_comments_write_name{
     padding: 15px;
 }
 #detail_comments_write_text{
     margin: auto auto auto 22px;
-    height: 75px;
-    width: 780px;
+    height: 30px;
+    width: 500px;
     border: none;
 }
 /* 작성자 색상 굵기변경 */
@@ -135,7 +133,7 @@
     display: none;
 }
 #detail_comments_write_text_submit{
-    margin: 10px 15px auto auto;
+    margin: 40px 15px auto 20px;
     font-size: 10px;
     float: right;
 }
@@ -149,6 +147,12 @@
     width:850px;
     margin:15px auto;
     border: none;
+}
+#detail_footer_btn_group{
+    clear: both;
+    float: right;
+    margin-right: 190px;
+    width: 860px;
 }
 #detail_footer_btn_group ul{
     list-style: none;
@@ -181,6 +185,7 @@
     margin: 10px auto auto auto;
     text-align: right;
     font-size: 12px;
+    border-bottom: 1px solid gainsboro;
 }
 #semi_list ul{
     list-style: none;
@@ -188,11 +193,11 @@
 #semi_list ul li{
     display: inline-block;
 }
-#semi_title{
-    margin: auto auto 30px 30px;
-}
 #semi_first{
     float: left;
+}
+#semo_title{
+    font-weight: bold;
 }
 #semi_middle{
     margin-right: 300px;
@@ -213,6 +218,7 @@
 }
 .comment-container{
     font-size: 12px;
+    padding-top: 10px;
 }
 .comment-container button{
     width:70px;
@@ -236,4 +242,35 @@
 }
 .detail_footer_btn_right{
     float: right;
+}
+#detail_comments_file{
+    display: none;
+}
+.comments_poto img{
+    margin-top: -20px;
+}
+.comment_btnss{
+    float: right;
+}
+#semi_list_list{
+    font-size: 12px;
+    clear: both;
+    width: 860px;
+    float: right;
+    margin-right: 170px;
+}
+.comment_btnss{
+    margin:-40px auto auto auto;
+}
+#detail_previewImage img{
+    width:50px;
+    height: 50px;
+}
+.detail_comment_btn_right{
+    float: right;
+}
+.comment_boxing{
+    text-align: center;
+    padding: 70px;
+    color: gainsboro;
 }

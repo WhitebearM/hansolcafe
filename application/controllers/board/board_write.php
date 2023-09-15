@@ -20,9 +20,11 @@ class board_write extends CI_Controller
     {
         $write = 1;
         $id = $this->session->userdata("id");
+        $authority = $this->session->userdata("authority");
         if ($id) {
             $data['write'] = $write;
             $data['result'] = $this->board_write_model->list_category();
+            $data['authority'] = $authority;
             $this->load->view("/board/board_write_view", $data);
         } else {
             echo "<script>
@@ -35,6 +37,7 @@ class board_write extends CI_Controller
     {
         $write = 2;
         $id = $this->session->userdata("id");
+        $authority = $this->session->userdata("authority");
         $board_num = $this->input->get("board_num");
 
         $result = $this->board_write_model->modify_sel_board($board_num);
@@ -42,6 +45,7 @@ class board_write extends CI_Controller
             $data['write'] = $write;
             $data['result'] = $this->board_write_model->list_category();
             $data['board'] = $result;
+            $data['authority'] = $authority;
             $this->load->view("/board/board_write_view", $data);
         } else {
             echo "<script>
@@ -52,9 +56,11 @@ class board_write extends CI_Controller
     }
 
     // 답글 이동페이지
-    function reply_board_view(){
+    function reply_board_view()
+    {
         $write = 3;
         $id = $this->session->userdata("id");
+        $authority = $this->session->userdata("authority");
         if ($id) {
             $num = $this->input->get("num");
             $parent_board_info = $this->board_write_model->parent_board_info($num);
@@ -63,6 +69,7 @@ class board_write extends CI_Controller
             $data['article_num'] = $num;
             $data['write'] = $write;
             $data['result'] = $this->board_write_model->list_category();
+            $data['authority'] = $authority;
             $this->load->view("/board/board_write_view", $data);
         } else {
             echo "<script>
@@ -75,12 +82,6 @@ class board_write extends CI_Controller
         $this->form_validation->set_rules('category_pick', 'category_pick', 'required');
         $this->form_validation->set_rules('title', 'title', 'required');
         $this->form_validation->set_rules('content', 'content', 'required');
-
-        $config['upload_path'] = './fileupload/'; //업로드 경로
-        $config['allowed_types'] = '*'; //모든 파일허용
-        $config['max_size'] = 2048; //파일 사이즈
-        $config['encrypt_name'] = false; //파일 암호화
-
 
         if ($this->form_validation->run() == false) {
             echo "<script>
@@ -102,58 +103,90 @@ class board_write extends CI_Controller
                 $title = $this->input->post("title"); // 제목
                 $title = html_escape($title);
                 $content = $this->input->post("content"); //내용
-                $fileupload = $this->input->post("fileupload"); //파일업로드
+                $cleaned_content = str_replace("&nbsp;", ' ', $content);
+                $cleaned_content = str_replace("<p>", ' ', $cleaned_content);
+                $cleaned_content = str_replace("</p>", ' ', $cleaned_content);
+                $cleaned_content = trim($cleaned_content); // 문자열 앞뒤의 공백 제거
+                $length = strlen($cleaned_content);
+                if ($length == 0) {
+                    echo "<script>
+                    alert('내용을 입력해주세요!');
+                    location.href='/board/board_write';</script>";
+                } else {
+                    $fileupload = $this->input->post("fileupload"); //파일업로드
 
-                if ($gongji == "on") {
-                    $gongji = 2;
-                }
-                if ($dcsr == "on") {
-                    $dcsr = 2;
-                }
-
-                $write_board_data = $this->board_write_model->create_board($id, $gongji, $dcsr, $category, $title, $content); //게시판 업로드
-                $category_num = $write_board_data['category_num'];
-                $article_num = $write_board_data['article_num'];
-                
-                $original_file_name = $_FILES['file']['name'];
-                $save_file_name = $article_num."_".$original_file_name;
-                $this->db->trans_complete();
-
-                //파일업로드 부분
-                if (!empty($_FILES['file']['name'])) {
-                    
-                    $this->load->library('upload', $config);
-                    
-                    if (!$this->upload->do_upload('file')) { //파일을 넣지않았거나 업로드가 안된경우
-                        $data = $this->upload->data();
-                        $error = array('error' => $this->upload->display_errors());
-                        print_r($error);
-                    } else {
-                        echo "업로드성공 들어가기";
-                        $data = $this->upload->data();
-                        $file_path = $data['full_path'];//풀 파일경로
-
-                        // 파일업로드 테이블에 insert
-                        $this->board_write_model->fileupload($article_num,$file_path,$original_file_name,$save_file_name);
+                    if ($gongji == "on") {
+                        $gongji = 2;
+                    }
+                    if ($dcsr == "on") {
+                        $dcsr = 2;
                     }
 
+                    $write_board_data = $this->board_write_model->create_board($id, $gongji, $dcsr, $category, $title, $content); //게시판 업로드
+                    $category_num = $write_board_data['category_num'];
+                    $article_num = $write_board_data['article_num'];
 
-                }
-                if ($this->db->trans_status() === FALSE) {
+                    // $original_file_name = $_FILES['file']['name'];
+                    // $save_file_name = $article_num . "_" . $original_file_name;
+                    $this->db->trans_complete();
+
+                    $config['upload_path'] = './fileupload/'; //업로드 경로
+                    $config['allowed_types'] = '*'; //모든 파일허용
+                    $config['max_size'] = 2048; //파일 사이즈
+                    $config['encrypt_name'] = false; //파일 암호화
+
+
+                    //파일업로드 부분
+                    if (!empty($_FILES['file']['name'])) {
+
+
+                        $files = $_FILES['file'];
+
+                        foreach ($files['name'] as $key => $filename) {
+                            $this->load->library('upload', $config);
+
+                            $_FILES['file']['name'] = $files['name'][$key];
+                            $_FILES['file']['type'] = $files['type'][$key];
+                            $_FILES['file']['tmp_name'] = $files['tmp_name'][$key];
+                            $_FILES['file']['error'] = $files['error'][$key];
+                            $_FILES['file']['size'] = $files['size'][$key];
+                            if (!$this->upload->do_upload('file')) { //파일을 넣지않았거나 업로드가 안된경우
+                                $data = $this->upload->data();
+                                $error = array('error' => $this->upload->display_errors());
+                                print_r($error);
+                            } else {
+                                echo "업로드성공 들어가기";
+                                $data = $this->upload->data();
+                                $file_path = $data['full_path']; //풀 파일경로
+                                $wep_root = "C:/cloneproject/ci";
+                                $file_path = str_replace($wep_root, "", $file_path);
+
+                                $original_file_name = $_FILES['file']['name'];
+                                $save_file_name = $article_num . "_" . $original_file_name;
+                                // 파일업로드 테이블에 insert
+                                $this->board_write_model->fileupload($article_num, $file_path, $original_file_name, $save_file_name);
+                            }
+                        }
+
+
+                    }
+                    if ($this->db->trans_status() === FALSE) {
+                        echo "<script>
+                        alert('알수없는 오류가 발생했습니다.');
+                        location.href='/login/login';</script>";
+                    }
                     echo "<script>
-                    alert('알수없는 오류가 발생했습니다.');
-                    location.href='/login/login';</script>";
-                }
-                echo "<script>
-                alert('글이 작성 되었습니다');
-                location.href='/board/board_detail?category=$category_num&board_num=$article_num';</script>";
+                    alert('글이 작성 되었습니다');
+                    location.href='/board/board_detail?category=$category_num&board_num=$article_num';</script>";
 
-               
+                }
+
             } else {
                 echo "<script>
                 alert('오류발생');
                 location.href='/login/login';</script>";
             }
+
 
         }
     }
@@ -165,10 +198,6 @@ class board_write extends CI_Controller
         $this->form_validation->set_rules('title', 'title', 'required');
         $this->form_validation->set_rules('content', 'content', 'required');
 
-        $config['upload_path'] = './fileupload/'; //업로드 경로
-        $config['allowed_types'] = '*'; //모든 파일허용
-        $config['max_size'] = 2048; //파일 사이즈
-        $config['encrypt_name'] = false; //파일 암호화
 
 
         if ($this->form_validation->run() == false) {
@@ -188,12 +217,12 @@ class board_write extends CI_Controller
                 if (!$this->input->post("disclosure")) {
                     $dcsr = 1;
                 }
-                
+
                 $category = $this->input->post("category_pick"); //카테고리
                 $title = $this->input->post("title"); // 제목
                 $title = html_escape($title);
                 $content = $this->input->post("content"); //내용
-                
+
                 $fileupload = $this->input->post("fileupload"); //파일업로드
 
                 if ($gongji == "on") {
@@ -204,28 +233,49 @@ class board_write extends CI_Controller
                 }
 
                 $modify_board_data = $this->board_write_model->board_modify($board_num, $gongji, $dcsr, $category, $title, $content); //게시판 업로드
-                
 
-                $original_file_name = $_FILES['file']['name'];
-                $save_file_name = $board_num."_".$original_file_name;
+
+                // $original_file_name = $_FILES['file']['name'];
+                // $save_file_name = $board_num . "_" . $original_file_name;
                 $this->db->trans_complete();
 
                 //파일업로드 부분
-                if (!empty($_FILES['file']['name'])) {
-                    
-                    $this->load->library('upload', $config);
-                    
-                    if (!$this->upload->do_upload('file')) { //업로드에 실패한경우
-                        $data = $this->upload->data();
-                        $error = array('error' => $this->upload->display_errors());
-                        print_r($error);
-                    } else {
-                        echo "업로드성공 들어가기";
-                        $data = $this->upload->data();
-                        $file_path = $data['full_path'];//풀 파일경로
+                $config['upload_path'] = './fileupload/'; //업로드 경로
+                $config['allowed_types'] = '*'; //모든 파일허용
+                $config['max_size'] = 2048; //파일 사이즈
+                $config['encrypt_name'] = false; //파일 암호화
 
-                        // 파일업로드 테이블에 update
-                        $this->board_write_model->fileupload_update($board_num,$file_path,$original_file_name,$save_file_name);
+
+                //파일업로드 부분
+                if (!empty($_FILES['file']['name'])) {
+
+
+                    $files = $_FILES['file'];
+
+                    foreach ($files['name'] as $key => $filename) {
+                        $this->load->library('upload', $config);
+
+                        $_FILES['file']['name'] = $files['name'][$key];
+                        $_FILES['file']['type'] = $files['type'][$key];
+                        $_FILES['file']['tmp_name'] = $files['tmp_name'][$key];
+                        $_FILES['file']['error'] = $files['error'][$key];
+                        $_FILES['file']['size'] = $files['size'][$key];
+                        if (!$this->upload->do_upload('file')) { //파일을 넣지않았거나 업로드가 안된경우
+                            $data = $this->upload->data();
+                            $error = array('error' => $this->upload->display_errors());
+                            print_r($error);
+                        } else {
+                            echo "업로드성공 들어가기";
+                            $data = $this->upload->data();
+                            $file_path = $data['full_path']; //풀 파일경로
+                            $wep_root = "C:/cloneproject/ci";
+                            $file_path = str_replace($wep_root, "", $file_path);
+
+                            $original_file_name = $_FILES['file']['name'];
+                            $save_file_name = $board_num . "_" . $original_file_name;
+                            // 파일업로드 테이블에 insert
+                            $this->board_write_model->fileupload_update($board_num, $file_path, $original_file_name, $save_file_name);
+                        }
                     }
 
 
@@ -272,15 +322,11 @@ class board_write extends CI_Controller
         }
     }
 
-    function reply_board_write(){
+    function reply_board_write()
+    {
         $this->form_validation->set_rules('category_pick', 'category_pick', 'required');
         $this->form_validation->set_rules('title', 'title', 'required');
         $this->form_validation->set_rules('content', 'content', 'required');
-
-        $config['upload_path'] = './fileupload/'; //업로드 경로
-        $config['allowed_types'] = '*'; //모든 파일허용
-        $config['max_size'] = 2048; //파일 사이즈
-        $config['encrypt_name'] = false; //파일 암호화
 
 
         if ($this->form_validation->run() == false) {
@@ -292,7 +338,7 @@ class board_write extends CI_Controller
             $id = $this->session->userdata("id");
             if ($id) {
 
-                $parent_num = $this->input->post("parent_num"); 
+                $parent_num = $this->input->post("parent_num");
                 $gongji = $this->input->post("announcement"); //공지사항권한
                 $dcsr = $this->input->post("disclosure"); // 공개범위
                 if (!$this->input->post("announcement")) {
@@ -315,34 +361,52 @@ class board_write extends CI_Controller
                 }
 
                 // 답글 쓰기로 수정해야할부분
-                $write_board_data = $this->board_write_model->reply_write_board($id, $gongji, $dcsr, $category, $title, $content,$parent_num); //게시판 업로드
+                $write_board_data = $this->board_write_model->reply_write_board($id, $gongji, $dcsr, $category, $title, $content, $parent_num); //게시판 업로드
                 $category_num = $write_board_data['category_num'];
                 $article_num = $write_board_data['article_num'];
-                
-                $original_file_name = $_FILES['file']['name'];
-                $save_file_name = $article_num."_".$original_file_name;
+
                 $this->db->trans_complete();
 
                 //파일업로드 부분
+                //파일업로드 부분
+                $config['upload_path'] = './fileupload/'; //업로드 경로
+                $config['allowed_types'] = '*'; //모든 파일허용
+                $config['max_size'] = 2048; //파일 사이즈
+                $config['encrypt_name'] = false; //파일 암호화
                 if (!empty($_FILES['file']['name'])) {
-                    
-                    $this->load->library('upload', $config);
-                    
-                    if (!$this->upload->do_upload('file')) { //업로드에 실패한경우
-                        $data = $this->upload->data();
-                        $error = array('error' => $this->upload->display_errors());
-                        print_r($error);
-                    } else {
-                        echo "업로드성공 들어가기";
-                        $data = $this->upload->data();
-                        $file_path = $data['full_path'];//풀 파일경로
 
-                        // 파일업로드 테이블에 insert
-                        $this->board_write_model->fileupload($article_num,$file_path,$original_file_name,$save_file_name);
+
+                    $files = $_FILES['file'];
+
+                    foreach ($files['name'] as $key => $filename) {
+                        $this->load->library('upload', $config);
+
+                        $_FILES['file']['name'] = $files['name'][$key];
+                        $_FILES['file']['type'] = $files['type'][$key];
+                        $_FILES['file']['tmp_name'] = $files['tmp_name'][$key];
+                        $_FILES['file']['error'] = $files['error'][$key];
+                        $_FILES['file']['size'] = $files['size'][$key];
+                        if (!$this->upload->do_upload('file')) { //파일을 넣지않았거나 업로드가 안된경우
+                            $data = $this->upload->data();
+                            $error = array('error' => $this->upload->display_errors());
+                            print_r($error);
+                        } else {
+                            echo "업로드성공 들어가기";
+                            $data = $this->upload->data();
+                            $file_path = $data['full_path']; //풀 파일경로
+                            $wep_root = "C:/cloneproject/ci";
+                            $file_path = str_replace($wep_root, "", $file_path);
+
+                            $original_file_name = $_FILES['file']['name'];
+                            $save_file_name = $article_num . "_" . $original_file_name;
+                            // 파일업로드 테이블에 insert
+                            $this->board_write_model->fileupload($article_num, $file_path, $original_file_name, $save_file_name);
+                        }
                     }
 
 
                 }
+
                 if ($this->db->trans_status() === FALSE) {
                     echo "<script>
                     alert('알수없는 오류가 발생했습니다.');
@@ -352,7 +416,7 @@ class board_write extends CI_Controller
                 alert('글이 작성 되었습니다');
                 location.href='/board/board_detail?category=$category_num&board_num=$article_num';</script>";
 
-               
+
             } else {
                 echo "<script>
                 alert('오류발생');

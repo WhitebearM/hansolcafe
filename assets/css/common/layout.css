@@ -1,7 +1,6 @@
 body{
     width:1440px;
     margin: 0 auto;
-    /* background-color: #b36D4C; */
 }
 hr{
     clear: both;
@@ -54,34 +53,33 @@ a{
     color: black;
 }
 /* 회원가입 로그인 회원정보수정 로그아웃 (부트스트랩) */
-.btn-outline-secondary{
+.layout_main_member_btn{
     width:90px;
     height: 35px;
     font-size: 5px;
 }
-#banner img{
-    border-radius: 6px;
-}
 /* 헤더검색창 */
 #hdsearch{
     clear: both;
+    width: 1080px;
+    float: right;
+}
+#header_search_form{
     float: right;
 }
 /* 헤더검색창 검색텍스트칸 조절 */
 #sh_text{
     margin-right: -6px;
-    border-radius: 1px;
     width: 220px;
     height: 33px;
 }
 /* 검색창 버튼 */
 .sh_btn{
     width:65px;
-    height:34.5px;
+    height:35px;
+    background-color: #F4E3DC;
+    color:black;
     border: none;
-    background-color: rgb(231, 138, 32);
-    border-radius: 10px;
-    box-shadow: 5px 5px 10px 5px #dadce0;
 }
 .btn-outline-success{
     width:90px;
@@ -92,19 +90,22 @@ a{
     font-size: 12px;
 }
 #article{
+    margin-top: 10px;
+    border-top: 2px solid #333;
     text-align: center;
     float:left;
     width:200px;
     height: 100%;
-    background-color: #c48466;
-    border-radius: 10px;
+    background-color: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 .member_btn_cafebtn{
     list-style: none;
     margin-left: -30px;
 }
 .op1 button{
-    background-color: #c48466;
+    background-color: white;
 }
 .member_btn_cafebtn li{
     display: inline-block;
@@ -129,23 +130,31 @@ a{
 }
 /* 사이드 카페 글쓰기 위치조정 */
 #main_write{
-    padding-top: 15px;
+    padding-top: 10px;
+    border-top: 2px solid #333;
     text-align: center;
-    margin: auto auto auto auto;
+    margin: auto auto 10px auto;
     clear: both;
     width: 200px;
+    height: 40px;
     font-size: 12px;
+    background-color: #5a5a5a;
+}
+#main_write a{
+    color: rgb(255, 255, 255);
 }
 /* 사이드 카페 글쓰기 호버시 효과 */
 #main_write a:hover{
-    color:white;
+    color:rgb(116, 223, 255);
     transition: 0.75s;
 }
 /* 전체글보기 위치조정 */
 #all_list{
+    padding: 15px;
     text-align: center;
     font-size: 12px;
-    margin: 35px auto 15px auto;
+    height: 50px;
+    border-bottom: 1px solid #e5e5e5;
 }
 #all_list a:hover{
     color:rgba(243, 130, 24, 0.781);
@@ -153,7 +162,6 @@ a{
 }
 /* 카테고리 추가제거 버튼 위치조정 */
 .btn-group{
-    margin-bottom: 15px;
     float: right;
 }
 .btn-group span{
@@ -163,7 +171,8 @@ a{
 /* 카테고리 추가제거버튼 커스텀 */
 .btn-primary{
     font-weight: bold;
-    background-color: #c48466;
+    background-color: gray;
+    color: black;
     border:none;
 }
 .btn-primary:hover{
@@ -174,8 +183,10 @@ a{
 #category_list{
     clear: both;
     font-size: 12px;
-    border-radius: 10px;
     width:200px;
+    margin: 70px auto 7px auto;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
 }
 #category_list a:hover{
     color:rgba(243, 130, 24, 0.781);
@@ -193,7 +204,6 @@ a{
 }
 .btn_cafe_info{
     border:none;
-    background-color: white;
 }
 /* 카테고리 추가 가운데 정렬 */
 #addCategoryModal{
@@ -207,7 +217,6 @@ a{
 #category_name{
     text-align: center;
     border: 2px solid black;
-    border-radius: 10px;
     background-color: rgba(202, 202, 202, 0.877);
     color: black;
 }
@@ -225,7 +234,6 @@ a{
     text-align: center;
     margin-bottom: 20px;
     border:none;
-    border-radius: 10px;
     width: 300px;
     height: 35px;
 }
@@ -244,14 +252,14 @@ a{
     margin-right: 150px;;
 }
 #date_board{
-    background-color: rgba(212, 106, 7, 0.781);
+    background-color: #c7c7c77e;
     width:200px;
-    margin-top: 50px;
     font-weight: bold;
 }
 #date_board ul{
     list-style: none;
     font-size: 12px;
+    height: 20px;
 }
 .board_tttt li{
     margin-left: -30px;
@@ -265,8 +273,8 @@ a{
     font-weight: bold;
 }
 .member_delete{
-    font-size: 14px;
+    font-size: 12px;
 }
 .member_delete a{
-    color: white;
+    color: black;
 }

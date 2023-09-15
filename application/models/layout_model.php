@@ -120,28 +120,30 @@ class layout_model extends CI_Model
 
     function main_list_pagi($limit, $offset)
     {
-        $sql = $this->db->query("select
-        board.*,
-        COALESCE(comment_counts.comment_count, 0) AS comment_count,
-        COALESCE(heart_counts.heart_count, 0) AS heart_count,
-        fileupload.file_path
+        $sql = $this->db->query("select 
+    board.*,
+    COALESCE(comment_counts.comment_count, 0) AS comment_count,
+    COALESCE(heart_counts.heart_count, 0) AS heart_count,
+    COALESCE(GROUP_CONCAT(fileupload.file_path SEPARATOR ', '), '') AS file_path
     FROM
-        board
+    board
     LEFT JOIN (
-        SELECT article_num, COUNT(*) AS comment_count
-        FROM comments
-        GROUP BY article_num
+    SELECT article_num, COUNT(*) AS comment_count
+    FROM comments
+    GROUP BY article_num
     ) AS comment_counts ON board.article_num = comment_counts.article_num
     LEFT JOIN (
-        SELECT article_num, COUNT(*) AS heart_count
-        FROM heart
-        GROUP BY article_num
+    SELECT article_num, COUNT(*) AS heart_count
+    FROM heart
+    GROUP BY article_num
     ) AS heart_counts ON board.article_num = heart_counts.article_num
     LEFT JOIN fileupload ON board.article_num = fileupload.article_num
     WHERE
-        board.board_status = 1
+    board.board_status = 1
+    GROUP BY
+    board.article_num
     ORDER BY
-        board.write_date DESC
+    board.write_date DESC
     LIMIT $offset, $limit;
     
         ");
@@ -159,7 +161,8 @@ class layout_model extends CI_Model
 
     }
 
-    function main_board_search($option1,$option2,$title,$limit,$offset){
+    function main_board_search($option1, $option2, $title, $limit, $offset)
+    {
         $start_date = null;
         $end_date = date('Y-m-d');
 
@@ -180,21 +183,21 @@ class layout_model extends CI_Model
         WHERE board.board_status = 1
         ";
 
-        if($option1 == "all"){
+        if ($option1 == "all") {
             // $sql .= " and '$start_date' <= board.write_date";
-        }else if($option1 == "1_day"){
-            $start_date = date('Y-m-d',strtotime('-1 day',strtotime($end_date)));
-        }else if($option1 == "1_week"){
-            $start_date = date('Y-m-d',strtotime('-1 week',strtotime($end_date)));
-        }else if($option1 == "1_months"){
-            $start_date = date('Y-m-d',strtotime('-1 month',strtotime($end_date)));
-        }else if($option1 == "6_months"){
-            $start_date = date('Y-m-d',strtotime('-6 months',strtotime($end_date)));
-        }else if($option1 == "1_year"){
-            $start_date = date('Y-m-d',strtotime('-1 year',strtotime($end_date)));
+        } else if ($option1 == "1_day") {
+            $start_date = date('Y-m-d', strtotime('-1 day', strtotime($end_date)));
+        } else if ($option1 == "1_week") {
+            $start_date = date('Y-m-d', strtotime('-1 week', strtotime($end_date)));
+        } else if ($option1 == "1_months") {
+            $start_date = date('Y-m-d', strtotime('-1 month', strtotime($end_date)));
+        } else if ($option1 == "6_months") {
+            $start_date = date('Y-m-d', strtotime('-6 months', strtotime($end_date)));
+        } else if ($option1 == "1_year") {
+            $start_date = date('Y-m-d', strtotime('-1 year', strtotime($end_date)));
         }
 
-        if(!empty($start_date)){
+        if (!empty($start_date)) {
             $sql .= " and board.write_date between '$start_date' and '$end_date'";
         }
 
@@ -214,59 +217,59 @@ class layout_model extends CI_Model
 
         $query = $this->db->query($sql);
 
-        if($query->num_rows() > 0){
+        if ($query->num_rows() > 0) {
             return $query->result();
-        }else{
+        } else {
             return array();
         }
     }
     function main_board_search_count($option1, $option2, $title)
-{
-    $start_date = null;
-    $end_date = date('Y-m-d');
+    {
+        $start_date = null;
+        $end_date = date('Y-m-d');
 
-    $this->db->select('COUNT(*) AS result_count');
-    $this->db->from('board');
-    $this->db->join('comments', 'board.article_num = comments.article_num', 'left');
-    $this->db->where('board.board_status', 1);
+        $this->db->select('COUNT(*) AS result_count');
+        $this->db->from('board');
+        $this->db->join('comments', 'board.article_num = comments.article_num', 'left');
+        $this->db->where('board.board_status', 1);
 
-    if ($option1 == "1_day") {
-        $start_date = date('Y-m-d', strtotime('-1 day', strtotime($end_date)));
-    } else if ($option1 == "1_week") {
-        $start_date = date('Y-m-d', strtotime('-1 week', strtotime($end_date)));
-    } else if ($option1 == "1_months") {
-        $start_date = date('Y-m-d', strtotime('-1 month', strtotime($end_date)));
-    } else if ($option1 == "6_months") {
-        $start_date = date('Y-m-d', strtotime('-6 months', strtotime($end_date)));
-    } else if ($option1 == "1_year") {
-        $start_date = date('Y-m-d', strtotime('-1 year', strtotime($end_date)));
+        if ($option1 == "1_day") {
+            $start_date = date('Y-m-d', strtotime('-1 day', strtotime($end_date)));
+        } else if ($option1 == "1_week") {
+            $start_date = date('Y-m-d', strtotime('-1 week', strtotime($end_date)));
+        } else if ($option1 == "1_months") {
+            $start_date = date('Y-m-d', strtotime('-1 month', strtotime($end_date)));
+        } else if ($option1 == "6_months") {
+            $start_date = date('Y-m-d', strtotime('-6 months', strtotime($end_date)));
+        } else if ($option1 == "1_year") {
+            $start_date = date('Y-m-d', strtotime('-1 year', strtotime($end_date)));
+        }
+
+        if (!empty($start_date)) {
+            $this->db->where("board.write_date BETWEEN '$start_date' AND '$end_date'");
+        }
+
+        if ($option2 == "board_comment") {
+            $this->db->group_start();
+            $this->db->like('board.title', $title);
+            $this->db->or_like('board.content', $title);
+            $this->db->or_like('comments.content', $title);
+            $this->db->group_end();
+        } elseif ($option2 == "title") {
+            $this->db->like('board.title', $title);
+        } elseif ($option2 == "board_writer") {
+            $this->db->like('board.user_id', $title);
+        } elseif ($option2 == "content") {
+            $this->db->like('comments.content', $title);
+        } elseif ($option2 == "comment_writer") {
+            $this->db->like('comments.user_id', $title);
+        }
+
+        $query = $this->db->get();
+        $row = $query->row();
+
+        return $row->result_count;
     }
-
-    if (!empty($start_date)) {
-        $this->db->where("board.write_date BETWEEN '$start_date' AND '$end_date'");
-    }
-
-    if ($option2 == "board_comment") {
-        $this->db->group_start();
-        $this->db->like('board.title', $title);
-        $this->db->or_like('board.content', $title);
-        $this->db->or_like('comments.content', $title);
-        $this->db->group_end();
-    } elseif ($option2 == "title") {
-        $this->db->like('board.title', $title);
-    } elseif ($option2 == "board_writer") {
-        $this->db->like('board.user_id', $title);
-    } elseif ($option2 == "content") {
-        $this->db->like('comments.content', $title);
-    } elseif ($option2 == "comment_writer") {
-        $this->db->like('comments.user_id', $title);
-    }
-
-    $query = $this->db->get();
-    $row = $query->row();
-
-    return $row->result_count;
-}
 
     function header_search_count($search_title)
     {

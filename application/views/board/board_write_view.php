@@ -26,7 +26,7 @@
     </div>
     <a href="/layout">
         <div id="banner">
-        <img src="/assets/images/banner.jpg" width="1175px" height="300px">
+            <img src="/assets/images/banner.jpg" width="1175px" height="300px">
         </div>
     </a>
     <div id="write_title">
@@ -66,10 +66,12 @@
             </div>
             <hr>
 
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" name="announcement" id="announcementCheckbox">
-                <label class="form-check-label" for="announcementCheckbox">공지사항 등록</label>
-            </div>
+            <? if ($authority == 2) { ?>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" name="announcement" id="announcementCheckbox">
+                    <label class="form-check-label" for="announcementCheckbox">공지사항 등록</label>
+                </div>
+            <? } ?>
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" name="disclosure" id="disclosureCheckbox">
                 <label class="form-check-label" for="disclosureCheckbox">전체공개(비회원)</label>
@@ -77,7 +79,7 @@
             <div class="filebox">
                 <!-- 파일업로드 -->
                 <label for="fileupload">파일 업로드</label>
-                <input type="file" name="file" id="fileupload" onchange="fileName()">
+                <input type="file" name="file[]" id="fileupload" onchange="fileName()" multiple>
                 <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 취소됩니다.</div>
                 <span id="file_info"></span>
             </div>
@@ -125,11 +127,12 @@
             </div>
             <hr>
             <input type="hidden" name="board_num" value="<?= $board->article_num ?>">
-
+            <? if ($authority == 2) { ?>
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" name="announcement" id="announcementCheckbox">
                 <label class="form-check-label" for="announcementCheckbox">공지사항 등록</label>
             </div>
+            <?}?>
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" name="disclosure" id="disclosureCheckbox">
                 <label class="form-check-label" for="disclosureCheckbox">전체공개(비회원)</label>
@@ -137,7 +140,7 @@
             <div class="filebox">
                 <!-- 파일업로드 -->
                 <label for="fileupload">파일 업로드</label>
-                <input type="file" name="file" id="fileupload" onchange="fileName()">
+                <input type="file" name="file[]" id="fileupload" onchange="fileName()" multiple>
                 <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 취소됩니다.</div>
                 <span id="file_info"></span>
             </div>
@@ -182,11 +185,12 @@
                 </ul>
             </div>
             <hr>
-
+            <? if ($authority == 2) { ?>
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" name="announcement" id="announcementCheckbox">
                 <label class="form-check-label" for="announcementCheckbox">공지사항 등록</label>
             </div>
+            <?}?>
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" name="disclosure" id="disclosureCheckbox">
                 <label class="form-check-label" for="disclosureCheckbox">전체공개(비회원)</label>
@@ -194,7 +198,7 @@
             <div class="filebox">
                 <!-- 파일업로드 -->
                 <label for="fileupload">파일 업로드</label>
-                <input type="file" name="file" id="fileupload" onchange="fileName()">
+                <input type="file" name="file[]" id="fileupload" onchange="fileName()" multiple>
                 <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 취소됩니다.</div>
                 <span id="file_info"></span>
             </div>

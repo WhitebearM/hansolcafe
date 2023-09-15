@@ -70,7 +70,7 @@ hr{
 .filebox{
     clear: both;
     float: right;
-    margin: -50px 15px 50px auto;
+    margin: -30px 15px 50px auto;
 }
 .filebox label {
     display: inline-block;

@@ -66,11 +66,17 @@ document.addEventListener("DOMContentLoaded", function () {
 function info_move($num) {
     var cafe_info = document.getElementById('cafe_info');
     var member_info = document.getElementById('member_info');
+    var article_btn1 = document.getElementById('article_btn_1');
+    var article_btn2 = document.getElementById('article_btn_2');
 
     if ($num === 'cafe') {
         cafe_info.style.display = 'block';
         member_info.style.display = 'none';
+        article_btn1.style.fontWeight = 'bold';
+        article_btn2.style.fontWeight = 'normal';
     } else if ($num === 'member') {
+        article_btn1.style.fontWeight = 'normal';
+        article_btn2.style.fontWeight = 'bold';
         $.ajax({
             url: '/layout/ck_login',
             method: 'GET',

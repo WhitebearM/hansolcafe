@@ -1,7 +1,7 @@
 // tinymce 에디터
 document.addEventListener("DOMContentLoaded", function () {
     tinymce.init({
-        selector: 'textarea',
+        selector: '#f_content',
         width: 1260,
         images_upload_url: '/upload',//컨트롤러
         images_upload_base_path: '/uploads',//실제 업로드 되는위치
@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
             width: 800, // 최대 이미지 폭
             height: 600 // 최대 이미지 높이
         },
+        
 
 
         file_picker_callback: function (callback, value, meta) {
@@ -79,25 +80,31 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
+
 });
 
 // 에디터 content값 가져오기
 tinymce.init({
     selector: "#f_content",
-  });
+});
 
 //돌아가는함수
 function goBack() {
     window.history.back();
 }
 
+// 파일첨부 했을때 파일이름 출력
 function fileName() {
     const fileInput = document.getElementById("fileupload");
     const fileInfo = document.getElementById("file_info");
 
     if (fileInput.files.length > 0) {
-        const fileName = fileInput.files[0].name;
-        fileInfo.textContent = fileName;
+        let fileNames= [];
+        for(let i = 0; i < fileInput.files.length; i++){
+            fileNames.push(fileInput.files[i].name);
+        }
+        fileInfo.textContent = fileNames.join(', ');
+
     } else {
         fileInfo.textContent = '';
     }

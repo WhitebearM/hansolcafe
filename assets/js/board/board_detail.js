@@ -22,6 +22,8 @@ $(document).ready(function () {
         });
     });
 
+
+
     // 공지글로 변경
     $("#gongji_btn").click(function () {
         var changeMainStatus = $('#detail_article_num').val();
@@ -41,12 +43,13 @@ $(document).ready(function () {
         }
     });
     // 댓글작성
-    $("#detail_comments_write").submit(function (event) {
+/*     $("#detail_comments_write").submit(function (event) {
         event.preventDefault();
         var commentText = $('#detail_comments_write_text').val();
         var article_Num = $('#comment_article_num').val();
         var user_Id = $('#comment_user_id').val();
         var parent_Id = $('#comment_post_parent_id').val();
+        var detail_comment_file = $('#detail_comments_file').val();
 
         $.ajax({
             type: "POST",
@@ -55,7 +58,8 @@ $(document).ready(function () {
                 commenttext: commentText,
                 article_num: article_Num,
                 user_id: user_Id,
-                parent_Id: parent_Id
+                parent_Id: parent_Id,
+                detail_comment_file: detail_comment_file
             },
             success: function (response) {
                 location.reload();
@@ -64,7 +68,7 @@ $(document).ready(function () {
                 alert("댓글 등록중 오류가 발생했습니다.");
             }
         });
-    });
+    }); */
 
     // 댓글 삭제
     $(".detail_comments_sub_btn2").click(function (event) {
@@ -117,13 +121,36 @@ $(document).ready(function () {
 
     // 답게시글 달기
     $(".reply_board").click(function (event) {
-        
+
         var detail_article_num = $('#detail_article_num').val();
 
         window.location.href = '/board/board_write/reply_board_view?num=' + detail_article_num;
     });
 
-
+    //댓글 이미지 첨부
+    document.getElementById('detail_comments_file').addEventListener('change', function () {
+        const previewImage = document.getElementById('detail_previewImage');
+        const file = this.files[0];
+        const allowedExtensions = /\.(jpg|jpeg|png)$/i;
+    
+        if (file && allowedExtensions.test(file.name)) {
+            const reader = new FileReader();
+    
+            reader.addEventListener('load', function () {
+                previewImage.innerHTML = `<img src="${this.result}" alt="Uploaded Image" />`;
+                previewImage.style.display = 'block';
+                previewImage.style.maxWidth = '100px';
+                previewImage.style.height = '100px';
+            });
+    
+            reader.readAsDataURL(file);
+        } else {
+            alert("허용하지 않은 파일 형식입니다. jpg, jpeg, png 파일만 업로드 가능합니다.");
+            previewImage.innerHTML = ''; // 이미지 제거
+            previewImage.style.display = 'none';
+        }
+    });
+    
 });
 
 // 댓글 열리고 닫기
@@ -176,7 +203,7 @@ function comment_update($comment_num) {
 
 }
 
-function comments_reupdate(value,e){
+function comments_reupdate(value, e) {
     e.preventDefault();
     var boardNum = $('#detail_article_num').val();
     var categoryNum = $('#board_detail_category_num').val();

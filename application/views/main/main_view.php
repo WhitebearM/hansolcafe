@@ -12,7 +12,7 @@
             <div class="board_title">
                 <ul>
                     <li>
-                        <h5>전체 글보기</h5>
+                        <h6>전체 글보기</h6>
                     </li>
                     <li id="main_title_move_btn"><a href="/layout/full_board_list">더보기 ></a></li>
                 </ul>
@@ -58,37 +58,39 @@
                             <? } ?>
                             <?}?>
                             <? foreach ($result as $board) { ?>
-                            <ul class="board_list">
-                                <li id="board_num" class="text-center col-1">
-                                    <?= $board->article_num ?>
-                                </li>
-                                <li id="board_write_title" class="text-center col-4"><a
-                                        href="/board/board_detail?category=<?= $board->category_num ?>&board_num=<?= $board->article_num ?>">
-                                        <?= $board->title ?>
-                                    </a>
-                                    <? if (!$board->file_path == "") { ?>
-                                        <img src="/assets/images/fileimg.png" width="20px" height="20px">
-                                    <? } ?>
-                                    <? if (strpos($board->content, "<img")) { ?>
-                                        <img src="/assets/images/img.png" width="20px" height="20px">
-                                    <? } ?>
-                                    <? if ($board->comment_count != 0) { ?>
-                                        <span class="title_right_color">[<?= $board->comment_count ?>]</span>
-                                    <? } ?>
-                                </li>
-                                <li id="board_write_name" class="text-center col-2">
-                                    <?= $board->user_id ?>
-                                </li>
-                                <li id="board_comment" class="text-center col-1">
-                                    <?= $board->comment_count ?>
-                                </li>
-                                <li id="board_date" class="text-center col-2">
-                                    <?= date('Y-m-d', strtotime($board->write_date)) ?>
-                                </li>
-                                <li id="board_heart" class="text-center col-1">
-                                    <?= $board->heart_count ?>
-                                </li>
-                            </ul>
+                            <div class="main_board_list">
+                                <ul class="board_list">
+                                    <li id="board_num" class="text-center col-1">
+                                        <?= $board->article_num ?>
+                                    </li>
+                                    <li id="board_write_title" class="text-center col-4"><a
+                                            href="/board/board_detail?category=<?= $board->category_num ?>&board_num=<?= $board->article_num ?>">
+                                            <?= $board->title ?>
+                                        </a>
+                                        <? if (!$board->file_path == "") { ?>
+                                            <img src="/assets/images/fileimg.png" width="20px" height="20px">
+                                        <? } ?>
+                                        <? if (strpos($board->content, "<img")) { ?>
+                                            <img src="/assets/images/img.png" width="20px" height="20px">
+                                        <? } ?>
+                                        <? if ($board->comment_count != 0) { ?>
+                                            <span class="title_right_color">[<?= $board->comment_count ?>]</span>
+                                        <? } ?>
+                                    </li>
+                                    <li id="board_write_name" class="text-center col-2">
+                                        <?= $board->user_id ?>
+                                    </li>
+                                    <li id="board_comment" class="text-center col-1">
+                                        <?= $board->comment_count ?>
+                                    </li>
+                                    <li id="board_date" class="text-center col-2">
+                                        <?= date('Y-m-d', strtotime($board->write_date)) ?>
+                                    </li>
+                                    <li id="board_heart" class="text-center col-1">
+                                        <?= $board->heart_count ?>
+                                    </li>
+                                </ul>
+                            </div>
                             <? } ?>
                     </div>
                 </div>
@@ -100,7 +102,7 @@
         <!-- 전체글보기 카테고리 클릭했을경우 -->
         <div class="board_main">
             <div class="board_title">
-                <h5>전체 글보기</h5>
+                <h6>전체 글보기</h6>
             </div>
 
             <div>
@@ -120,21 +122,21 @@
                             <? if ($gong->main_status == 2 && $gong->board_status == 1) { ?>
                                 <div id="main_status_move">
                                     <ul>
-                                        <li id="main_status" class="text-center col-1">공지</li>
-                                        <li id="main_title" class="text-center col-5">
+                                        <li id="main_status" class="text-center">공지</li>
+                                        <li id="main_title" class="text-center">
                                             <a
                                                 href="/board/board_detail?category=<?= $gong->category_num ?>&board_num=<?= $gong->article_num ?>"><?= $gong->title ?></a>
                                         </li>
-                                        <li id="main_name" class="text-center col-1">
+                                        <li id="main_name" class="text-center">
                                             <?= $gong->user_id ?>
                                         </li>
-                                        <li id="main_common" class="text-center col-2">
+                                        <li id="main_common" class="text-center">
                                             <?= $gong->comment_count ?>
                                         </li>
-                                        <li id="main_te" class="text-center col-1">
+                                        <li id="main_day">
                                             <?= date('Y-m-d', strtotime($gong->write_date)) ?>
                                         </li>
-                                        <li id="main_heart" class="text-center col-2">
+                                        <li id="main_heart" class="text-center">
                                             <?= $gong->heart_count ?>
                                         </li>
                                     </ul>
@@ -143,6 +145,7 @@
                         <? } ?>
                         <? foreach ($result as $board) { ?>
                             <? if ($board->board_status == 1) { ?>
+                                <div class="main_board_list">
                                 <ul class="board_list">
                                     <li id="board_num" class="text-center col-1">
                                         <?= $board->article_num ?>
@@ -174,6 +177,7 @@
                                         <?= $board->heart_count ?>
                                     </li>
                                 </ul>
+                                </div>
                             <? } ?>
                         <? } ?>
                 </div>

@@ -10,17 +10,18 @@
 /* 메인 콘텐츠 위치조정 */
 .board_main{
     font-size: 12px;
-    margin: 30px 320px auto auto;
-    width: 880px;
-    background-color: rgb(240, 238, 238);
+    margin: 45px 320px auto auto;
+    width: 860px;
+    background-color: white;
 }
-/* #board_num{
-    width: 30px;
-    text-align: right;
-} */
+.main_board_list{
+    padding-top: 10px;
+    border-bottom: 1px solid gainsboro;
+}
 /* 메인 타이틀 위치조정 */
 .board_title{
     margin: 15px 15px;
+    border-top: 1px solid #999;
 }
 .board_title ul{
     list-style: none;
@@ -29,6 +30,7 @@
     display: inline-block;
 }
 #main_title_move_btn{
+    color:#999;
     float: right;
 }
 /* 게시물 리스트 기준 */
@@ -40,8 +42,6 @@
 /* 게시글 밑줄 및 조정 */
 .board_list{
     list-style: none;
-    height: 40px;
-    border-bottom: 1px solid gainsboro;
 }
 .board_list li{
     display: inline-block;
@@ -69,10 +69,11 @@
 } */
 /* 공지 칸 위치조정 */
 #main_status_move{
-    margin: 15px auto 15px -12px;
     border-bottom: 1px solid gainsboro;
     color:red;
     font-weight: bold;
+    padding-top: 15px;
+    background-color: #f9f9f8;
 }
 /* 공지칸 리스트 점제거 */
 #main_status_move ul{
@@ -92,38 +93,35 @@
     color: white;
 }
 /* 공지 제목 */
-/* #main_title{
+#main_title{
     text-align: center;
     width:335px;
-} */
+}
 #main_title a{
     color:red;
 }
 /* 공지 작성자 */
-/* #main_name{
-    width:190px;
+#main_name{
+    width:80px;
     text-align: center;
-    padding-left: 30px;
-} */
+}
 #main_name a{
     color:red;
 }
 /* 공지 댓글 */
-/* #main_common{
+#main_common{
     text-align: center;
-    width:25px;
-    padding-left: 17px;
+    width:125px;
 }
-/* 공지 작성일 */ */
-/* #main_te{
-    text-align: center;
-    width: 180px;
-    padding-left: 7px;
-} */
+/* 공지 작성일 */
+#main_day{
+    padding-left: 10px;
+    width: 100px;
+}
 /* 공지 좋아요 */
-/* #main_heart{
-    padding-left: 5px;
-} */
+#main_heart{
+    width: 88px;
+}
 .main_view_pagination{
     text-align: center;
     margin: 15px auto auto auto;
@@ -141,9 +139,12 @@
 .board_btn_right{
     margin-left: 350px;
 }
+.board_btn_right a button{
+    font-size: 7px;
+}
 /* 하단 검색창 */
 #main_board_search{
-    margin-right: 320px;
+    margin:auto  320px 30px auto;
     width:880px;
     height: 100px;
     float: right;

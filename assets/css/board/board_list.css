@@ -1,7 +1,7 @@
 .title_Benchmark{
     font-weight: bold;
-    margin:50px auto 20px auto;
-    border-bottom: 1px solid gainsboro;
+    margin:20px auto auto auto;
+    padding-top: 15px;
 }
 .title_Benchmark ul{
     list-style: none;
@@ -12,16 +12,15 @@
 /* 메인 콘텐츠 위치조정 */
 .board_main{
     font-size: 12px;
-    margin: 30px 320px auto auto;
-    width: 880px;
-    background-color: rgb(240, 238, 238);
-}
-
-.category_list li{
-    display: inline-block;
+    margin: 45px 320px auto auto;
+    width: 860px;
+    background-color: white;
 }
 .category{
-    margin-top: 30px;
+    border-top: 1px solid gainsboro;
+}
+.category_list li{
+    display: inline-block;
 }
 /* 게시물 제목 옵션 조정 */
 #board_optin{
@@ -73,7 +72,8 @@
 }
 /* 게시물 제목 */
 #board_write_title{
-    text-align: center;
+    text-align: left;
+    padding-left: 50px;
     display: inline-block;
     width:320px;
     font-size: 12px;
@@ -103,6 +103,7 @@
 }
 #footer_button{
   float: right;
+  width:880px;
 }
 /* 페이지 네이션 위치조정 */
 #pagenation{
@@ -111,7 +112,10 @@
 }
 #footer_option{
     width:865px;
+    height: 30px;
     text-align: center;
+    padding-top: 7px;
+    margin: 0 auto;
 }
 /* 하단 옵션 인라인 */
 #footer_option li{
@@ -126,10 +130,12 @@
     display: inline-block;
 }
 .main_gongji{
+    border-top: 1px solid gainsboro;
     border-bottom: 1px solid gainsboro;
     font-weight: bold;
     color: red;
-    margin-top: 15px;
+    background-color: #f2f2f2;
+    padding-top: 15px;
 }
 /* 공지 아이콘 조정 */
 #main_status_b{
@@ -185,6 +191,7 @@
 }
 /* 하단 검색창 위치조정 및 크기 조정 */
 #category_board_search{
+    margin: 50px auto;
     width: 880px;
     height: 100px;
     float: right;
@@ -208,8 +215,7 @@
     float: right;
 }
 .board_btn_right button{
-    height: 20px;
-    width: 70px;
+    font-size: 7px;
     line-height: 10px;
 }
 .right_right{
@@ -222,4 +228,12 @@
     visibility: hidden;
     text-align: center;
     width: 90px;
+}
+.board_list_btn{
+    font-size: 8px;
+}
+/* 답글 숨기기 */
+.reply_link{
+    font-size: 7px;
+    color: #fc5d5d;
 }

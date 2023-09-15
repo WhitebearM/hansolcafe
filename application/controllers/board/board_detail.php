@@ -42,19 +42,19 @@ class board_detail extends CI_Controller
                 $comments_num = $comments_num[0]->comments_count;
 
                 //해당 게시글 댓글 불러오기
-                  if (isset($_GET['comments_val']) && isset($_GET['board_num'])) {
-                      $comments_val = $this->input->get("comments_val");
+                if (isset($_GET['comments_val']) && isset($_GET['board_num'])) {
+                    $comments_val = $this->input->get("comments_val");
 
-                      if ($comments_val == '최신순') {
-                          $comments = $this->board_detail_model->re_new_comments_list($board_num);
-                      } else if ($comments_val == '등록순') {
-                          $comments = $this->board_detail_model->re_write_comments_list($board_num);
-                      }
-                  } else {
-                $comments = $this->board_detail_model->board_comment($board_num);
+                    if ($comments_val == '최신순') {
+                        $comments = $this->board_detail_model->re_new_comments_list($board_num);
+                    } else if ($comments_val == '등록순') {
+                        $comments = $this->board_detail_model->re_write_comments_list($board_num);
+                    }
+                } else {
+                    $comments = $this->board_detail_model->board_comment($board_num);
                 }
                 //하단 해당 게시글의 게시글 최근글 5개
-                $mini_list = $this->board_detail_model->board_semi_list($board_num);
+                $mini_list = $this->board_detail_model->board_semi_list($category);
 
                 $file_info = $this->board_detail_model->get_board_file_info($board_num);
 
@@ -132,11 +132,17 @@ class board_detail extends CI_Controller
                 )
             );
         } else if ($board_detail_info == "") {
-            redirect($this->agent->referrer());
+            echo "<script>
+            alert('오류가 발생했습니다.');
+            history.back();</script>";
         } else if (!isset($board_detail_info->disclosure)) {
-            redirect($this->agent->referrer());
+            echo "<script>
+            alert('오류가 발생했습니다.');
+            history.back();</script>";
         } else {
-            redirect($this->agent->referrer());
+            echo "<script>
+            alert('로그인후 확인가능합니다.');
+            history.back();</script>";
         }
     }
     // 게시글 삭제 (실제삭제아님)
@@ -169,18 +175,41 @@ class board_detail extends CI_Controller
     // 댓글작성
     function add_comment()
     {
-        $this->form_validation->set_rules('commenttext', 'commenttext', 'required');
+        $this->form_validation->set_rules('detail_comments_write_text', 'detail_comments_write_text', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             redirect("/board/board_detail", "refresh");
         } else {
-            $comment_content = $this->input->post("commenttext");
+            $comment_content = $this->input->post("detail_comments_write_text");
             $comment_content = html_escape($comment_content);
             $comment_user_id = $this->input->post("user_id");
             $comment_article_num = $this->input->post("article_num");
+            $comment_parent_id = $this->input->post("parent_Id");
+            $detail_comment_file = $this->input->post("detail_comment_file");
 
+            //댓글이미지 업로드부분
+            $config['upload_path'] = './comment_image/'; //경로
+            $config['allowed_types'] = 'gif|jpg|png'; //허용할 타입
+            $config['max_size'] = 250;
 
-            $this->board_detail_model->write_comment($comment_content, $comment_user_id, $comment_article_num, $comment_parent_id);
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('detail_comment_file')) { //파일을 넣지않았거나 업로드가 안된경우
+                $data = $this->upload->data();
+                $image_path = "";
+
+                $this->board_detail_model->write_comment($comment_content, $comment_user_id, $comment_article_num, $comment_parent_id, $image_path);
+            } else {
+                $data = $this->upload->data();
+                $image_path = $data['full_path']; //풀 파일경로
+                $wep_root = "C:/cloneproject/ci";
+                $image_path = str_replace($wep_root, "", $image_path);
+
+                // 파일업로드 테이블에 insert
+                $this->board_detail_model->write_comment($comment_content, $comment_user_id, $comment_article_num, $comment_parent_id, $image_path);
+
+            }
+
+            redirect($this->agent->referrer());
         }
     }
     // 댓글삭제
@@ -214,7 +243,8 @@ class board_detail extends CI_Controller
                 'category_num' => $category_num,
                 'board_num' => $board_num
             );
-            echo json_encode($response);
+            echo "<script>
+            location.href='/board/board_detail?category=$category_num&board_num=$board_num';</script>";
         }
     }
 

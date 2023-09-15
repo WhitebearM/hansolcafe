@@ -16,7 +16,7 @@ class board_list extends CI_Controller
 
     function index()
     {
-        $division = 1;
+        $division = true;
 
         $category_name = $this->input->get("name");
         $category_num = $this->input->get("num");
@@ -167,7 +167,7 @@ class board_list extends CI_Controller
 
         if (isset($_POST['selected_board']) && is_array($_POST['selected_board']) && count($_POST['selected_board']) > 0) {
             $selected_board = $this->input->post("selected_board");
-
+            
             foreach ($selected_board as $board) {
                 $this->board_list_model->select_board_delete($board, $category_num);
             }

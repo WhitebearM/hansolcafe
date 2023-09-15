@@ -13,22 +13,22 @@
                 <div>
                     <div class="category_list">
                         <? if ($authority == 2) { ?>
-                            <span class="category">
+                            <div class="category">
                                 <h6>
                                     <?= $category_name ?>
                                 </h6>
-                            </span>
+                            </div>
                         <? } else if ($authority == 1) { ?>
-                                <span class="category">
+                                <div class="category">
                                     <h6>
                                     <?= $category_name ?>
                                     </h6>
                             <? } else { ?>
-                                    <span class="category">
+                                    <div class="category">
                                         <h6>
                                         <?= $category_name ?>
                                         </h6>
-                                    </span>
+                                    </div>
                             <? } ?>
                             <div class="right_right">
 
@@ -40,11 +40,11 @@
                                 </span>
                                 <? if ($authority == 2 && isset($id)) { ?>
                                     <span><button type="button" id="category_modify2"
-                                            class="btn btn-outline-secondary top_modify_category" data-bs-toggle="modal"
-                                            data-bs-target="#staticBackdrop_k">이동</button>
+                                            class="btn btn btn-success top_modify_category board_list_btn"
+                                            data-bs-toggle="modal" data-bs-target="#staticBackdrop_k">이동</button>
                                     </span>
                                     <span><button type="button" id="header_select_delete_btn"
-                                            class="btn btn-outline-secondary">삭제</button>
+                                            class="btn btn btn-danger board_list_btn">삭제</button>
                                     </span>
                                 <? } ?>
 
@@ -125,7 +125,7 @@
                                 <? foreach ($result as $board) { ?>
 
                                     <div class="board_list">
-                                        <? if ($authority == 2 && isset($id)) { ?>
+                                    <? if ($authority == 2 && isset($id)) { ?>
                                             <span id="board_check">
                                                 <input type="checkbox" value="<?= $board->article_num ?>"
                                                     name="selected_board[]" class="postcheckbox">
@@ -160,6 +160,12 @@
                                                 <? } ?>
                                                 <?= $board->title ?>
                                             </a>
+                                            <input type="hidden" class="reply_linker" data-grp="<?=$board->grp?>" data-depth="<?=$board->depth?>">
+                                            <!-- 답글 숨기기 버튼 -->
+                                            <? if ($board->child_count != 0 && $board->depth == 0) { ?>
+                                                <a class="reply_link" href="#" data-grp="<?=$board->grp?>" data-depth="<?=$board->depth?>">답글 숨기기 ▲</a>
+                                            <? } ?>
+                                            <? ?>
                                             <? if (!$board->file_path == "") { ?>
                                                 <img src="/assets/images/fileimg.png" width="20px" height="20px">
                                             <? } ?>
@@ -206,18 +212,16 @@
                 </li>
                 <li class="board_btn_right">
                     <? if ($authority == 2 && isset($id)) { ?>
-                        <button type="button" id="category_modify1" class="btn btn-outline-secondary" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop_k">이동</button>
-                        <button type="submit" class="btn btn-outline-secondary" id="list_board_delete">삭제</button>
+                        <button type="button" id="category_modify1" class="btn btn btn-warning board_list_btn"
+                            data-bs-toggle="modal" data-bs-target="#staticBackdrop_k">이동</button>
+                        <button type="submit" class="btn btn btn-success board_list_btn" id="list_board_delete">삭제</button>
                     <? } ?>
                     <? if (isset($id)) { ?>
-                        <a href="/board/board_write"><button type="button" class="btn btn-outline-secondary"
+                        <a href="/board/board_write"><button type="button" class="btn btn btn-danger board_list_btn"
                                 id="list_board_write">글쓰기</button></a>
                     <? } ?>
                 </li>
             </ul>
-
-
             </form>
         </div>
 
