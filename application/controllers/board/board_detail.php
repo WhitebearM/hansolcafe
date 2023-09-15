@@ -281,24 +281,33 @@ class board_detail extends CI_Controller
         $category_num = $this->input->post("category_num");
         $comment_num = $this->input->post("detail_comment_num");
 
-        if ($this->form_validation->run() == FALSE) {
+        if (isset($_POST['limit_depth'])) {
+            $limit_depth = $this->input->post("limit_depth");
+        }
+
+        if ($limit_depth < 12) {
+            if ($this->form_validation->run() == FALSE) {
             echo "<script>
             alert('오류 발생.');
             location.href='/board/board_detail?category=$category_num&board_num=$article_num';</script>";
-        } else {
-            $id = $this->session->userdata("id");
+            } else {
+                $id = $this->session->userdata("id");
 
-            $recomment_content = $this->input->post("detail_recomment_content");
-            $recomment_content = html_escape($recomment_content);
-            $recomment_parentId = $this->input->post("recomment_parentID");
+                $recomment_content = $this->input->post("detail_recomment_content");
+                $recomment_content = html_escape($recomment_content);
+                $recomment_parentId = $this->input->post("recomment_parentID");
 
 
-            $this->board_detail_model->recomment_write($recomment_parentId, $recomment_content, $comment_num, $id, $article_num);
+                $this->board_detail_model->recomment_write($recomment_parentId, $recomment_content, $comment_num, $id, $article_num);
 
+                echo "<script>
+            location.href='/board/board_detail?category=$category_num&board_num=$article_num';</script>";
+            }
+        }else{
             echo "<script>
+            alert('답글은 11개까지만 작성 가능합니다.');
             location.href='/board/board_detail?category=$category_num&board_num=$article_num';</script>";
         }
-
     }
 
     // 첨부파일 다운로드

@@ -152,8 +152,7 @@ class board_write extends CI_Controller
                             $_FILES['file']['size'] = $files['size'][$key];
                             if (!$this->upload->do_upload('file')) { //파일을 넣지않았거나 업로드가 안된경우
                                 $data = $this->upload->data();
-                                $error = array('error' => $this->upload->display_errors());
-                                print_r($error);
+
                             } else {
                                 echo "업로드성공 들어가기";
                                 $data = $this->upload->data();
@@ -262,8 +261,7 @@ class board_write extends CI_Controller
                         $_FILES['file']['size'] = $files['size'][$key];
                         if (!$this->upload->do_upload('file')) { //파일을 넣지않았거나 업로드가 안된경우
                             $data = $this->upload->data();
-                            $error = array('error' => $this->upload->display_errors());
-                            print_r($error);
+
                         } else {
                             echo "업로드성공 들어가기";
                             $data = $this->upload->data();
@@ -388,8 +386,7 @@ class board_write extends CI_Controller
                         $_FILES['file']['size'] = $files['size'][$key];
                         if (!$this->upload->do_upload('file')) { //파일을 넣지않았거나 업로드가 안된경우
                             $data = $this->upload->data();
-                            $error = array('error' => $this->upload->display_errors());
-                            print_r($error);
+
                         } else {
                             echo "업로드성공 들어가기";
                             $data = $this->upload->data();

@@ -46,16 +46,18 @@
 .board_list li{
     display: inline-block;
 }
-/* 게시물 제목
+/* 게시물 제목*/
 #board_write_title{
-    padding-left: 15px;
-    width:500px;
-    text-align: left;
-} */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /* 게시물 작성자 */
-/* #board_write_name{
-    width:120px;
-} */
+#board_write_name{
+    white-space: nowrap;
+    overflow : hidden;
+    text-overflow: ellipsis;
+}
 /* 게시물 댓글수 */
 /* #board_comment{
     width:65px;
@@ -96,6 +98,9 @@
 #main_title{
     text-align: center;
     width:335px;
+    white-space: nowrap;
+    overflow : hidden;
+    text-overflow: ellipsis;
 }
 #main_title a{
     color:red;
@@ -145,8 +150,9 @@
 /* 하단 검색창 */
 #main_board_search{
     margin:auto  320px 30px auto;
-    width:880px;
+    width: 880px;
     height: 100px;
+    font-size: 12px;
     float: right;
     text-align: center;
     background-color: gainsboro;
@@ -156,4 +162,30 @@
 }
 .title_right_color{
     color:rgb(243, 134, 10);
+}
+#main_pagination{
+    font-size: 12px;
+}
+#main_footer_go{
+    outline-color: white;
+}
+
+.btn-16:hover {
+    color: #000;
+}
+.custom-btn {
+    font-size: 10px;
+    width: 45px;
+    height: 20px;
+    color: #fff;
+    border-radius: 5px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
 }

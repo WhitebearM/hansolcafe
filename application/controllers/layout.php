@@ -43,10 +43,10 @@ class layout extends CI_Controller
         //문제없이 받아옴
         $per_page = $config['per_page'] = 10;
         $config['num_links'] = 1;
-
         $config['page_query_string'] = true; //쿼리스트링 변환
-
         $config['query_string_segment'] = 'page';
+        $config['first_link'] = '처음으로';
+        $config['last_link'] = '마지막으로';
 
         $this->pagination->initialize($config);
 

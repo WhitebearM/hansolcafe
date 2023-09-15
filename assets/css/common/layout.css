@@ -63,6 +63,7 @@ a{
     clear: both;
     width: 1080px;
     float: right;
+    
 }
 #header_search_form{
     float: right;
@@ -72,6 +73,7 @@ a{
     margin-right: -6px;
     width: 220px;
     height: 33px;
+    outline-color: white;
 }
 /* 검색창 버튼 */
 .sh_btn{
@@ -263,6 +265,9 @@ a{
 }
 .board_tttt li{
     margin-left: -30px;
+    white-space: nowrap;
+    overflow : hidden;
+    text-overflow: ellipsis;
 }
 .layout_content{
     width:1580px;

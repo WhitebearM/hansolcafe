@@ -131,7 +131,7 @@ $(document).ready(function () {
     document.getElementById('detail_comments_file').addEventListener('change', function () {
         const previewImage = document.getElementById('detail_previewImage');
         const file = this.files[0];
-        const allowedExtensions = /\.(jpg|jpeg|png)$/i;
+        const allowedExtensions = /\.(jpg|jpeg|png|gif)$/i;
     
         if (file && allowedExtensions.test(file.name)) {
             const reader = new FileReader();
@@ -145,7 +145,7 @@ $(document).ready(function () {
     
             reader.readAsDataURL(file);
         } else {
-            alert("허용하지 않은 파일 형식입니다. jpg, jpeg, png 파일만 업로드 가능합니다.");
+            alert("허용하지 않은 파일 형식입니다. jpg, jpeg, png, gif 파일만 업로드 가능합니다.");
             previewImage.innerHTML = ''; // 이미지 제거
             previewImage.style.display = 'none';
         }

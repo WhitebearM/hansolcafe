@@ -63,6 +63,9 @@
 .member_activity_title {
     text-align: center;
     width: 420px;
+    white-space: nowrap;
+    overflow : hidden;
+    text-overflow: ellipsis;
 }
 
 .member_activity_date {
@@ -99,6 +102,9 @@
 .member_activity_board_comment {
     text-align: center;
     width: 155px;
+    white-space: nowrap;
+    overflow : hidden;
+    text-overflow: ellipsis;
 }
 .member_activity_date_comment{
     text-align: right;

@@ -115,16 +115,16 @@
                 <li>
                     <a href="#" class="heart_up" data-article="<?= $board->article_num ?>">
                         <? if ($heart_check == false) { ?>
-                            <img src="/assets/images/null_heart.png" width="25" height="25">
+                            <img src="/assets/images/null_heart.png" width="20" height="20">
                         <? } else { ?>
-                            <img src="/assets/images/full_heart.png" width="25" height="25">
+                            <img src="/assets/images/full_heart.png" width="20" height="20">
                         <? } ?>
                     </a>좋아요<span class="heart_count">
                         <?= $heart_num ?>
                     </span>
                 </li>
                 <li>
-                    <img src="/assets/images/comment_img.png" width="25" height="25">
+                    <img src="/assets/images/comment_img.png" width="20" height="20">
                     <span>댓글
                         <?= $comments_num ?>
                     </span>
@@ -164,14 +164,16 @@
                                 <? } else { ?>
                                 <? } ?>
                             </li>
-                            <p>
-                                <?= $comment->content ?>
-                                <? if ($comment->img_path != "") { ?>
-                                    <img src="<?= $comment->img_path ?>" width="75" height="75">
-                                <? } else { ?>
+                            <div class="detail_comment_content_style">
+                                <p>
+                                    <?= $comment->content ?>
+                                    <? if ($comment->img_path != "") { ?>
+                                        <img src="<?= $comment->img_path ?>" width="75" height="75">
+                                    <? } else { ?>
 
-                                <? } ?>
-                            </p>
+                                    <? } ?>
+                                </p>
+                            </div>
                             <ul>
                                 <li>
                                     <?= date('Y-m-d H:i', strtotime($comment->write_date)) ?>
@@ -219,6 +221,7 @@
                         <form id="detail_recomment_write_form" action="/board/board_detail/board_recomment_writes"
                             method="post">
                             <div>
+                                <input type="hidden" name="limit_depth" value="<?= $comment->depth ?>">
                                 <input type="hidden" name="category_num" id="ctct1" value="<?= $category->category_num ?>">
                                 <input type="hidden" name="article_number" value="<?= $board->article_num ?>">
                                 <input type="hidden" name="detail_comment_num" value="<?= $comment->comment_num ?>">
@@ -228,8 +231,7 @@
                                 <h5 class="edit_recomment_id">
                                     <?= $user_id ?>
                                 </h5>
-                                <input type="text" name="detail_recomment_content" class="detail_recomment_content"
-                                    placeholder="답글">
+                                <textarea name="detail_recomment_content" class="detail_recomment_content"></textarea>
                                 <button type="submit" class="btn btn-secondary reedit_btn">등록</button>
                             </div>
                         </form>
@@ -252,14 +254,14 @@
                         <div class="comment_box">
                             <ul>
                                 <li><span id="detail_previewImage"></span></li>
-                                <li><input id="detail_comments_write_text" type="text" name="detail_comments_write_text"
-                                        placeholder="댓글을 남겨보세요."></li>
+                                <li><textarea id="detail_comments_write_text"
+                                        name="detail_comments_write_text"></textarea></textarea></li>
                                 <ul class="detail_comment_btn_right">
                                     <li><label for="detail_comments_file" class="comments_poto">
                                             <img src="/assets/images/comment_camera.png" alt="alt" width="25" height="25">
                                         </label>
                                         <input type="file" name="detail_comment_file" id="detail_comments_file"
-                                            accept=".jpg, .jpeg, .png">
+                                            accept=".jpg, .jpeg, .png, .gif">
                                     </li>
                                     <li><button type="submit" class="btn btn-secondary"
                                             id="detail_comments_write_text_submit">등록</button></li>

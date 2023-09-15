@@ -77,12 +77,18 @@
     display: inline-block;
     width:320px;
     font-size: 12px;
+    white-space: nowrap;
+    overflow : hidden;
+    text-overflow: ellipsis;
 }
 /* 게시물 작성자 */
 #board_write_name{
     text-align: center;
     display: inline-block;
     width:180px;
+    white-space: nowrap;
+    overflow : hidden;
+    text-overflow: ellipsis;
 }
 /* 게시물 댓글수 */
 #board_comment{
@@ -145,6 +151,9 @@
     background-color: red;
     border: 1px solid red;
     color: white;
+    white-space: nowrap;
+    overflow : hidden;
+    text-overflow: ellipsis;
 }
 /* 공지 제목 */
 #main_title_b{
@@ -236,4 +245,27 @@
 .reply_link{
     font-size: 7px;
     color: #fc5d5d;
+}
+#footer_search_gogo{
+    outline-color: white;
+}
+
+.btn-16:hover {
+    color: #000;
+}
+.custom-btn {
+    font-size: 10px;
+    width: 45px;
+    height: 20px;
+    color: #fff;
+    border-radius: 5px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
 }

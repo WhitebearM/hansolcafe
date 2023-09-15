@@ -116,10 +116,12 @@
     padding: 15px;
 }
 #detail_comments_write_text{
-    margin: auto auto auto 22px;
     height: 30px;
-    width: 500px;
+    width: 550px;
+    height: 70px;
     border: none;
+    resize: none;
+    outline-color: white;
 }
 /* 작성자 색상 굵기변경 */
 #detail_comment_write_name{
@@ -195,6 +197,11 @@
 }
 #semi_first{
     float: left;
+    width: 350px;
+    white-space: nowrap;
+    overflow : hidden; 
+    text-overflow: ellipsis;
+    text-align: left;
 }
 #semo_title{
     font-weight: bold;
@@ -273,4 +280,14 @@
     text-align: center;
     padding: 70px;
     color: gainsboro;
+}
+/* 답글 textarea */
+.detail_recomment_content{
+    width:650px;
+    resize: none;
+}
+/* 댓글 내용 줄바꿈 */
+.detail_comment_content_style{
+    white-space:normal;
+    width: 526px;
 }

@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    
     const submitButton = document.getElementById("submitCategory");
     const categoryForm = document.getElementById("categoryForm");
 

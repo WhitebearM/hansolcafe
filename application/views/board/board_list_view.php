@@ -183,7 +183,7 @@
                                             </span>
                                         </span>
                                         <span id="board_write_name" class="text-center">
-                                            <?= $board->user_id ?>
+                                            <a href="/member/member_activity"><?= $board->user_id ?></a>
                                         </span>
                                         <span id="board_comment" class="text-center">
                                             <?= $board->comment_count ?>
@@ -243,12 +243,11 @@
                     <option value="content">댓글내용</option>
                     <option value="comment_writer">댓글 작성자</option>
                 </select>
-
                 <input type="hidden" name="footer_search_categoryNum" value="<?= $category_num ?>">
                 <input type="hidden" name="footer_search_categoryName" value="<?= $category_name ?>">
-
+                
                 <input type="text" name="board_footer_search" id="footer_search_gogo">
-                <button type="submit">검색</button>
+                <button class="custom-btn btn-16" type="submit">검색</button>
             </form>
         </div>
 

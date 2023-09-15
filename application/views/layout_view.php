@@ -36,7 +36,8 @@
                     <li><a href="/member/memberform"><button type="button"
                                 class="btn btn btn-success layout_main_member_btn">회원가입</button></a>
                     </li>
-                    <li><a href="/login/login"><button type="button" class="btn btn btn-danger layout_main_member_btn">로그인</button></a></li>
+                    <li><a href="/login/login"><button type="button"
+                                class="btn btn btn-danger layout_main_member_btn">로그인</button></a></li>
                 </ul>
                 </a>
             </div>
@@ -78,7 +79,7 @@
 
         <!-- 배너부분 -->
         <div id="banner">
-            <img src="/assets/images/banner.jpg" width="1080x" height="300px">
+            <a href="/layout"><img src="/assets/images/banner.jpg" width="1080x" height="300px"></a>
         </div>
 
         <!-- 검색창 -->
@@ -96,7 +97,8 @@
             <ul class="member_btn_cafebtn">
                 <li>
                     <div class="op1">
-                        <button id="article_btn_1" class="btn_cafe_info" type="button" onclick="info_move('cafe')">카페정보</button>
+                        <button id="article_btn_1" class="btn_cafe_info" type="button"
+                            onclick="info_move('cafe')">카페정보</button>
                     </div>
                 </li>
                 <li>
@@ -199,13 +201,14 @@
             <!-- foreach문돌리기 -->
             <div id="category_list">
                 <div id="all_list">
-                    <img alt="카테고리이미지" src="/assets/images/category_img.png" width="15" height="15"><a href="/layout/full_board_list">전체글보기</a>
+                    <img alt="카테고리이미지" src="/assets/images/category_img.png" width="15" height="15"><a
+                        href="/layout/full_board_list">전체글보기</a>
                 </div>
                 <ul id="category_move">
                     <? foreach ($category_list as $category) { ?>
                         <? if ($category->category_num != 0) { ?>
                             <li id="category_list_style_none">
-                            <img alt="카테고리이미지" src="/assets/images/category_img.png" width="15" height="15"><a
+                                <img alt="카테고리이미지" src="/assets/images/category_img.png" width="15" height="15"><a
                                     href="/board/board_list?name=<?= $category->category_name ?>&num=<?= $category->category_num ?>">
                                     <?= $category->category_name ?>
                                 </a>

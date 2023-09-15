@@ -98,8 +98,9 @@ class layout_model extends CI_Model
         board.*,
         COALESCE(comment_counts.comment_count, 0) AS comment_count,
         COALESCE(heart_counts.heart_count, 0) AS heart_count,
-        fileupload.file_path 
-        FROM board
+        COALESCE(GROUP_CONCAT(fileupload.file_path SEPARATOR ', '), '') AS file_path
+        FROM
+        board
         LEFT JOIN (
         SELECT article_num, COUNT(*) AS comment_count
         FROM comments
@@ -111,7 +112,12 @@ class layout_model extends CI_Model
         GROUP BY article_num
         ) AS heart_counts ON board.article_num = heart_counts.article_num
         LEFT JOIN fileupload ON board.article_num = fileupload.article_num
-        order by board.write_date desc
+        WHERE
+        board.board_status = 1
+        GROUP BY
+        board.article_num
+        ORDER BY
+        board.write_date DESC
         limit 10
         ");
 

@@ -186,7 +186,7 @@
         <div id="footer_btn">
             <ul id="footer_option">
                 <li>
-                    <?= $pagination ?>
+                    <span id="main_pagination"><?= $pagination ?></span>
                 </li>
                 <li class="board_btn_right">
                     <a href="/board/board_write"><button type="button" class="btn btn-outline-secondary">글쓰기</button></a>
@@ -214,7 +214,7 @@
                 </select>
 
                 <input type="text" name="board_footer_search" id="main_footer_go">
-                <button type="submit">검색</button>
+                <button class="custom-btn btn-16" type="submit">검색</button>
             </form>
         </div>
     <? } ?>
