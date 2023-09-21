@@ -42,9 +42,10 @@ class layout extends CI_Controller
 
         //문제없이 받아옴
         $per_page = $config['per_page'] = 10;
-        $config['num_links'] = 1;
+        $config['num_links'] = 5;
         $config['page_query_string'] = true; //쿼리스트링 변환
         $config['query_string_segment'] = 'page';
+        $config['use_page_numbers'] = TRUE;
         $config['first_link'] = '처음으로';
         $config['last_link'] = '마지막으로';
 
@@ -56,7 +57,7 @@ class layout extends CI_Controller
             $page = 1;
         }
 
-        $offset = $page - 1;
+        $offset = ($page - 1) * $per_page;
 
         $pagination = $this->pagination->create_links();
 
@@ -85,18 +86,19 @@ class layout extends CI_Controller
         $search_sel = $this->input->get("category_option_2");
         $search_title = $this->input->get("board_footer_search");
 
-        if ($search_title != "") {
-
-            $config['base_url'] = base_url("/layout/full_board_list");
+            $config['base_url'] = base_url("/layout/full_board_list_search?category_option1=$day&category_option_2=$search_sel&board_footer_seach=$search_title");
             $config['uri_segment'] = 4;
             $config['total_rows'] = $this->layout_model->main_board_search_count($day, $search_sel, $search_title);
 
             $per_page = $config['per_page'] = 10;
-            $config['num_links'] = 1;
+            $config['num_links'] = 5;
 
             $config['page_query_string'] = true; //쿼리스트링 변환
+            $config['use_page_numbers'] = TRUE;
 
             $config['query_string_segment'] = 'page';
+            $config['first_link'] = '처음으로';
+            $config['last_link'] = '마지막으로';
 
             $this->pagination->initialize($config);
 
@@ -106,7 +108,7 @@ class layout extends CI_Controller
                 $page = 1;
             }
 
-            $offset = $page - 1;
+            $offset = ($page - 1) * $per_page;
 
             $pagination = $this->pagination->create_links();
 
@@ -122,14 +124,66 @@ class layout extends CI_Controller
                     "ct_num" => $ct_num,
                     "all_gongji_board" => $gongji,
                     "authority" => $authority,
-                    "pagination" => $pagination
+                    "pagination" => $pagination,
+                    "day" => $day,
+                    "search_sel" => $search_sel,
+                    "search_title_footer" => $search_title
                 )
             );
-        }else{
-            echo "<script>
-            alert('검색어를 입력해주세요.');
-            location.href='/layout/full_board_list';</script>";
+    }
+
+    function full_board_list_date()
+    {
+        $select_date = $this->input->get("date");
+
+        $ct_num = 2;
+
+        $result = $this->layout_model->main_date_search_count($select_date);
+
+        $config['base_url'] = base_url("/layout/full_board_list_date?search_date=$select_date");
+        $config['uri_segment'] = 4;
+        $config['total_rows'] = $result['count'];
+
+        $config['num_links'] = 5;
+        $config['page_query_string'] = true; //쿼리스트링 변환
+        $config['query_string_segment'] = 'page';
+        $config['use_page_numbers'] = TRUE;
+        $config['first_link'] = '처음으로';
+        $config['last_link'] = '마지막으로';
+
+
+        $per_page = $config['per_page'] = 10;
+
+
+        $this->pagination->initialize($config);
+
+        $page = $this->input->get("page");
+        if ($page <= 0) {
+            $page = 1;
         }
+
+        $offset = ($page - 1) * $per_page;
+        $pagination = $this->pagination->create_links();
+
+        $id = $this->session->userdata("id");
+        $authority = $this->session->userdata("authority");
+
+        $result = $this->layout_model->main_date_search($select_date, $per_page, $offset);
+
+        //공지
+        $gongji = $this->layout_model->gongji_board();
+
+        $this->layout_common->view(
+            "/main/main_view",
+            array(
+                "result" => $result,
+                "ct_num" => $ct_num,
+                "all_gongji_board" => $gongji,
+                "authority" => $authority,
+                "pagination" => $pagination,
+                "date" => $select_date
+            )
+        );
     }
 
     public function ck_login()
@@ -215,9 +269,10 @@ class layout extends CI_Controller
 
 
             $per_page = $config['per_page'] = 10;
-            $config['num_links'] = 1;
+            $config['num_links'] = 5;
 
             $config['page_query_string'] = true; //쿼리스트링 변환
+            $config['use_page_numbers'] = TRUE;
 
             $config['query_string_segment'] = 'page';
 
@@ -229,7 +284,7 @@ class layout extends CI_Controller
                 $page = 1;
             }
 
-            $offset = $page - 1;
+            $offset = ($page - 1) * $per_page;
 
             $pagination = $this->pagination->create_links();
 
@@ -244,7 +299,8 @@ class layout extends CI_Controller
                     "result" => $result,
                     "ct_num" => $ct_num,
                     "pagination" => $pagination,
-                    "all_gongji_board" => $gongji
+                    "all_gongji_board" => $gongji,
+                    "search_title" => $search_title
                 )
             );
         } else {

@@ -125,6 +125,15 @@ document.addEventListener("DOMContentLoaded", function () {
         $('#footer_search_form').get(0).submit();
     });
 
+    //캘린더로 게시글검색
+    $('#search_date').on("change", function(){
+        const selectDate = $('#search_date').val();
+        const category_num = $('#footer_search_categoryNum').val();
+        const category_name = $('#footer_search_categoryName').val();
+        
+        window.location.href = '/board/board_list/date_search?name='+category_name+'&num='+category_num+'&search_date='+selectDate;
+    });
+
 });
 
 // 체크박스 전체선택
@@ -158,6 +167,15 @@ function changeSearchPerpage(search_selectPerPage) {
     var option3 = document.querySelector('.option3').value;
 
     window.location.href = `/board/board_list/footer_search?category_option_1=${option1}&category_option_2=${option2}&footer_search_categoryNum=${categoryNum}&footer_search_categoryName=${categoryName}&board_footer_search=${option3}&selected_page=${selectValue}`;
+}
+//날짜 기준검색 페이지네이션
+function changedatePerpage(search_selectPerPage) {
+    const selectValue = date_select_search_number.value;
+    var category_Num = document.querySelector('.category_num').value;
+    var category_Name = document.querySelector('.category_name').value;
+    var sel_date = document.querySelector('.select_date_result').value;
+
+    window.location.href = `/board/board_list/date_search?name=${category_Name}&num=${category_Num}&search_date=${sel_date}&selected_page=${selectValue}`;
 }
 
 

@@ -12,7 +12,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/assets/js/common/common.js"></script>
 </head>
-
 <body>
     <!-- 헤더부분 -->
     <div id="header">
@@ -81,11 +80,14 @@
         <div id="banner">
             <a href="/layout"><img src="/assets/images/banner.jpg" width="1080x" height="300px"></a>
         </div>
-
         <!-- 검색창 -->
         <div id="hdsearch">
             <form action="/layout/board_search" method="get" id="header_search_form">
-                <input id="sh_text" type="text" name="hd_search">
+                <?if(!isset($search_title)){?>
+                    <input id="sh_text" type="text" name="hd_search">
+                <?}else if($search_title != ""){?>
+                    <input id="sh_text" type="text" name="hd_search" value="<?=$search_title?>">
+                <?}?>
                 <button class="sh_btn" type="submit">검색</button>
             </form>
         </div>
@@ -151,6 +153,7 @@
                     <div id="profile_info">
                         <ul>
                             <li>
+                                <span><img src="/assets/images/member_modify_icon.png" rel="게시글 설정" width="10" height="10"></span>
                                 <span class="ft_size">
                                     <a href="/member/member_activity">
                                         <?= $member->user_nickname ?> 님
@@ -182,21 +185,22 @@
             <? } else {
             } ?>
 
-            <div id="main_write">
-                <a href="" onclick="member_login_info()">
+            <a href="#" onclick="member_login_info()">
+                <div id="main_write">
                     <p>카페 글쓰기</p>
-                </a>
-            </div>
+                </div>
+            </a>
 
             <? if ($authority == 2) { ?>
                 <div class="btn-group">
                     <span><img alt="가위" src="/assets/images/cut.png" width="15" height="15">카테고리 추가/제거</span>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    <button type="button" class="ct_plus" data-bs-toggle="modal"
                         data-bs-target="#addCategoryModal">+</button>
-                    <button type="button" id="delete_category" class="btn btn-primary" data-bs-toggle="modal"
+                    <button type="button" class="ct_minus" id="delete_category" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">-</button>
                 </div>
-            <? } ?>
+            <? }else{ ?>
+            <?}?>
 
             <!-- foreach문돌리기 -->
             <div id="category_list">
@@ -235,8 +239,9 @@
         </div>
     </div>
 
+    <?if($authority == 2){?>
     <!-- 카테고리 추가 모달창 -->
-    <div class="modal fade" id="addCategoryModal" data-bs-backdrop="static" tabindex="-1"
+    <div class="modal fade" id="addCategoryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="addCategoryModalLabel" aria-hidden="true">
         <div class="modal-dialog" id="center">
             <div class="modal-content">
@@ -254,7 +259,9 @@
             </div>
         </div>
     </div>
+    <?}?>
 
+    <?if($authority == 2){?>
     <!-- 카테고리 제거 모달창 -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -282,13 +289,14 @@
             </div>
         </div>
     </div>
+    <?}?>
 
     <!-- 콘텐츠부분 -->
     <div class="layout_content">
         <?= $content ?>
     </div>
     <!-- 푸터부분 -->
-    <footer class="fixed-bottom" id="footer">
+    <footer id="footer">
         <a id="footer_move" href="/layout/full_board_list">Hansol CAFE</a>
     </footer>
 

@@ -16,14 +16,14 @@ class member_modify extends CI_Controller
         $id = $this->session->get_userdata('id');
         $result = $this->member_modify_model->member_info($id);
 
-        $this->load->view("/member/member_modify_view", array("info" => $result));
+        $this->load->view("/member/member_modify_view", array("info" => $result,
+                                                              "id" => $id));
     }
 
     public function member_update()
     {
         $this->form_validation->set_rules('user_id', 'user_id', 'required');
         $this->form_validation->set_rules('user_nickname', 'user_nickname', 'required');
-        $this->form_validation->set_rules('user_pw', 'Password Confirmation', 'required');
         $this->form_validation->set_rules('user_email', 'Email', 'required');
 
         if ($this->form_validation->run() == false) {
@@ -36,12 +36,14 @@ class member_modify extends CI_Controller
             $user_id = $this->input->post("user_id");
             $nickname = $this->input->post("user_nickname");
             $nickname = html_escape($nickname);
-            $pw = $this->input->post("user_pw");
-            $pw = html_escape($pw);
+            if(!empty($_POST['user_pw'])){
+                $pw = $this->input->post("user_pw");
+                $pw = html_escape($pw);
+                $password_hashed = password_hash($pw, PASSWORD_DEFAULT);
+            }
             $email = $this->input->post("user_email");
             $email = html_escape($email);
 
-            $password_hashed = password_hash($pw, PASSWORD_DEFAULT);
 
             if($_FILES['profilePic']['name'] != ""){
                 //이미지 업로드부분
@@ -60,15 +62,24 @@ class member_modify extends CI_Controller
                     $image_path = $data['full_path']; //풀네임경로
                     $wep_root = "C:/cloneproject/ci";
                     $relative_image_path = str_replace($wep_root, "", $image_path);
-                    $this->member_modify_model->member_modify_update($user_id, $nickname, $password_hashed, $email,$relative_image_path);
+                    if(isset($pw)){
+                        echo 123;
+                        $this->member_modify_model->member_modify_update($user_id, $nickname, $password_hashed, $email,$relative_image_path);
+                    }else{
+                        echo 456;
+                        $this->member_modify_model->member_modify_update_empty_pw($user_id, $nickname, $email,$relative_image_path);
+                    }
     
-                    echo "<script>
+                     echo "<script>
                     alert('정보가 수정되었습니다.');
                     location.href='/layout';</script>";
                 }
             }else{
-                $this->member_modify_model->no_image_member_modify_update($user_id, $nickname, $password_hashed, $email);
-
+                if(isset($pw)){
+                    $this->member_modify_model->member_modify_update_empty_img($user_id, $nickname, $password_hashed, $email);
+                }else{
+                    $this->member_modify_model->member_modify_update_empty_img_pw($user_id, $nickname, $email);
+                }
                 echo "<script>
                 alert('정보가 수정되었습니다.');
                 location.href='/layout';</script>";

@@ -10,6 +10,7 @@
 
      document.getElementById('profilePicInput').addEventListener('change', function () {
         const previewImage = document.getElementById('previewImage');
+        const profileInput = document.getElementById('profilePicInput');
         const file = this.files[0];
         const allowedExtensions = /\.(jpg|jpeg|png)$/i;
     
@@ -24,8 +25,8 @@
           reader.readAsDataURL(file);
         } else {
           alert("허용하지 않은 파일 형식입니다. jpg, jpeg, png 파일만 업로드 가능합니다.");
-          previewImage.setAttribute('src', '#');
-          previewImage.style.display = 'none';
+          previewImage.setAttribute('src', '/assets/images/profile.png');
+          profileInput.textContent ="다시올려주세요";
         }
       });
  });
@@ -55,7 +56,7 @@
      document.getElementById('change_email_error').style.color = isEmailValid ? 'green' : 'red';
 
      // 모든 유효성 검사를 통과한 경우에만 버튼 활성화
-     const isAllValid = isPasswordValid && isConfirmValid && isEmailValid;
+     const isAllValid = isConfirmValid && isEmailValid;
      document.getElementById('modifybtn').disabled = !isAllValid;
  }
 

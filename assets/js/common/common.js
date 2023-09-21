@@ -5,48 +5,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const act_page1 = document.getElementById("activity_page_move1");
 
-    submitButton.addEventListener("click", function () {
-        categoryForm.submit();
-    });
+    if(submitButton){
+        submitButton.addEventListener("click", function () {
+            categoryForm.submit();
+        });
+    }
 
     // 카테고리 추가 유효성검사
     const categoryNameInput = document.getElementById("category_name");
     const category_error = document.getElementById("category_error");
     const category_button = document.getElementById("submitCategory");
 
-    categoryNameInput.addEventListener("input", function () {
-        const categoryName = categoryNameInput.value.trim();
-        if (categoryName === "") {
-            category_error.textContent = "이름을 입력해주세요";
-            category_error.style.color = "red";
-            category_button.disabled = true;
-        } else {
-            $.ajax({
-                url: '/layout/check_category',
-                method: 'POST',
-                data: {
-                    category_name: categoryName
-                },
-                dataType: 'json',
-                success: function (response) {
-                    if (response.duplicate) {
-                        category_error.textContent = "이미존재하는 카테고리 이름입니다.";
-                        category_error.style.color = "red";
-                        category_button.disabled = true;
-
-                    } else {
-                        category_error.textContent = "생성 가능합니다.";
-                        category_error.style.color = "green";
-                        category_button.disabled = false;
+    if(categoryNameInput){
+        categoryNameInput.addEventListener("input", function () {
+            const categoryName = categoryNameInput.value.trim();
+            if (categoryName === "") {
+                category_error.textContent = "이름을 입력해주세요";
+                category_error.style.color = "red";
+                category_button.disabled = true;
+            } else {
+                $.ajax({
+                    url: '/layout/check_category',
+                    method: 'POST',
+                    data: {
+                        category_name: categoryName
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.duplicate) {
+                            category_error.textContent = "이미존재하는 카테고리 이름입니다.";
+                            category_error.style.color = "red";
+                            category_button.disabled = true;
+    
+                        } else {
+                            category_error.textContent = "생성 가능합니다.";
+                            category_error.style.color = "green";
+                            category_button.disabled = false;
+                        }
+                    },
+                    error: function () {
+                        category_error.textContent = "오류가 발생했습니다.";
                     }
-                },
-                error: function () {
-                    category_error.textContent = "오류가 발생했습니다.";
-                }
-
-            });
-        }
-    });
+    
+                });
+            }
+        });
+    }
 
     $('#header_search_form').submit(function (event) {
         event.preventDefault();

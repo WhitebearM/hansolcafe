@@ -5,11 +5,9 @@ class find_ID_model extends CI_Model{
     }
 
     function find_ID($find_email){
-        $sql = $this->db->query("select user_id from member where user_email = '$find_email'");
+        $sql = $this->db->query("select * from member where user_email = '$find_email'")->row();
 
-        foreach($sql->result() as $row){
-            return $row;
-        }
+        return $sql;
 
     }
 }

@@ -9,6 +9,7 @@ class board_list extends CI_Controller
         $this->load->library('layout_common');
         $this->load->library('user_agent');
         $this->load->library('pagination');
+        $this->load->library('session');
         $this->load->library('form_validation');
         $this->load->helper('url');
         $this->load->database();
@@ -16,11 +17,12 @@ class board_list extends CI_Controller
 
     function index()
     {
-        $division = true;
+        $division = "nomal";
 
         $category_name = $this->input->get("name");
         $category_num = $this->input->get("num");
         $select_val = $this->input->get("selected_page");
+        $id_authority = $this->session->userdata("id_authority");
 
 
         $config['base_url'] = base_url("/board/board_list?name=$category_name&num=$category_num&selected_page=$select_val");
@@ -33,9 +35,10 @@ class board_list extends CI_Controller
             $per_page = $config['per_page'] = $select_val;
         }
 
-        $config['num_links'] = 1;
+        $config['num_links'] = 5;
         $config['page_query_string'] = true; //쿼리스트링 변환
         $config['query_string_segment'] = 'page';
+        $config['use_page_numbers'] = TRUE;
         $config['first_link'] = '처음으로';
         $config['last_link'] = '마지막으로';
 
@@ -47,7 +50,7 @@ class board_list extends CI_Controller
             $page = 1;
         }
 
-        $offset = $page - 1;
+        $offset = ($page - 1) * $per_page;
         $pagenation = $this->pagination->create_links();
 
         if ($category_name != "미분류게시판" && $category_num != 0) {
@@ -85,7 +88,7 @@ class board_list extends CI_Controller
     }
     function pagination()
     {
-        $division = true;
+        $division = "nomal";
 
         $category_name = $this->input->get("name");
         $category_num = $this->input->get("num");
@@ -110,9 +113,10 @@ class board_list extends CI_Controller
             $per_page = $config['per_page'] = $select_val;
         }
 
-        $config['num_links'] = 1;
+        $config['num_links'] = 5;
         $config['page_query_string'] = true; //쿼리스트링 변환
         $config['query_string_segment'] = 'page';
+        $config['use_page_numbers'] = TRUE;
         $config['first_link'] = '처음으로';
         $config['last_link'] = '마지막으로';
 
@@ -123,7 +127,7 @@ class board_list extends CI_Controller
             $page = 1;
         }
 
-        $offset = $page - 1;
+        $offset = ($page - 1) * $per_page;
         $pagenation = $this->pagination->create_links();
 
         if ($category_name != "미분류게시판" && $category_num != 0) {
@@ -168,7 +172,7 @@ class board_list extends CI_Controller
 
         if (isset($_POST['selected_board']) && is_array($_POST['selected_board']) && count($_POST['selected_board']) > 0) {
             $selected_board = $this->input->post("selected_board");
-            
+
             foreach ($selected_board as $board) {
                 $this->board_list_model->select_board_delete($board, $category_num);
             }
@@ -215,7 +219,7 @@ class board_list extends CI_Controller
     function footer_search()
     {
 
-        $division = false;
+        $division = "footer";
 
         $category_name = $this->input->get("footer_search_categoryName");
         $category_num = $this->input->get("footer_search_categoryNum");
@@ -226,7 +230,6 @@ class board_list extends CI_Controller
         $search_option2 = $this->input->get("category_option_2");
 
         $search_title3 = $this->input->get("board_footer_search");
-
 
         if ($search_title3 == "") {
             echo "<script>
@@ -252,11 +255,12 @@ class board_list extends CI_Controller
             $per_page = $config['per_page'] = $select_val;
         }
 
-        $config['num_links'] = 1;
-
+        $config['num_links'] = 5;
         $config['page_query_string'] = true; //쿼리스트링 변환
-
         $config['query_string_segment'] = 'page';
+        $config['use_page_numbers'] = TRUE;
+        $config['first_link'] = '처음으로';
+        $config['last_link'] = '마지막으로';
 
         $this->pagination->initialize($config);
 
@@ -265,7 +269,7 @@ class board_list extends CI_Controller
             $page = 1;
         }
 
-        $offset = $page - 1;
+        $offset = ($page - 1) * $per_page;
         $pagenation = $this->pagination->create_links();
 
         if ($category_name != "미분류게시판" && $category_num != 0) {
@@ -273,7 +277,9 @@ class board_list extends CI_Controller
             $id = $this->session->userdata("id");
             $authority = $this->session->userdata("authority");
 
+            //공지
             $all_board_list = $this->board_list_model->all_board();
+            // 이동할때 카테고리 모달창에 사용
             $category_list = $this->board_list_model->category_list();
 
 
@@ -295,6 +301,89 @@ class board_list extends CI_Controller
                     "option3" => $search_title3
                 )
             );
+        }
+    }
+
+
+    function date_search()
+    {
+        $select_date = $this->input->get("search_date");
+        $category_name = $this->input->get("name");
+        $category_num = $this->input->get("num");
+        $select_val = $this->input->get("selected_page");
+
+        $division = "date";
+
+        if (isset($select_date) && isset($category_name) && isset($category_num)) {
+
+            $result = $this->board_list_model->date_search_count($select_date,$category_num);
+
+
+            if ($select_val == null) {
+                // 만약 선택값이 없다면 세션에서 값을 읽어옴
+                $select_val = $this->session->userdata('select_val');
+            } else {
+                // 선택값이 있다면 세션에 저장
+                $this->session->set_userdata('select_val', $select_val);
+            }
+
+            $config['base_url'] = base_url("/board/board_list/date_search?name=$category_name&num=$category_num&search_date=$select_date");
+            $config['uri_segment'] = 4;
+            $config['total_rows'] = $result['count'];
+
+            $config['num_links'] = 5;
+            $config['page_query_string'] = true; //쿼리스트링 변환
+            $config['query_string_segment'] = 'page';
+            $config['use_page_numbers'] = TRUE;
+            $config['first_link'] = '처음으로';
+            $config['last_link'] = '마지막으로';
+
+            if ($select_val == null) {
+                $per_page = $config['per_page'] = 5;
+            } else {
+                $per_page = $config['per_page'] = $select_val;
+            }
+
+            $this->pagination->initialize($config);
+
+            $page = $this->input->get("page");
+            if ($page <= 0) {
+                $page = 1;
+            }
+
+            $offset = ($page - 1) * $per_page;
+            $pagenation = $this->pagination->create_links();
+
+            $id = $this->session->userdata("id");
+            $authority = $this->session->userdata("authority");
+
+            $result = $this->board_list_model->date_search($select_date,$category_num,$per_page,$offset);
+
+            //공지
+            $all_board_list = $this->board_list_model->all_board();
+            // 이동할때 카테고리 모달창에 사용
+            $category_list = $this->board_list_model->category_list();
+            
+            $this->layout_common->view(
+                "/board/board_list_view",
+                array(
+                    "category_num" => $category_num,
+                    "category_name" => $category_name,
+                    "result" => $result,
+                    "id" => $id,
+                    "division" => $division,
+                    "authority" => $authority,
+                    "per_page" => $per_page,
+                    "pagenation" => $pagenation,
+                    "all_board" => $all_board_list,
+                    "category_list" => $category_list,
+                    "select_date" => $select_date
+                )
+            );
+        } else {
+            echo "<script>
+            alert('오류가 발생했습니다.');
+            location.href='/board/board_list?name=$category_name&num=$category_num';</script>";
         }
     }
 }

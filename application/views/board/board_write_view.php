@@ -80,13 +80,22 @@
                 <!-- 파일업로드 -->
                 <label for="fileupload">파일 업로드</label>
                 <input type="file" name="file[]" id="fileupload" onchange="fileName()" multiple>
-                <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 취소됩니다.</div>
-                <span id="file_info"></span>
+                <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 자동으로 취소됩니다.</br>재업로드 해주세요.</div>
+                   <div id="file_list"></div>
+                </div>
             </div>
             <select class="move" name="category_pick">
                 <? foreach ($result as $category_list) { ?>
                     <? if ($category_list['category_num'] != 0) { ?>
-                        <option value="<?= $category_list['category_num'] ?>"><?= $category_list['category_name'] ?></option>
+                        <?if(isset($category_num)){?>
+                            <?if($category_num == $category_list['category_num']){?>
+                                <option value="<?= $category_list['category_num'] ?>" selected><?= $category_list['category_name'] ?></option>
+                            <?}else{?>
+                                <option value="<?= $category_list['category_num'] ?>"><?= $category_list['category_name'] ?></option>
+                            <?}?>
+                        <?}else{?>
+                            <option value="<?= $category_list['category_num'] ?>"><?= $category_list['category_name'] ?></option>
+                        <?}?>
                     <? } ?>
                 <? } ?>
             </select>
@@ -141,8 +150,9 @@
                 <!-- 파일업로드 -->
                 <label for="fileupload">파일 업로드</label>
                 <input type="file" name="file[]" id="fileupload" onchange="fileName()" multiple>
-                <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 취소됩니다.</div>
-                <span id="file_info"></span>
+                <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 자동으로 취소됩니다.</br>재업로드 해주세요.</div>
+                   <div id="file_list"></div>
+                </div>
             </div>
             <select class="move" name="category_pick">
                 <? foreach ($result as $category_list) { ?>
@@ -199,8 +209,9 @@
                 <!-- 파일업로드 -->
                 <label for="fileupload">파일 업로드</label>
                 <input type="file" name="file[]" id="fileupload" onchange="fileName()" multiple>
-                <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 취소됩니다.</div>
-                <span id="file_info"></span>
+                <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 자동으로 취소됩니다.</br>재업로드 해주세요.</div>
+                   <div id="file_list"></div>
+                </div>
             </div>
             <input class="move" name="category_pick" type="hidden" value="<?= $parent_info->category_num ?>">
 

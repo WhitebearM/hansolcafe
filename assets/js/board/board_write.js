@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         images_upload_url: '/upload',//컨트롤러
         images_upload_base_path: '/uploads',//실제 업로드 되는위치
         file_picker_types: 'file image media',
+        image_uploadtab: false, // 이미지 업로드 탭 비활성화
         extended_valid_elements: 'script[src|async|defer|type|charset]',
         images_max_dimensions: {
             width: 800, // 최대 이미지 폭
@@ -65,6 +66,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
+
+    //파일 사이즈가 너무 클때
     document.getElementById("fileupload").addEventListener('change', function () {
         const fileInput = document.getElementById("fileupload");
         const maxSize = 2 * 1024 * 1024;
@@ -83,10 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-// 에디터 content값 가져오기
-tinymce.init({
-    selector: "#f_content",
-});
 
 //돌아가는함수
 function goBack() {
@@ -95,19 +94,39 @@ function goBack() {
 
 // 파일첨부 했을때 파일이름 출력
 function fileName() {
-    const fileInput = document.getElementById("fileupload");
-    const fileInfo = document.getElementById("file_info");
+    const fileInput = document.getElementById("fileupload"); //file 업로드부분 가져오기
+    const fileList = document.getElementById("file_list"); //파일 이름 출력부분
+    
 
-    if (fileInput.files.length > 0) {
-        let fileNames= [];
-        for(let i = 0; i < fileInput.files.length; i++){
-            fileNames.push(fileInput.files[i].name);
-        }
-        fileInfo.textContent = fileNames.join(', ');
+    fileSizeError.style.display = "none"; // 파일 크기 오류 메시지 초기화
+    fileList.innerHTML = ""; // 파일 목록 초기화
 
-    } else {
-        fileInfo.textContent = '';
+    for (let i = 0; i < fileInput.files.length; i++) {
+        const file = fileInput.files[i];
+
+        const fileItem = document.createElement("div");
+        fileItem.textContent = file.name;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "x";
+        deleteButton.onclick = function () {
+            // 파일 삭제 버튼 클릭 시 해당 파일을 목록에서 제거
+            fileList.removeChild(fileItem);
+
+            // FileList 객체에서 파일을 제거
+            const newFileList = new DataTransfer();
+            for (let j = 0; j < fileInput.files.length; j++) {
+                if (i !== j) {
+                    newFileList.items.add(fileInput.files[j]);
+                }
+            }
+            fileInput.files = newFileList.files;
+        };
+
+        fileItem.appendChild(deleteButton);
+        fileList.appendChild(fileItem);
     }
+
 }
 
 // 게시판 작성 미리보기

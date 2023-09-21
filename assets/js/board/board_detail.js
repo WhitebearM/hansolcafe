@@ -76,7 +76,7 @@ $(document).ready(function () {
         var commentContainer = $(this).closest(".comment-container");
         var comment_number = commentContainer.find(".comment_num").val();
 
-        if (confirm("댓글을 삭제 하시겠습니까?")) {
+        if (confirm("댓글을 삭제 하시겠습니까?\n해당하는 모든 답변 댓글들도 같이 삭제됩니다.\n신중하게 선택해주세요.")) {
             $.ajax({
                 type: "POST",
                 url: "/board/board_detail/comment_delete",
@@ -139,8 +139,8 @@ $(document).ready(function () {
             reader.addEventListener('load', function () {
                 previewImage.innerHTML = `<img src="${this.result}" alt="Uploaded Image" />`;
                 previewImage.style.display = 'block';
-                previewImage.style.maxWidth = '100px';
-                previewImage.style.height = '100px';
+                previewImage.style.maxWidth = '50px';
+                previewImage.style.height = '50px';
             });
     
             reader.readAsDataURL(file);
@@ -157,7 +157,7 @@ $(document).ready(function () {
 function toggleEditSection(comment_num) {
     var editSection = document.getElementById('edit-comment-section-' + comment_num);
 
-    if (editSection.style.display === 'none') {
+    if (editSection.style.display === 'none' || editSection.style.display === '') {
         editSection.style.display = 'block';
     } else {
         editSection.style.display = 'none';
@@ -169,14 +169,14 @@ function toggle_recomment_btn(e, comment_num) {
 
     var recommentSection = document.getElementById('edit-recomment-section-' + comment_num);
 
-    if (recommentSection.style.display === 'none') {
+    if (recommentSection.style.display === 'none' || recommentSection.style.display === '') {
         recommentSection.style.display = 'block';
     } else {
         recommentSection.style.display = 'none';
     }
 }
 
-
+/* // 댓글수정
 function comment_update($comment_num) {
     var category_num = document.querySelector('#category_num' + $comment_num).value;
     var article_number = document.querySelector('#article_num' + $comment_num).value;
@@ -201,8 +201,9 @@ function comment_update($comment_num) {
 
     });
 
-}
+} */
 
+//최신글
 function comments_reupdate(value, e) {
     e.preventDefault();
     var boardNum = $('#detail_article_num').val();

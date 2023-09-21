@@ -154,7 +154,6 @@ a{
 #all_list{
     padding: 15px;
     text-align: center;
-    font-size: 12px;
     height: 50px;
     border-bottom: 1px solid #e5e5e5;
 }
@@ -184,7 +183,7 @@ a{
 /* 카테고리 float효과 제거 */
 #category_list{
     clear: both;
-    font-size: 12px;
+    font-size: 10px;
     width:200px;
     margin: 70px auto 7px auto;
     border-top: 2px solid gray;
@@ -206,6 +205,9 @@ a{
 }
 .btn_cafe_info{
     border:none;
+}
+.btn_cafe_info:hover{
+    font-weight: bold;
 }
 /* 카테고리 추가 가운데 정렬 */
 #addCategoryModal{
@@ -271,7 +273,6 @@ a{
 }
 .layout_content{
     width:1580px;
-    height: 100%;
 }
 .member_delete_box{
     margin-bottom: 20px;
@@ -282,4 +283,32 @@ a{
 }
 .member_delete a{
     color: black;
+}
+.ct_plus{
+    background-color: white;
+    border: none;
+    height: 30px;
+    margin-top: 3px;
+    font-size: 18px;
+}
+.ct_plus:hover{
+    background-color: #e5e5e5;
+    transition: 0.5s;
+}
+.ct_minus{
+    background-color: white;
+    margin-top: 3px;
+    border: none;
+    width:25px;
+    font-size: 18px;
+}
+.ct_minus:hover{
+    background-color: #e5e5e5;
+    transition: 0.5s;
+}
+.category_plus_header{
+    background-color: blue;
+    height: 20px;
+    border-top-left-radius:0px;
+    border-top-right-radius:0px;
 }

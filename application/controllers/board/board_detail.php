@@ -1,3 +1,4 @@
+글
 <?
 
 class board_detail extends CI_Controller
@@ -23,42 +24,41 @@ class board_detail extends CI_Controller
         $id_authority = $this->session->userdata("id_authority");
         $category = $this->input->get("category");
         $board_num = $this->input->get("board_num");
+        $comments_val = $this->input->get("comments_val");
 
-        $board_detail_info = $this->board_detail_model->board_detail($board_num);
-        if ($board_detail_info->disclosure == 1 && isset($user_id) && $board_detail_info != "") {
-            if ($board_detail_info->board_status == 1) {
-                $all_category = $this->board_detail_model->category_all();
-                $category_info = $this->board_detail_model->category_info($category);
+        if ($category != "" && $board_num != "") {
+            $board_detail_info = $this->board_detail_model->board_detail($board_num);
+            if ($board_detail_info->disclosure == 1 && isset($user_id) && $board_detail_info != "") {
+                if ($board_detail_info->board_status == 1) {
+                    $all_category = $this->board_detail_model->category_all();
+                    $category_info = $this->board_detail_model->category_info($category);
 
-                $board_user_info = $this->board_detail_model->board_user_info($board_detail_info->user_id);
-                // 좋아요
-                $heart_check = $this->board_detail_model->board_heart_check($user_id, $board_num);
+                    $board_user_info = $this->board_detail_model->board_user_info($board_detail_info->user_id);
+                    // 좋아요
+                    $heart_check = $this->board_detail_model->board_heart_check($user_id, $board_num);
 
-                $heart_count = $this->board_detail_model->board_hearts($board_num);
-                $heart_count = $heart_count[0]->heart_count;
+                    $heart_count = $this->board_detail_model->board_hearts($board_num);
+                    $heart_count = $heart_count[0]->heart_count;
 
-                //댓글 수
-                $comments_num = $this->board_detail_model->board_comments($board_num);
-                $comments_num = $comments_num[0]->comments_count;
+                    //댓글 수
+                    $comments_num = $this->board_detail_model->board_comments($board_num);
+                    $comments_num = $comments_num[0]->comments_count;
 
-                //해당 게시글 댓글 불러오기
-                if (isset($_GET['comments_val']) && isset($_GET['board_num'])) {
-                    $comments_val = $this->input->get("comments_val");
+                    //하단 해당 게시글의 게시글 최근글 5개
+                    $mini_list = $this->board_detail_model->board_semi_list($category);
+                    $file_info = $this->board_detail_model->get_board_file_info($board_num);
 
-                    if ($comments_val == '최신순') {
-                        $comments = $this->board_detail_model->re_new_comments_list($board_num);
-                    } else if ($comments_val == '등록순') {
-                        $comments = $this->board_detail_model->re_write_comments_list($board_num);
-                    }
-                } else {
                     $comments = $this->board_detail_model->board_comment($board_num);
-                }
-                //하단 해당 게시글의 게시글 최근글 5개
-                $mini_list = $this->board_detail_model->board_semi_list($category);
+                    //해당 게시글 댓글 불러오기
+                    if ($comments_val != "") {
+                        if ($comments_val == '최신순') {
+                            $comments = $this->board_detail_model->re_new_comments_list($board_num);
+                        } else if ($comments_val == '등록순') {
+                            $comments = $this->board_detail_model->re_write_comments_list($board_num);
+                        }
 
-                $file_info = $this->board_detail_model->get_board_file_info($board_num);
-
-                if ($user_id) {
+                        //board의 값이 없거나 comments_val을 없애서들어올경우
+                    }
                     $this->layout_common->view(
                         "/board/board_detail_view",
                         array(
@@ -78,84 +78,107 @@ class board_detail extends CI_Controller
                         )
                     );
                 } else {
+                    $category_info = $this->board_detail_model->category_info($category);
                     echo "<script>
-                alert('로그인 후 이용 바랍니다.');
-                location.href='/login/login';</script>";
-                }
-            } else {
-                $category_info = $this->board_detail_model->category_info($category);
-                echo "<script>
             alert('삭제된 게시물입니다.');
             location.href='/board/board_list?name=$category_info->category_name&num=$category_info->category_num';</script>";
-            }
+                }
 
-            // 공개범위 전체
-        } else if ($board_detail_info->disclosure == 2 && !isset($user_id) || isset($user_id) && $board_detail_info != "") {
-            $all_category = $this->board_detail_model->category_all();
-            $category_info = $this->board_detail_model->category_info($category);
+                // 공개범위 전체
+            } else if ($board_detail_info->disclosure == 2 && !isset($user_id) || isset($user_id) && $board_detail_info != "") {
+                $all_category = $this->board_detail_model->category_all();
+                $category_info = $this->board_detail_model->category_info($category);
 
-            $board_user_info = $this->board_detail_model->board_user_info($board_detail_info->user_id);
-            // 좋아요
-            $heart_check = $this->board_detail_model->board_heart_check($user_id, $board_num);
+                $board_user_info = $this->board_detail_model->board_user_info($board_detail_info->user_id);
+                // 좋아요
+                $heart_check = $this->board_detail_model->board_heart_check($user_id, $board_num);
 
-            $heart_count = $this->board_detail_model->board_hearts($board_num);
-            $heart_count = $heart_count[0]->heart_count;
+                $heart_count = $this->board_detail_model->board_hearts($board_num);
+                $heart_count = $heart_count[0]->heart_count;
 
-            //댓글 수
-            $comments_num = $this->board_detail_model->board_comments($board_num);
-            $comments_num = $comments_num[0]->comments_count;
+                //댓글 수
+                $comments_num = $this->board_detail_model->board_comments($board_num);
+                $comments_num = $comments_num[0]->comments_count;
 
-            //해당 게시글 댓글 불러오기
-            $comments = $this->board_detail_model->board_comment($board_num);
+                //해당 게시글 댓글 불러오기
+                $comments = $this->board_detail_model->board_comment($board_num);
 
-            //하단 해당 게시글의 게시글 최근글 5개
-            $mini_list = $this->board_detail_model->board_semi_list($board_num);
+                //하단 해당 게시글의 게시글 최근글 5개
+                $mini_list = $this->board_detail_model->board_semi_list($board_num);
 
-            $file_info = $this->board_detail_model->get_board_file_info($board_num);
+                $file_info = $this->board_detail_model->get_board_file_info($board_num);
 
-            $this->layout_common->view(
-                "/board/board_detail_view",
-                array(
-                    "user_info" => $board_user_info,
-                    "user_id" => $user_id,
-                    "board" => $board_detail_info,
-                    "category" => $category_info,
-                    "comments_num" => $comments_num,
-                    "heart_num" => $heart_count,
-                    "heart_check" => $heart_check,
-                    "id_authority" => $id_authority,
-                    "mini_list" => $mini_list,
-                    "file_info" => $file_info,
-                    "category_modify" => $all_category,
-                    "comments" => $comments,
-                    "board_num" => $board_num
-                )
-            );
-        } else if ($board_detail_info == "") {
-            echo "<script>
-            alert('오류가 발생했습니다.');
-            history.back();</script>";
-        } else if (!isset($board_detail_info->disclosure)) {
-            echo "<script>
-            alert('오류가 발생했습니다.');
-            history.back();</script>";
-        } else {
-            echo "<script>
+                $this->layout_common->view(
+                    "/board/board_detail_view",
+                    array(
+                        "user_info" => $board_user_info,
+                        "user_id" => $user_id,
+                        "board" => $board_detail_info,
+                        "category" => $category_info,
+                        "comments_num" => $comments_num,
+                        "heart_num" => $heart_count,
+                        "heart_check" => $heart_check,
+                        "id_authority" => $id_authority,
+                        "mini_list" => $mini_list,
+                        "file_info" => $file_info,
+                        "category_modify" => $all_category,
+                        "comments" => $comments,
+                        "board_num" => $board_num
+                    )
+                );
+            } else if ($board_detail_info == "") {
+                echo "<script>
+            alert('비정상적인 접근입니다.');</script>";
+            } else if ($board_detail_info->disclosure != "") {
+                echo "<script>
+            alert('로그인후 볼수있습니다!.');
+            location.href='/layout';</script>";
+            } else {
+                echo "<script>
             alert('로그인후 확인가능합니다.');
-            history.back();</script>";
+            location.href='/login/login';</script>";
+            }
+        }else{
+            echo "<script>
+            alert('비정상적인 접근입니다.');</script>";
         }
     }
+
+
     // 게시글 삭제 (실제삭제아님)
     function detail_delete()
     {
         $board_num = $this->input->get("board");
         $category_num = $this->input->get("category");
 
-        $this->board_detail_model->delete($board_num, $category_num);
+        if ($category_num != "" || $category_num == 0) {
+            $id_authority = $this->session->userdata("id_authority");
+            $id = $this->session->userdata("id");
 
-        echo "<script>
-        alert('삭제되었습니다.');
-        location.href='/board/board_list?num=$category_num';</script>";
+            $find_id = $this->board_detail_model->board_detail($board_num);
+            if ($id_authority == 2 || $find_id->user_id == $id){
+                $this->board_detail_model->delete($board_num, $category_num);
+
+                if($category_num == 0){
+                    echo "<script>
+                    alert('삭제되었습니다.');
+                    location.href='/layout/full_board_list';</script>";
+                }else{
+                    echo "<script>
+                    alert('삭제되었습니다.');
+                    location.href='/board/board_list?num=$category_num';</script>";
+                }
+            } else {
+                echo "<script>
+            alert('권한이 없습니다!');
+            location.href='/board/board_detail?category=$category_num&board_num=$board_num';</script>";
+            }
+        } else {
+            echo "<script>
+            alert('비정상적인 접근입니다.');
+            location.href='/layout';</script>";
+        }
+
     }
     // 카테고리이동
     function category_modify()
@@ -178,7 +201,13 @@ class board_detail extends CI_Controller
         $this->form_validation->set_rules('detail_comments_write_text', 'detail_comments_write_text', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            redirect("/board/board_detail", "refresh");
+            $comment_article_num = $this->input->post("article_num");
+
+            $result = $this->board_detail_model->board_detail($comment_article_num);
+
+            echo "<script>
+            alert('댓글의 내용을 넣어주세요.');
+            location.href='/board/board_detail?category=$result->category_num&board_num=$result->article_num';</script>";
         } else {
             $comment_content = $this->input->post("detail_comments_write_text");
             $comment_content = html_escape($comment_content);
@@ -212,6 +241,8 @@ class board_detail extends CI_Controller
             redirect($this->agent->referrer());
         }
     }
+
+
     // 댓글삭제
     function comment_delete()
     {
@@ -230,7 +261,7 @@ class board_detail extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             echo "<script>
-            alert('댓글을 수정해주세요.');
+            alert('수정할 내용을 넣어주세요.');
             location.href='/board/board_detail?category=$category_num&board_num=$board_num';</script>";
         } else {
             $comment_num = $this->input->post("detail_comment_num");
@@ -247,6 +278,7 @@ class board_detail extends CI_Controller
             location.href='/board/board_detail?category=$category_num&board_num=$board_num';</script>";
         }
     }
+
 
     //좋아유~
     public function heart_up()
@@ -271,6 +303,7 @@ class board_detail extends CI_Controller
         }
     }
 
+
     // 댓글 답글달기
     function board_recomment_writes()
     {
@@ -287,7 +320,7 @@ class board_detail extends CI_Controller
 
         if ($limit_depth < 12) {
             if ($this->form_validation->run() == FALSE) {
-            echo "<script>
+                echo "<script>
             alert('오류 발생.');
             location.href='/board/board_detail?category=$category_num&board_num=$article_num';</script>";
             } else {
@@ -303,7 +336,7 @@ class board_detail extends CI_Controller
                 echo "<script>
             location.href='/board/board_detail?category=$category_num&board_num=$article_num';</script>";
             }
-        }else{
+        } else {
             echo "<script>
             alert('답글은 11개까지만 작성 가능합니다.');
             location.href='/board/board_detail?category=$category_num&board_num=$article_num';</script>";

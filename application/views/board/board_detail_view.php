@@ -68,11 +68,11 @@
                             <?= $comments_num ?>
                         </li>
                         <? if ($id_authority == 2) { ?>
-                            <? if ($board->main_status == 1) { ?>
+                            <? if ($board->main_status == 1 && $id_authority == 2) { ?>
                                 <li class="option_detween"><button type="button" class="btn btn-secondary"
                                         id="gongji_btn">공지변경</button></li>
                             <? } ?>
-                            <? if ($board->main_status == 2) { ?>
+                            <? if ($board->main_status == 2 && $id_authority == 2) { ?>
                                 <li class="option_detween"><button type="button" class="btn btn-secondary"
                                         id="gongji_btn">공지취소</button></li>
                             <? } ?>
@@ -87,28 +87,26 @@
 
         <!-- content부분 -->
         <div id="detail_content">
-            <? if ($file_info != null) { ?>
-                <div class="content_file">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            첨부파일
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <? foreach ($file_info as $file) { ?>
-                                <li>
-                                    <a class="dropdown-item active" href="<?= $file->file_path ?>"
-                                        download="<?= $file->file_name ?>">
-                                        <?= $file->file_name ?>
-                                    </a>
-                                </li>
-                            <? } ?>
-                        </ul>
-                    </div>
-                </div>
-            <? } ?>
             <?= $board->content ?>
         </div>
+        <? if ($file_info != null) { ?>
+            <div class="content_file">
+                <div class="dropdown">
+                    <ul>
+                        <? foreach ($file_info as $file) { ?>
+                            <li class="file_content_box">
+                                <div>
+                                    <img class="file_img" src="/assets/images/forder.png">
+                                    <a href="<?= $file->file_path ?>" download="<?= $file->file_name ?>">
+                                        <?= $file->file_name ?>
+                                    </a>
+                                </div>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </div>
+            </div>
+        <? } ?>
         <div id="detail_heart">
             <ul>
 
@@ -162,24 +160,25 @@
                                 <? if ($board->user_id == $comment->user_id) { ?>
                                     <span>　작성자　</span>
                                 <? } else { ?>
+
                                 <? } ?>
                             </li>
                             <div class="detail_comment_content_style">
-                                <p>
+                                <span>
                                     <?= $comment->content ?>
                                     <? if ($comment->img_path != "") { ?>
                                         <img src="<?= $comment->img_path ?>" width="75" height="75">
                                     <? } else { ?>
 
                                     <? } ?>
-                                </p>
+                                </span>
                             </div>
                             <ul>
                                 <li>
                                     <?= date('Y-m-d H:i', strtotime($comment->write_date)) ?>
                                 </li>
                                 <? if (isset($user_id)) { ?>
-                                    <li><a href="" class="toggle-recomment_form"
+                                    <li><a href="#" class="toggle-recomment_form"
                                             onclick="toggle_recomment_btn(event,<?= $comment->comment_num ?>)">답글 쓰기</a></li>
                                 <? } ?>
                                 <? if ($id_authority == 2 || $comment->user_id == $user_id) { ?>
@@ -193,29 +192,31 @@
                         </ul>
                     </div>
                     <!-- 댓글 수정 -->
-                    <div id="edit-comment-section-<?= $comment->comment_num ?>" class="edit-comment-section">
-                        <form id="detail_comment_modify_form-<?= $comment->comment_num ?>"
-                            action="/board/board_detail/board_comment_update" method="post">
-                            <div>
-                                <input type="hidden" id="category_num<?= $comment->comment_num ?>" name="category_num"
-                                    value="<?= $category->category_num ?>">
-                                <input type="hidden" id="article_num<?= $comment->comment_num ?>" name="article_number"
-                                    value="<?= $board->article_num ?>">
-                                <input type="hidden" id="detail_comment_num<?= $comment->comment_num ?>"
-                                    name="detail_comment_num" value="<?= $comment->comment_num ?>">
-                                <div id="modify_box">
-                                    <!-- <span class="edit_comment_id">
+                    <? if ($user_id == $comment->user_id) { ?>
+                        <div id="edit-comment-section-<?= $comment->comment_num ?>" class="edit-comment-section">
+                            <form id="detail_comment_modify_form-<?= $comment->comment_num ?>"
+                                action="/board/board_detail/board_comment_update" method="post">
+                                <div>
+                                    <input type="hidden" id="category_num<?= $comment->comment_num ?>" name="category_num"
+                                        value="<?= $category->category_num ?>">
+                                    <input type="hidden" id="article_num<?= $comment->comment_num ?>" name="article_number"
+                                        value="<?= $board->article_num ?>">
+                                    <input type="hidden" id="detail_comment_num<?= $comment->comment_num ?>"
+                                        name="detail_comment_num" value="<?= $comment->comment_num ?>">
+                                    <div id="modify_box">
+                                        <!-- <span class="edit_comment_id">
                                         <?= $comment->user_id ?>
                                     </span> -->
-                                    <input type="text" id="detail_comment_content<?= $comment->comment_num ?>"
-                                        name="detail_comment_content" class="detail_comment_content"
-                                        placeholder="<?= $comment->content ?>">
-                                    <button type="button" class="btn btn-secondary edit_btn"
-                                        onclick="comment_update(<?= $comment->comment_num ?>)">수정</button>
+                                        <textarea id="detail_comment_content<?= $comment->comment_num ?>"
+                                            name="detail_comment_content"
+                                            class="detail_comment_content"><?= $comment->content ?></textarea>
+                                        <button type="submit" class="btn btn-secondary edit_btn">수정</button>
+                                        <!-- onclick="comment_update(<?= $comment->comment_num ?>)" -->
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
+                    <? } ?>
                     <!-- 답글다는부분 -->
                     <div id="edit-recomment-section-<?= $comment->comment_num ?>" class="edit-recomment-section">
                         <form id="detail_recomment_write_form" action="/board/board_detail/board_recomment_writes"
@@ -250,24 +251,25 @@
                                     <?= $user_id ?>
                                 </span>
                             </h5>
-                        </div>
-                        <div class="comment_box">
-                            <ul>
-                                <li><span id="detail_previewImage"></span></li>
-                                <li><textarea id="detail_comments_write_text"
-                                        name="detail_comments_write_text"></textarea></textarea></li>
+
+                            <div class="comment_box">
+                                <ul>
+                                    <li><textarea id="detail_comments_write_text"
+                                            name="detail_comments_write_text"></textarea></textarea>
+                                    </li>
+                                </ul>
                                 <ul class="detail_comment_btn_right">
-                                    <li><label for="detail_comments_file" class="comments_poto">
+                                    <li><span id="detail_previewImage"></span></li>
+                                    <li class="comment_btn_detail_right"><label for="detail_comments_file" class="comments_poto">
                                             <img src="/assets/images/comment_camera.png" alt="alt" width="25" height="25">
                                         </label>
                                         <input type="file" name="detail_comment_file" id="detail_comments_file"
                                             accept=".jpg, .jpeg, .png, .gif">
                                     </li>
-                                    <li><button type="submit" class="btn btn-secondary"
+                                    <li class="comment_btn_detail_right"><button type="submit" class="btn btn-secondary"
                                             id="detail_comments_write_text_submit">등록</button></li>
                                 </ul>
-                            </ul>
-
+                            </div>
                         </div>
                 </div>
                 </form>
@@ -279,87 +281,91 @@
                 </form>
             <? } ?>
         </div>
-    </div>
-    </div>
-
-
-    <!-- 하단 버튼들 -->
-    <? if (isset($user_id)) { ?>
-        <div id="detail_footer_btn_group">
-            <ul>
-                <li><a href="/board/board_write"><button type="button" class="btn btn-secondary">글쓰기</button></a></li>
-                <li><button type="button" class="btn btn-secondary reply_board">답글</button></li>
-                <? if ($user_id == $board->user_id || $id_authority == 2) { ?>
-                    <li><button type="button" id="modify_category" class="btn btn-secondary" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop_k">이동</button></li>
-                    <li><a
-                            href="/board/board_detail/detail_delete?board=<?= $board->article_num ?>&category=<?= $category->category_num ?>"><button
-                                type="button" class="btn btn-secondary">삭제</button></a></li>
-                    <li><a href="/board/board_write/modify?board_num=<?= $board->article_num ?>"><button type="button"
-                                class="btn btn-secondary">수정</button></a></li>
-                <? } ?>
-                <li class="detail_footer_btn_right"><a
-                        href="/board/board_list?num=<?= $category->category_num ?>&name=<?= $category->category_name ?>"><button
-                            type="button" class="btn btn-secondary">목록</button></a>
-                    <a href="#"><button type="button" class="btn btn-secondary">▲TOP</button></a>
-                </li>
-            </ul>
-        </div>
-    <? } ?>
-
-    <!-- 카테고리 이동 모달창 -->
-    <div class="modal fade" id="staticBackdrop_k" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">카테고리 이동</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- 하단 버튼들 -->
+        <? if (isset($user_id)) { ?>
+            <div id="detail_footer_btn_group">
+                <ul>
+                    <li><a href="/board/board_write?category_num=<?= $category->category_num ?>"><button type="button"
+                                class="btn btn-secondary">글쓰기</button></a></li>
+                    <li><button type="button" class="btn btn-secondary reply_board">답글</button></li>
+                    <? if ($user_id == $board->user_id || $id_authority == 2) { ?>
+                        <li><button type="button" id="modify_category" class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop_k">이동</button></li>
+                        <li><a
+                                href="/board/board_detail/detail_delete?board=<?= $board->article_num ?>&category=<?= $category->category_num ?>"><button
+                                    type="button" class="btn btn-secondary">삭제</button></a></li>
+                        <li><a href="/board/board_write/modify?board_num=<?= $board->article_num ?>"><button type="button"
+                                    class="btn btn-secondary">수정</button></a></li>
+                    <? } ?>
+                    <li class="detail_footer_btn_right"><a
+                            href="/board/board_list?num=<?= $category->category_num ?>&name=<?= $category->category_name ?>"><button
+                                type="button" class="btn btn-secondary">목록</button></a>
+                        <a href="#"><button type="button" class="btn btn-secondary">▲TOP</button></a>
+                    </li>
+                </ul>
+            </div>
+        <? } ?>
+        <? if (isset($user_id)) { ?>
+            <div id="semi_list_list">
+                <div id="semi_title">
+                    <span>
+                        <?= $category->category_name ?> 게시판글
+                    </span>
                 </div>
-                <div class="modal-body">
-                    <form>
-                        <input type="hidden" id="modify_article_num" name="modify_article_num"
-                            value="<?= $board->article_num ?>">
-                        <select id="modify_list">
-                            <? foreach ($category_modify as $modify_list) { ?>
-                                <? if ($modify_list->category_num != 0) { ?>
-                                    <option value="<?= $modify_list->category_num ?>"><?= $modify_list->category_name ?>
-                                    </option>
-                                <? } ?>
-                            <? } ?>
-                        </select>
-                        <div id="delete_btn">
-                            <button type="button" class="btn btn-secondary" id="category_modify">이동</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <? foreach ($mini_list as $semi_list) { ?>
+                    <div id="semi_list">
+                        <? if ($semi_list->board_status == 1 && $semi_list->category_num == $category->category_num) { ?>
+                            <ul id="why">
+                                <li id="semi_first"><a
+                                        href="/board/board_detail?category=<?= $semi_list->category_num ?>&board_num=<?= $semi_list->article_num ?>">
+                                        <?= $semi_list->title ?>
+                                    </a></li>
+                                <li id="semi_middle">
+                                    <?= $semi_list->user_id ?>
+                                </li>
+                                <li id="semi_last">
+                                    <?= date('Y-m-d', strtotime($semi_list->write_date)) ?>
+                                </li>
+                            </ul>
                         </div>
-                    </form>
+                    <? } ?>
+                <? } ?>
+            </div>
+        <? } ?>
+    </div>
+    </div>
+
+    <? if ($id_authority == 2 || $user_id == $board->user_id) { ?>
+        <!-- 카테고리 이동 모달창 -->
+        <div class="modal fade" id="staticBackdrop_k" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">카테고리 이동</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <input type="hidden" id="modify_article_num" name="modify_article_num"
+                                value="<?= $board->article_num ?>">
+                            <select id="modify_list">
+                                <? foreach ($category_modify as $modify_list) { ?>
+                                    <? if ($modify_list->category_num != 0) { ?>
+                                        <option value="<?= $modify_list->category_num ?>">
+                                            <?= $modify_list->category_name ?>
+                                        </option>
+                                    <? } ?>
+                                <? } ?>
+                            </select>
+                            <div id="delete_btn">
+                                <button type="button" class="btn btn-secondary" id="category_modify">이동</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <? if (isset($user_id)) { ?>
-        <div id="semi_list_list">
-            <div id="semi_title">
-                <?= $category->category_name ?> 게시판글
-            </div>
-            <? foreach ($mini_list as $semi_list) { ?>
-                <div id="semi_list">
-                    <? if ($semi_list->board_status == 1 && $semi_list->category_num == $category->category_num) { ?>
-                        <ul id="why">
-                            <li id="semi_first"><a
-                                    href="/board/board_detail?category=<?= $semi_list->category_num ?>&board_num=<?= $semi_list->article_num ?>">
-                                    <?= $semi_list->title ?>
-                                </a></li>
-                            <li id="semi_middle">
-                                <?= $semi_list->user_id ?>
-                            </li>
-                            <li id="semi_last">
-                                <?= date('Y-m-d', strtotime($semi_list->write_date)) ?>
-                            </li>
-                        </ul>
-                    </div>
-                <? } ?>
-            <? } ?>
         </div>
     <? } ?>
 </body>

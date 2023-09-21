@@ -21,10 +21,15 @@ class board_write extends CI_Controller
         $write = 1;
         $id = $this->session->userdata("id");
         $authority = $this->session->userdata("authority");
+
         if ($id) {
             $data['write'] = $write;
             $data['result'] = $this->board_write_model->list_category();
             $data['authority'] = $authority;
+            if(isset($_GET['category_num'])){
+                $category_num = $this->input->get("category_num");
+                $data['category_num'] = $category_num;
+            }
             $this->load->view("/board/board_write_view", $data);
         } else {
             echo "<script>
@@ -35,6 +40,7 @@ class board_write extends CI_Controller
     }
     function modify()
     {
+        
         $write = 2;
         $id = $this->session->userdata("id");
         $authority = $this->session->userdata("authority");
@@ -42,11 +48,17 @@ class board_write extends CI_Controller
 
         $result = $this->board_write_model->modify_sel_board($board_num);
         if ($id) {
-            $data['write'] = $write;
-            $data['result'] = $this->board_write_model->list_category();
-            $data['board'] = $result;
-            $data['authority'] = $authority;
-            $this->load->view("/board/board_write_view", $data);
+            if($id == $result->user_id){
+                $data['write'] = $write;
+                $data['result'] = $this->board_write_model->list_category();
+                $data['board'] = $result;
+                $data['authority'] = $authority;
+                $this->load->view("/board/board_write_view", $data);
+            }else{
+                echo "<script>
+                alert('접근 권한이 없습니다.');
+                location.href='/board/board_detail?category=$result->category_num&board_num=$result->article_num';</script>";
+            }
         } else {
             echo "<script>
             alert('로그인후 이용바랍니다.');
@@ -85,7 +97,7 @@ class board_write extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             echo "<script>
-            alert('오류가 발생하였습니다.');
+            alert('빈칸으로 게시물을 등록할수 없습니다.');
             location.href='/board/board_write';</script>";
         } else {
             $this->db->trans_start();
@@ -114,6 +126,8 @@ class board_write extends CI_Controller
                     location.href='/board/board_write';</script>";
                 } else {
                     $fileupload = $this->input->post("fileupload"); //파일업로드
+
+                    $content = str_replace(".." , "" , $content);
 
                     if ($gongji == "on") {
                         $gongji = 2;
@@ -154,7 +168,6 @@ class board_write extends CI_Controller
                                 $data = $this->upload->data();
 
                             } else {
-                                echo "업로드성공 들어가기";
                                 $data = $this->upload->data();
                                 $file_path = $data['full_path']; //풀 파일경로
                                 $wep_root = "C:/cloneproject/ci";
@@ -201,7 +214,7 @@ class board_write extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             echo "<script>
-            alert('오류가 발생하였습니다.');
+            alert('빈칸으로 게시물을 등록할수 없습니다.');
             location.href='/board/board_write';</script>";
         } else {
             $this->db->trans_start();
@@ -261,9 +274,7 @@ class board_write extends CI_Controller
                         $_FILES['file']['size'] = $files['size'][$key];
                         if (!$this->upload->do_upload('file')) { //파일을 넣지않았거나 업로드가 안된경우
                             $data = $this->upload->data();
-
                         } else {
-                            echo "업로드성공 들어가기";
                             $data = $this->upload->data();
                             $file_path = $data['full_path']; //풀 파일경로
                             $wep_root = "C:/cloneproject/ci";
@@ -271,6 +282,7 @@ class board_write extends CI_Controller
 
                             $original_file_name = $_FILES['file']['name'];
                             $save_file_name = $board_num . "_" . $original_file_name;
+
                             // 파일업로드 테이블에 insert
                             $this->board_write_model->fileupload_update($board_num, $file_path, $original_file_name, $save_file_name);
                         }
@@ -329,7 +341,7 @@ class board_write extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             echo "<script>
-            alert('오류가 발생하였습니다.');
+            alert('빈칸으로 게시물을 등록할수 없습니다.');
             location.href='/board/board_write';</script>";
         } else {
             $this->db->trans_start();

@@ -83,7 +83,7 @@ class board_write_model extends CI_Model
 
     function fileupload_update($board_num, $file_path, $original_file_name, $save_file_name)
     {
-        $this->db->query("update fileupload set file_save_name = '$save_file_name', file_name = '$original_file_name', file_path='$file_path' where article_num = $board_num");
+        $this->db->query("insert into fileupload (article_num,file_save_name,file_name,file_path) values('$board_num','$save_file_name','$original_file_name','$file_path')");
     }
 
     function modify_sel_board($article_num)
@@ -97,6 +97,7 @@ class board_write_model extends CI_Model
 
     function board_modify($board_num, $gongji, $dcsr, $category, $title, $content)
     {
+        $this->db->query("delete from fileupload where article_num = '$board_num'");
         $this->db->query("update board set main_status = '$gongji',disclosure = '$dcsr',category_num = '$category',title = '$title',content= '$content' where article_num = '$board_num'");
 
         $sql = $this->db->query("select * from board where article_num = '$board_num'")->result();

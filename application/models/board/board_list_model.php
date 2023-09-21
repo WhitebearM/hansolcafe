@@ -29,12 +29,13 @@ class board_list_model extends CI_Model
                 grp,
                 seq,
                 depth,
+                b.board_status,
                 b.write_date AS post_write_date
             FROM
                 board b
             WHERE
                 parent_id = 0
-                AND board_status = 1
+                AND (board_status = 1 OR board_status = 2)
             UNION ALL
             SELECT
                 b.article_num,
@@ -44,6 +45,7 @@ class board_list_model extends CI_Model
                 b.grp,
                 b.seq,
                 b.depth,
+                b.board_status,
                 ph.post_write_date
             FROM
                 board b
@@ -58,6 +60,7 @@ class board_list_model extends CI_Model
             ph.grp,
             ph.seq,
             ph.depth,
+            ph.board_status,
             (SELECT COUNT(*) FROM board WHERE parent_id = ph.article_num) AS child_count,
             COALESCE(comment_counts.comment_count, 0) AS comment_count,
             COALESCE(heart_counts.heart_count, 0) AS heart_count,
@@ -65,7 +68,8 @@ class board_list_model extends CI_Model
             COALESCE(GROUP_CONCAT(fu.file_name SEPARATOR ', '), '') AS file_name,
             b.content,
             b.user_id,
-            ph.post_write_date AS write_date 
+            ph.post_write_date AS write_date,
+            CASE WHEN (SELECT board_status FROM board WHERE article_num = ph.parent_id) = 2 THEN 0 ELSE 1 END AS parent_valid
         FROM PostHierarchy ph
         LEFT JOIN (
             SELECT article_num, COUNT(*) AS comment_count
@@ -95,7 +99,7 @@ class board_list_model extends CI_Model
     }
 
 
-
+    //공지사항
     function all_board()
     {
         return $this->db->query("select 
@@ -179,9 +183,8 @@ class board_list_model extends CI_Model
             FROM
                 board
             WHERE
-                parent_id = 0
-                AND board_status = 1
-                AND category_num = '$category_num' -- Filter by category if needed
+                parent_id = 0 
+                AND category_num = '$category_num'
             UNION ALL
             SELECT
                 b.article_num,
@@ -245,7 +248,7 @@ class board_list_model extends CI_Model
         }
 
         if (!empty($start_date)) {
-            $sql .= " and board.write_date between '$start_date' and '$end_date'";
+            $sql .= " and ph.post_write_date between '$start_date' and '$end_date'";
         }
 
         if ($option2 == "board_comment") {
@@ -326,4 +329,51 @@ class board_list_model extends CI_Model
 
 
 
+    function date_search_count($select_date,$category_num)
+    {
+        $sql = "select COUNT(*) as count FROM board WHERE write_date >= '$select_date 00:00:00' AND write_date <= '$select_date 23:59:59'AND category_num = '$category_num' AND board_status = 1;";
+
+        return $this->db->query($sql)->row_array();
+    }
+
+    function date_search($select_date,$category_num, $per_page, $offset)
+    {
+        $sql = "select 
+        b.*,
+        f.file_path,
+        IFNULL(h.heart_count, 0) AS heart_count,
+        IFNULL(c.comment_count, 0) AS comment_count
+    FROM board AS b
+    LEFT JOIN (
+        SELECT article_num, MAX(file_path) AS file_path
+        FROM fileupload
+        GROUP BY article_num
+    ) AS f ON b.article_num = f.article_num
+    LEFT JOIN (
+        SELECT article_num, COUNT(*) AS heart_count
+        FROM heart
+        GROUP BY article_num
+    ) AS h ON b.article_num = h.article_num
+    LEFT JOIN (
+        SELECT article_num, COUNT(*) AS comment_count
+        FROM comments
+        GROUP BY article_num
+    ) AS c ON b.article_num = c.article_num
+    WHERE 
+        b.write_date >= '$select_date 00:00:00'
+        AND b.write_date <= '$select_date 23:59:59'
+        AND b.board_status = 1
+        AND b.category_num = '$category_num'
+        limit $offset, $per_page;
+    ";
+
+        return $this->db->query($sql)->result();
+    }
+
+    function find_board($post_num){
+        $sql = "select * from board where article_num = '$post_num'";
+    
+        return $this->db->query($sql)->row();
+    
+    }
 }

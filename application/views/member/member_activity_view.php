@@ -14,13 +14,16 @@
                 <ul>
                     <li>
                         <div id="member_profile">
-                            <img src="<?= $member->image_path ?>" width="75" height="75">
+                            <? if ($member->image_path != "") { ?>
+                                <img src="<?= $member->image_path ?>" width="75" height="75">
+                            <? } else { ?>
+                                <img src="/assets/images/profile.png" width="75" height="75" rel="img">
+                            <? } ?>
                         </div>
                     </li>
                     <li id="member_profile_info">
                         <span>
-                            <?= $member->user_nickname ?> [
-                            <?= $member->user_id ?> ]
+                            <?= $member->user_nickname ?> [<?= $member->user_id ?> ]
                         </span><br>
                         <span>작성글
                             <?= $member->board_num ?> 개
@@ -61,7 +64,9 @@
                                         </li>
                                         <li class="member_activity_title">
                                             <a
-                                                href="/board/board_detail?category=<?= $board->category_num ?>&board_num=<?= $board->article_num ?>"><?= $board->title ?></a>
+                                                href="/board/board_detail?category=<?= $board->category_num ?>&board_num=<?= $board->article_num ?>">
+                                                <?= $board->title ?>
+                                            </a>
                                             <? if ($board->file_path) { ?>
                                                 <span><img src="/assets/images/fileimg.png" width="25" height="25" rel="img"></span>
                                             <? } ?>
@@ -116,7 +121,9 @@
                                     <?= $comment->content ?>
                                 </li>
                                 <li class="member_activity_board_comment"><a
-                                        href="/board/board_detail?category=<?= $comment->board_category_num ?>&board_num=<?= $comment->article_num ?>"><?= $comment->board_title ?></a></li>
+                                        href="/board/board_detail?category=<?= $comment->board_category_num ?>&board_num=<?= $comment->article_num ?>">
+                                        <?= $comment->board_title ?>
+                                    </a></li>
                                 <li class="member_activity_date_comment">
                                     <?= date('Y-m-d', strtotime($comment->write_date)) ?>
                                 </li>

@@ -196,7 +196,8 @@ class board_detail_model extends CI_Model
 
     function comment_delete($comment_num)
     {
-        $this->db->query("delete from comments where comment_num= '$comment_num'");
+        $this->db->query("delete from comments where comment_num= '$comment_num' or parent_id = '$comment_num'");
+        
     }
 
     // function board_modify($id, $gongji, $dcsr, $category, $title, $content){
@@ -289,7 +290,8 @@ class board_detail_model extends CI_Model
                 c.seq,
                 c.depth,
                 c.article_num,
-                m.image_path 
+                c.image_path as img_path,
+                m.image_path  
             FROM
                 comments c
             LEFT JOIN
@@ -307,6 +309,7 @@ class board_detail_model extends CI_Model
                 c.seq,
                 c.depth,
                 c.article_num,
+                c.image_path as img_path,
                 m.image_path
             FROM
                 comments c
@@ -325,13 +328,14 @@ class board_detail_model extends CI_Model
             seq,
             depth,
             article_num,
+            img_path,
             image_path 
         FROM
             CommentHierarchy
         WHERE
             article_num = '$board_num'
         ORDER BY
-            grp desc, seq
+        grp desc, seq,write_date DESC
         ")->result();
     }
 
@@ -348,6 +352,7 @@ class board_detail_model extends CI_Model
                 c.seq,
                 c.depth,
                 c.article_num,
+                c.image_path as img_path,
                 m.image_path 
             FROM
                 comments c
@@ -366,6 +371,7 @@ class board_detail_model extends CI_Model
                 c.seq,
                 c.depth,
                 c.article_num,
+                c.image_path as img_path,
                 m.image_path
             FROM
                 comments c
@@ -384,6 +390,7 @@ class board_detail_model extends CI_Model
             seq,
             depth,
             article_num,
+            img_path,
             image_path 
         FROM
             CommentHierarchy

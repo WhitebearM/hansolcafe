@@ -19,6 +19,9 @@
 .category{
     border-top: 1px solid gainsboro;
 }
+.category h6{
+    margin: 30px auto auto 20px;
+}
 .category_list li{
     display: inline-block;
 }
@@ -56,6 +59,9 @@
     padding-top: 15px;
     border-bottom: 1px solid gainsboro;
     list-style: none;
+}
+.board_list:hover{
+    background-color: #d4d4d4;
 }
 .board_list li{
     display: inline-block;
@@ -268,4 +274,15 @@
     display: inline-block;
     box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
     outline: none;
+}
+
+#board_list_date_box{
+    float: right;
+    margin-right: 50px;
+}
+#board_list_pagination span a{
+    margin: auto 5px;
+}
+#parent_del{
+    color: #fc5d5d;
 }

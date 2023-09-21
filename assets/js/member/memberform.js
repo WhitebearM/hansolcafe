@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', function () {
       reader.readAsDataURL(file);
     } else {
       alert("허용하지 않은 파일 형식입니다. jpg, jpeg, png 파일만 업로드 가능합니다.");
-      previewImage.setAttribute('src', '#');
-      previewImage.style.display = 'none';
+      previewImage.setAttribute('src', '/assets/images/profile.png');
+      // previewImage.style.display = 'none';
     }
   });
 

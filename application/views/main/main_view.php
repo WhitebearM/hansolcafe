@@ -12,7 +12,9 @@
             <div class="board_title">
                 <ul>
                     <li>
-                        <h6>전체 글보기</h6>
+                        <div class="main_real_title">
+                          <h6>전체 글보기</h6>
+                        </div>
                     </li>
                     <li id="main_title_move_btn"><a href="/layout/full_board_list">더보기 ></a></li>
                 </ul>
@@ -189,13 +191,14 @@
                     <span id="main_pagination"><?= $pagination ?></span>
                 </li>
                 <li class="board_btn_right">
-                    <a href="/board/board_write"><button type="button" class="btn btn-outline-secondary">글쓰기</button></a>
+                    <a href="/board/board_write"><button type="button" class="btn btn btn-danger">글쓰기</button></a>
                 </li>
             </ul>
         </div>
 
         <div id="main_board_search">
             <form id="main_footer_search_form" action="/layout/full_board_list_search" method="get">
+                <?if(!isset($day)){?>
                 <select name="category_option_1">
                     <option value="all">전체</option>
                     <option value="1_day">1일</option>
@@ -204,7 +207,42 @@
                     <option value="6_months">6개월</option>
                     <option value="1_year">1년</option>
                 </select>
+                <?}else{?>
+                <select name="category_option_1">
+                    <?if($day == "all"){?>
+                        <option value="all" selected>전체</option>
+                    <?}else{?>
+                        <option value="all">전체</option>
+                    <?}?>
+                    <?if($day == "1_day"){?>
+                        <option value="1_day" selected>1일</option>
+                    <?}else{?>
+                        <option value="1_day">1일</option>
+                    <?}?>
+                    <?if($day == "1_week"){?>
+                        <option value="1_week" selected>일주일</option>
+                    <?}else{?>
+                        <option value="1_week">일주일</option>
+                    <?}?>
+                    <?if($day == "1_months"){?>
+                        <option value="1_months" selected>1개월</option>
+                    <?}else{?>
+                        <option value="1_months">1개월</option>
+                    <?}?>
+                    <?if($day == "6_months"){?>
+                        <option value="6_months" selected>6개월</option>
+                    <?}else{?>
+                        <option value="6_months">6개월</option>
+                    <?}?>
+                    <?if($day == "1_year"){?>
+                        <option value="1_year" selected>1년</option>
+                    <?}else{?>
+                        <option value="1_year">1년</option>
+                    <?}?>
+                </select>
+                <?}?>
 
+                <?if(!isset($search_sel)){?>
                 <select name="category_option_2">
                     <option value="board_comment">게시글 + 댓글</option>
                     <option value="title">제목만</option>
@@ -212,9 +250,46 @@
                     <option value="content">댓글내용</option>
                     <option value="comment_writer">댓글 작성자</option>
                 </select>
-
-                <input type="text" name="board_footer_search" id="main_footer_go">
+                <?}else{?>
+                <select name="category_option_2">
+                    <?if($search_sel == "board_comment"){?>
+                        <option value="board_comment" selected>게시글 + 댓글</option>
+                    <?}else{?>
+                        <option value="board_comment">게시글 + 댓글</option>
+                    <?}?>
+                    <?if($search_sel == "title"){?>
+                        <option value="title" selected>제목만</option>
+                    <?}else{?>
+                        <option value="title">제목만</option>
+                    <?}?>
+                    <?if($search_sel == "board_writer"){?>
+                        <option value="board_writer" selected>글작성자</option>
+                    <?}else{?>
+                        <option value="board_writer">글작성자</option>
+                    <?}?>
+                    <?if($search_sel == "content"){?>
+                        <option value="content" selected>댓글내용</option>
+                    <?}else{?>
+                        <option value="content">댓글내용</option>
+                    <?}?>
+                    <?if($search_sel == "comment_writer"){?>
+                        <option value="comment_writer" selected>댓글 작성자</option>
+                    <?}else{?>
+                        <option value="comment_writer">댓글 작성자</option>
+                    <?}?>
+                </select>
+                <?}?>
+                <?if(!isset($search_title_footer)){?>
+                    <input type="text" name="board_footer_search" id="main_footer_go">
+                <?}else if($search_title_footer != ""){?>
+                    <input type="text" name="board_footer_search" id="main_footer_go" value="<?=$search_title_footer?>">
+                <?}?>
                 <button class="custom-btn btn-16" type="submit">검색</button>
+                <span id="main_date_box">날짜로만 검색 : 
+                <input type="date" name="main_search_date" id="main_search_date"
+                <?if(isset($date)){?>
+                value="<?=$date?>"></span>
+                <?}?>
             </form>
         </div>
     <? } ?>

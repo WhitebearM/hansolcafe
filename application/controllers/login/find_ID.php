@@ -21,14 +21,23 @@ class find_ID extends CI_Controller{
 
         if($this->form_validation->run()== false){
             echo "<script>
-            alert('오류가 발생하였습니다.');
+            alert('이메일을 입력해주세요.');
             location.href='/login/find_ID';</script>";
         }else{
         $search_id = $this->input->post("find_id_email");
 
         $data['result'] = $this->find_ID_model->find_ID($search_id);
+
+        if($data['result'] != ""){
+            if($data['result']->user_email == $search_id){
+                $this->load->view("login/find_ID_view",$data);
+            }
+        }else{
+            echo "<script>
+            alert('해당하는 이메일이 존재하지 않습니다.');
+            location.href='/login/find_ID';</script>";
+        }
         
-        $this->load->view("login/find_ID_view",$data);
     }
 }
 }

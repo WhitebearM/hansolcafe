@@ -88,7 +88,7 @@ class layout_model extends CI_Model
 
     function delete($category_num)
     {
-        $this->db->query("update board set category_num = '0' where category_num = '$category_num'");
+        $this->db->query("update board set category_num = '0', main_status = 1 where category_num = '$category_num'");
         $this->db->query("delete from category where category_num = '$category_num'");
     }
 
@@ -172,7 +172,10 @@ class layout_model extends CI_Model
         $start_date = null;
         $end_date = date('Y-m-d');
 
-        $sql = "select DISTINCT board.*, COALESCE(comment_counts.comment_count, 0) AS comment_count, COALESCE(heart_counts.heart_count, 0) AS heart_count, fileupload.file_path
+        $sql = "select DISTINCT board.*, 
+        COALESCE(comment_counts.comment_count, 0) AS comment_count, 
+        COALESCE(heart_counts.heart_count, 0) AS heart_count,
+        fileupload.file_path
         FROM board
         LEFT JOIN (
             SELECT article_num, COUNT(*) AS comment_count
@@ -186,11 +189,11 @@ class layout_model extends CI_Model
         ) AS heart_counts ON board.article_num = heart_counts.article_num
         LEFT JOIN fileupload ON board.article_num = fileupload.article_num
         LEFT JOIN comments c ON board.article_num = c.article_num
-        WHERE board.board_status = 1
+        WHERE board.board_status = 1 
         ";
 
         if ($option1 == "all") {
-            // $sql .= " and '$start_date' <= board.write_date";
+            
         } else if ($option1 == "1_day") {
             $start_date = date('Y-m-d', strtotime('-1 day', strtotime($end_date)));
         } else if ($option1 == "1_week") {
@@ -219,7 +222,9 @@ class layout_model extends CI_Model
             $sql .= " and c.user_id LIKE '%$title%'";
         }
 
-        $sql .= "LIMIT $offset,$limit";
+        $sql .= "   ORDER BY
+        board.write_date DESC 
+        LIMIT $offset, $limit";
 
         $query = $this->db->query($sql);
 
@@ -229,53 +234,52 @@ class layout_model extends CI_Model
             return array();
         }
     }
-    function main_board_search_count($option1, $option2, $title)
-    {
-        $start_date = null;
-        $end_date = date('Y-m-d');
 
-        $this->db->select('COUNT(*) AS result_count');
-        $this->db->from('board');
-        $this->db->join('comments', 'board.article_num = comments.article_num', 'left');
-        $this->db->where('board.board_status', 1);
 
-        if ($option1 == "1_day") {
-            $start_date = date('Y-m-d', strtotime('-1 day', strtotime($end_date)));
-        } else if ($option1 == "1_week") {
-            $start_date = date('Y-m-d', strtotime('-1 week', strtotime($end_date)));
-        } else if ($option1 == "1_months") {
-            $start_date = date('Y-m-d', strtotime('-1 month', strtotime($end_date)));
-        } else if ($option1 == "6_months") {
-            $start_date = date('Y-m-d', strtotime('-6 months', strtotime($end_date)));
-        } else if ($option1 == "1_year") {
-            $start_date = date('Y-m-d', strtotime('-1 year', strtotime($end_date)));
-        }
+    public function main_board_search_count($option1, $option2, $title)
+{
+    $start_date = null;
+    $end_date = date('Y-m-d');
 
-        if (!empty($start_date)) {
-            $this->db->where("board.write_date BETWEEN '$start_date' AND '$end_date'");
-        }
+    $sql = "SELECT COUNT(*) AS result_count
+            FROM board
+            WHERE board_status = 1 ";
 
-        if ($option2 == "board_comment") {
-            $this->db->group_start();
-            $this->db->like('board.title', $title);
-            $this->db->or_like('board.content', $title);
-            $this->db->or_like('comments.content', $title);
-            $this->db->group_end();
-        } elseif ($option2 == "title") {
-            $this->db->like('board.title', $title);
-        } elseif ($option2 == "board_writer") {
-            $this->db->like('board.user_id', $title);
-        } elseif ($option2 == "content") {
-            $this->db->like('comments.content', $title);
-        } elseif ($option2 == "comment_writer") {
-            $this->db->like('comments.user_id', $title);
-        }
-
-        $query = $this->db->get();
-        $row = $query->row();
-
-        return $row->result_count;
+    if ($option1 == "1_day") {
+        $start_date = date('Y-m-d', strtotime('-1 day', strtotime($end_date)));
+    } elseif ($option1 == "1_week") {
+        $start_date = date('Y-m-d', strtotime('-1 week', strtotime($end_date)));
+    } elseif ($option1 == "1_months") {
+        $start_date = date('Y-m-d', strtotime('-1 month', strtotime($end_date)));
+    } elseif ($option1 == "6_months") {
+        $start_date = date('Y-m-d', strtotime('-6 months', strtotime($end_date)));
+    } elseif ($option1 == "1_year") {
+        $start_date = date('Y-m-d', strtotime('-1 year', strtotime($end_date)));
     }
+
+    if (!empty($start_date)) {
+        $sql .= " and board.write_date BETWEEN '$start_date' AND '$end_date'";
+    }
+
+    if ($option2 == "board_comment") {
+        $sql .= " and (board.title LIKE '%$title%' OR board.content LIKE '%$title%')";
+    } else if ($option2 == "title") {
+        $sql .= " and board.title LIKE '%$title%'";
+    } else if ($option2 == "board_writer") {
+        $sql .= " and board.user_id LIKE '%$title%'";
+    } else if ($option2 == "content") {
+        $sql .= " and board.article_num IN (SELECT article_num FROM comments WHERE content LIKE '%$title%')";
+    } else if ($option2 == "comment_writer") {
+        $sql .= " and board.article_num IN (SELECT article_num FROM comments WHERE user_id LIKE '%$title%')";
+    }
+
+    $query = $this->db->query($sql);
+    $row = $query->row();
+
+    return $row->result_count;
+}
+
+
 
     function header_search_count($search_title)
     {
@@ -335,5 +339,43 @@ class layout_model extends CI_Model
         ) AS heart_counts ON board.article_num = heart_counts.article_num
         LEFT JOIN fileupload ON board.article_num = fileupload.article_num
         order by board.write_date desc")->result();
+    }
+
+    function main_date_search_count($select_date){
+        $sql = "select COUNT(*) as count FROM board WHERE write_date >= '$select_date 00:00:00' AND write_date <= '$select_date 23:59:59' AND board_status = 1;";
+
+        return $this->db->query($sql)->row_array();
+    }
+
+    function main_date_search($select_date,$per_page,$offset){
+        $sql = "select 
+        b.*,
+        f.file_path,
+        IFNULL(h.heart_count, 0) AS heart_count,
+        IFNULL(c.comment_count, 0) AS comment_count
+    FROM board AS b
+    LEFT JOIN (
+        SELECT article_num, MAX(file_path) AS file_path
+        FROM fileupload
+        GROUP BY article_num
+    ) AS f ON b.article_num = f.article_num
+    LEFT JOIN (
+        SELECT article_num, COUNT(*) AS heart_count
+        FROM heart
+        GROUP BY article_num
+    ) AS h ON b.article_num = h.article_num
+    LEFT JOIN (
+        SELECT article_num, COUNT(*) AS comment_count
+        FROM comments
+        GROUP BY article_num
+    ) AS c ON b.article_num = c.article_num
+    WHERE 
+        b.write_date >= '$select_date 00:00:00'
+        AND b.write_date <= '$select_date 23:59:59'
+        AND b.board_status = 1
+        limit $offset, $per_page;
+    ";
+
+        return $this->db->query($sql)->result();
     }
 }

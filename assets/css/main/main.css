@@ -10,18 +10,27 @@
 /* 메인 콘텐츠 위치조정 */
 .board_main{
     font-size: 12px;
-    margin: 45px 320px auto auto;
+    margin: 45px 320px 300px auto;
     width: 860px;
     background-color: white;
+}
+.main_real_title h6{
+    margin: 30px auto auto 20px;
 }
 .main_board_list{
     padding-top: 10px;
     border-bottom: 1px solid gainsboro;
 }
+.main_board_list:hover{
+    background-color: #d4d4d4;
+}
 /* 메인 타이틀 위치조정 */
 .board_title{
     margin: 15px 15px;
     border-top: 1px solid #999;
+}
+.board_title h6{
+    margin: 30px auto auto 20px;
 }
 .board_title ul{
     list-style: none;
@@ -32,6 +41,9 @@
 #main_title_move_btn{
     color:#999;
     float: right;
+}
+#main_title_move_btn a{
+    margin: 30px 20px auto auto;
 }
 /* 게시물 리스트 기준 */
 #title{
@@ -133,7 +145,7 @@
 }
 #footer_option{
     float: right;
-    margin-right: 320px;
+    margin: 7px 320px auto auto;
 }
 #footer_btn ul{
     list-style: none;
@@ -149,7 +161,7 @@
 }
 /* 하단 검색창 */
 #main_board_search{
-    margin:auto  320px 30px auto;
+    margin:50px 320px 50px auto;
     width: 880px;
     height: 100px;
     font-size: 12px;
@@ -165,6 +177,9 @@
 }
 #main_pagination{
     font-size: 12px;
+}
+#main_pagination a{
+    margin: 5px;
 }
 #main_footer_go{
     outline-color: white;
@@ -188,4 +203,8 @@
     display: inline-block;
     box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
     outline: none;
+}
+#main_date_box{
+    float: right;
+    margin-right: 50px;
 }

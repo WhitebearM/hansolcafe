@@ -12,21 +12,27 @@
     <script src="/assets/js/member/member_modify.js"></script>
 
 </head>
-
 <body>
     <a href="/layout">
         <div id="logo" class="container">
             <a href="/layout"><img src="/assets/images/icon-cafe.png" width="75px" height="75px"></a>
         </div>
     </a>
-    <form class="container" id="modify_form" action="/member/member_modify/member_update" method="post" enctype="multipart/form-data">
+    <form class="container" id="modify_form" action="/member/member_modify/member_update" method="post"
+        enctype="multipart/form-data">
         <div id="modify_title">
             <h5>회원정보 수정</h5>
         </div>
         <div>
-            <div id="previewContainer">
-                <img id="previewImage" src="<?=$info["image_path"]?>" alt="프로필 사진 미리보기" width="150px" height="150px">
-            </div>
+            <? if ($info["image_path"] != "") { ?>
+                <div id="previewContainer">
+                    <img id="previewImage" src="<?= $info["image_path"] ?>" alt="프로필 사진 미리보기" width="150px" height="150px">
+                </div>
+            <? } else { ?>
+                <div id="previewContainer">
+                    <img id="previewImage" src="/assets/images/profile.png" alt="프로필 사진 미리보기" width="150px" height="150px">
+                </div>
+            <? } ?>
             <div id="preview_textContainer">
                 <span id="profile_text">프로필사진 : </span>
                 <input type="file" name="profilePic" id="profilePicInput" accept=".jpg, .jpeg, .png">
@@ -36,13 +42,12 @@
             <ul>
                 <li><input type="text" name="user_id" value="<?= $info['user_id'] ?>" readonly></li>
                 <li><input type="text" name="user_nickname" value="<?= $info['user_nickname'] ?>" required></li>
-                <li><input type="password" name="user_pw" name="check_pw" id="check_pw" placeholder="비밀번호" required>
+                <li><input type="password" name="user_pw" name="check_pw" id="check_pw" placeholder="비밀번호">
                 </li>
                 <span class="error" id="change_pw_error" style="color: red;"></span>
-                <li><input type="password" name="user_pw" name="check_confirm" id="check_confirm" placeholder="비밀번호 확인"
-                        required></li>
+                <li><input type="password" name="user_pw" name="check_confirm" id="check_confirm" placeholder="비밀번호 확인"></li>
                 <span class="error" id="change_confirm_error" style="color: red;"></span>
-                <li><input type="text" name="user_email" id="user_email" placeholder="이메일 : <?= $info['user_email'] ?>"
+                <li><input type="email" name="user_email" id="user_email" value="<?= $info['user_email'] ?>"
                         required></li>
                 <span class="error" id="change_email_error" style="color: red;"></span>
             </ul>
