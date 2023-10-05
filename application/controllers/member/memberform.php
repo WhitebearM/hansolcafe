@@ -52,10 +52,10 @@ class memberform extends CI_Controller
             $name = $this->input->post("user_name");
             $name = html_escape($name);
 
-            $ch_id = $this->memberform_model->ch_user_id($id);
+            $ch_id = $this->memberform_model->ch_user_id($id,$email);
             if($ch_id != ""){
                 echo "<script>
-                alert('중복된 아이디가 있습니다 ^^.');
+                alert('중복된 정보가 있습니다 ^^.');
                 location.href='/member/memberform';</script>";
             }
             //비밀번호 hash로 암호화

@@ -96,11 +96,13 @@ class layout_model extends CI_Model
     {
         $sql = $this->db->query("select 
         board.*,
+        member.user_nickname,
         COALESCE(comment_counts.comment_count, 0) AS comment_count,
         COALESCE(heart_counts.heart_count, 0) AS heart_count,
         COALESCE(GROUP_CONCAT(fileupload.file_path SEPARATOR ', '), '') AS file_path
         FROM
         board
+        LEFT JOIN member ON board.user_id = member.user_id
         LEFT JOIN (
         SELECT article_num, COUNT(*) AS comment_count
         FROM comments
@@ -128,6 +130,7 @@ class layout_model extends CI_Model
     {
         $sql = $this->db->query("select 
     board.*,
+    member.user_nickname,
     COALESCE(comment_counts.comment_count, 0) AS comment_count,
     COALESCE(heart_counts.heart_count, 0) AS heart_count,
     COALESCE(GROUP_CONCAT(fileupload.file_path SEPARATOR ', '), '') AS file_path
@@ -144,6 +147,7 @@ class layout_model extends CI_Model
     GROUP BY article_num
     ) AS heart_counts ON board.article_num = heart_counts.article_num
     LEFT JOIN fileupload ON board.article_num = fileupload.article_num
+    LEFT JOIN member ON board.user_id = member.user_id
     WHERE
     board.board_status = 1
     GROUP BY
@@ -323,10 +327,12 @@ class layout_model extends CI_Model
     {
         return $this->db->query("select 
         board.*,
+        member.user_nickname,
         COALESCE(comment_counts.comment_count, 0) AS comment_count,
         COALESCE(heart_counts.heart_count, 0) AS heart_count,
         fileupload.file_path 
         FROM board
+        LEFT JOIN member ON board.user_id = member.user_id
         LEFT JOIN (
         SELECT article_num, COUNT(*) AS comment_count
         FROM comments

@@ -122,7 +122,7 @@
                                                     href="/board/board_detail?category=<?= $category_num ?>&board_num=<?= $gongji_board->article_num ?>"><?= $gongji_board->title ?></a>
                                             </li>
                                             <li id="main_name_b">
-                                                <?= $gongji_board->user_id ?>
+                                                <?= $gongji_board->user_nickname ?>
                                             </li>
                                             <li id="main_common_b">
                                                 <?= $gongji_board->comment_count ?>
@@ -206,15 +206,15 @@
                                                     <?= (strtotime('now') - strtotime($board->write_date)) / (60 * 60) < 12 ? "[new]" : ""; ?>
                                                 </span>
                                             </span>
-                                            <?if($id == $board->user_id){?>
+                                            <?if($id == $board->user_nickname){?>
                                             <span id="board_write_name" class="text-center">
                                                 <a href="/member/member_activity">
-                                                    <?= $board->user_id ?>
+                                                    <?= $board->user_nickname ?>
                                                 </a>
                                             </span>
                                             <?}else{?>
                                             <span id="board_write_name" class="text-center">
-                                                    <?= $board->user_id ?>
+                                                    <?= $board->user_nickname ?>
                                             </span>
                                             <?}?>
                                             <span id="board_comment" class="text-center">

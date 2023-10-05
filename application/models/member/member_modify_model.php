@@ -35,15 +35,8 @@ class member_modify_model extends CI_Model{
 
     }
 
-
-    function ck_email($email){
-        $query = $this->db->get_where('users' ,array('email' => $email));
-        $result = $query->row();
-
-        if($result){
-            return true;
-        }else{
-            return false;
-        }
+    function member_email_ck($user_email){
+        return $this->db->query("select user_email from member where user_email = '$user_email'")->row();
     }
+
 }

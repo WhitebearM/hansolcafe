@@ -1,4 +1,3 @@
-글
 <?
 
 class board_detail extends CI_Controller

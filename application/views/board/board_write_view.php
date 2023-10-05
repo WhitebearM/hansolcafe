@@ -49,13 +49,13 @@
                             돌아가기
                         </button>
                     </li>
-                    <li>
+<!--                     <li>
                         <button type="button" class="btn btn-outline-secondary" id="previewButton"
                             onclick="showPreview(event)"
                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                             미리보기
                         </button>
-                    </li>
+                    </li> -->
                     <li>
                         <button type="submit" class="btn btn-outline-secondary"
                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
@@ -125,13 +125,13 @@
                             돌아가기
                         </button>
                     </li>
-                    <li>
+<!--                     <li>
                         <button type="button" class="btn btn-outline-secondary" id="previewButton"
                             onclick="showPreview(event)"
                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                             미리보기
                         </button>
-                    </li>
+                    </li> -->
                     <li>
                         <button type="submit" class="btn btn-outline-secondary"
                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
@@ -196,13 +196,13 @@
                             돌아가기
                         </button>
                     </li>
-                    <li>
+<!--                     <li>
                         <button type="button" class="btn btn-outline-secondary" id="previewButton"
                             onclick="showPreview(event)"
                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                             미리보기
                         </button>
-                    </li>
+                    </li> -->
                     <li>
                         <button type="submit" class="btn btn-outline-secondary"
                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">

@@ -82,7 +82,7 @@
                                         <? } ?>
                                     </li>
                                     <li id="board_write_name" class="text-center col-2">
-                                        <?= $board->user_id ?>
+                                        <?= $board->user_nickname ?>
                                     </li>
                                     <li id="board_comment" class="text-center col-1">
                                         <?= $board->comment_count ?>
@@ -132,7 +132,7 @@
                                                 href="/board/board_detail?category=<?= $gong->category_num ?>&board_num=<?= $gong->article_num ?>"><?= $gong->title ?></a>
                                         </li>
                                         <li id="main_name" class="text-center">
-                                            <?= $gong->user_id ?>
+                                            <?= $gong->user_nickname ?>
                                         </li>
                                         <li id="main_common" class="text-center">
                                             <?= $gong->comment_count ?>
@@ -147,6 +147,7 @@
                                 </div>
                             <? } ?>
                         <? } ?>
+                        
                         <? foreach ($result as $board) { ?>
                             <? if ($board->board_status == 1) { ?>
                                 <div class="main_board_list">
@@ -172,7 +173,7 @@
                                         <? } ?>
                                     </li>
                                     <li id="board_write_name" class="text-center col-2">
-                                        <?= $board->user_id ?>
+                                        <?= $board->user_nickname ?>
                                     </li>
                                     <li id="board_comment" class="text-center col-1">
                                         <?= $board->comment_count ?>

@@ -26,7 +26,7 @@ class board_write extends CI_Controller
             $data['write'] = $write;
             $data['result'] = $this->board_write_model->list_category();
             $data['authority'] = $authority;
-            if(isset($_GET['category_num'])){
+            if (isset($_GET['category_num'])) {
                 $category_num = $this->input->get("category_num");
                 $data['category_num'] = $category_num;
             }
@@ -40,7 +40,7 @@ class board_write extends CI_Controller
     }
     function modify()
     {
-        
+
         $write = 2;
         $id = $this->session->userdata("id");
         $authority = $this->session->userdata("authority");
@@ -49,16 +49,16 @@ class board_write extends CI_Controller
         $result = $this->board_write_model->modify_sel_board($board_num);
         $result_file = $this->board_write_model->modify_file($board_num);
         if ($id) {
-            if($id == $result->user_id){
+            if ($id == $result->user_id) {
                 $data['write'] = $write;
                 $data['result'] = $this->board_write_model->list_category();
                 $data['board'] = $result;
                 $data['authority'] = $authority;
-                if($result_file != ""){
+                if ($result_file != "") {
                     $data['result_file'] = $result_file;
                 }
                 $this->load->view("/board/board_write_view", $data);
-            }else{
+            } else {
                 echo "<script>
                 alert('접근 권한이 없습니다.');
                 location.href='/board/board_detail?category=$result->category_num&board_num=$result->article_num';</script>";
@@ -131,7 +131,7 @@ class board_write extends CI_Controller
                 } else {
                     $fileupload = $this->input->post("fileupload"); //파일업로드
 
-                    $content = str_replace(".." , "" , $content);
+                    $content = str_replace("..", "", $content);
 
                     if ($gongji == "on") {
                         $gongji = 2;
@@ -224,12 +224,26 @@ class board_write extends CI_Controller
             $this->db->trans_start();
             $id = $this->session->userdata("id");
             if ($id) {
-                $ori_file_num = $this->input->post('ori_file');// 첨부파일 파일고유번호
+                $ori_file_num = $this->input->post('ori_file'); // 첨부파일 파일고유번호
                 $gongji = $this->input->post("announcement"); //공지사항권한
                 $dcsr = $this->input->post("disclosure"); // 공개범위
                 $board_num = $this->input->post("board_num"); //글수정 게시글 고유번호 가져오기
-                
-                
+
+                $result_file_num = $this->board_write_model->select_file_board($board_num);
+            
+                //연관,다차원배열을 일반 배열화
+                $result_file_num = array_map(function($item){
+                    return $item['file_num'];
+                },$result_file_num);
+
+                //두개의 배열을 비교해서 없는값만 추출
+                $diff = array_diff($result_file_num, $ori_file_num);
+
+                //없는값을 
+                foreach($diff as $sb){
+                    $this->board_write_model->modify_delete_file($sb);
+                }
+
                 if (!$this->input->post("announcement")) {
                     $gongji = 1;
                 }
@@ -303,9 +317,9 @@ class board_write extends CI_Controller
                     location.href='/login/login';</script>";
                 }
 
-             /*    echo "<script>
-                alert('글수정이 완료되었습니다.');
-                location.href='/board/board_detail?category=$modify_board_data->category_num&board_num=$modify_board_data->article_num';</script>"; */
+                   echo "<script>
+                   alert('글수정이 완료되었습니다.');
+                   location.href='/board/board_detail?category=$modify_board_data->category_num&board_num=$modify_board_data->article_num';</script>";
             } else {
                 echo "<script>
                 alert('오류발생');

@@ -150,7 +150,7 @@ function fileName() {
 
 }
 
-// 게시판 작성 미리보기
+/* // 게시판 작성 미리보기
 function showPreview(e) {
     var title = document.getElementById("title").value;
     var content = tinymce.get("f_content").getContent();
@@ -169,4 +169,4 @@ function showPreview(e) {
         + '<p>' + content + '</p>'
         + '</body>'
         + '</html>');
-}
+} */

@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="/assets/css/common/layout.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/assets/js/common/common.js"></script>
+    <link rel="icon" href="/path/to/your/favicon.ico" type="image/x-icon">
+
 </head>
 <body>
     <!-- 헤더부분 -->

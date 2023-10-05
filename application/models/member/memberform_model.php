@@ -18,8 +18,8 @@ class memberform_model extends CI_Model{
         return $this->db->query("select user_email from member where user_email = '$email'")->result();
     }
 
-    function ch_user_id($user_id){
-        $query = $this->db->query("select user_id from member where user_id = '$user_id'")->row();
+    function ch_user_id($user_id,$user_email){
+        $query = $this->db->query("select user_id from member where user_id = '$user_id' or user_email = '$user_email'")->row();
 
         return $query;
     }

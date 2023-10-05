@@ -136,7 +136,7 @@ class board_list extends CI_Controller
             $authority = $this->session->userdata("authority");
 
             //모든 게시글
-            //해당 카테고리에 게시글
+            //해당 카테고리에 공지글
             $all_board_list = $this->board_list_model->all_board();
             // $board_list = $this->board_list_model->board_list($category_num);
             $board_list = $this->board_list_model->board_list($category_num, $per_page, $offset);

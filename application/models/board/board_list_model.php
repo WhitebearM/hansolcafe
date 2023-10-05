@@ -30,9 +30,12 @@ class board_list_model extends CI_Model
                 seq,
                 depth,
                 b.board_status,
-                b.write_date AS post_write_date
+                b.write_date AS post_write_date,
+                m.user_nickname
             FROM
                 board b
+            JOIN
+                member m ON b.user_id = m.user_id
             WHERE
                 parent_id = 0
                 AND (board_status = 1 OR board_status = 2)
@@ -46,11 +49,14 @@ class board_list_model extends CI_Model
                 b.seq,
                 b.depth,
                 b.board_status,
-                ph.post_write_date
+                ph.post_write_date,
+                m.user_nickname
             FROM
                 board b
             JOIN
                 PostHierarchy ph ON b.parent_id = ph.article_num
+            JOIN
+                member m ON b.user_id = m.user_id
         )
         SELECT 
             ph.article_num,
@@ -69,7 +75,8 @@ class board_list_model extends CI_Model
             b.content,
             b.user_id,
             ph.post_write_date AS write_date,
-            CASE WHEN (SELECT board_status FROM board WHERE article_num = ph.parent_id) = 2 THEN 0 ELSE 1 END AS parent_valid
+            CASE WHEN (SELECT board_status FROM board WHERE article_num = ph.parent_id) = 2 THEN 0 ELSE 1 END AS parent_valid,
+            ph.user_nickname
         FROM PostHierarchy ph
         LEFT JOIN (
             SELECT article_num, COUNT(*) AS comment_count
@@ -106,7 +113,8 @@ class board_list_model extends CI_Model
         board.*,
         COALESCE(comment_counts.comment_count, 0) AS comment_count,
         COALESCE(heart_counts.heart_count, 0) AS heart_count,
-        fileupload.file_path 
+        fileupload.file_path,
+        m.user_nickname
     FROM 
         board
     LEFT JOIN (
@@ -119,7 +127,8 @@ class board_list_model extends CI_Model
         FROM heart
         GROUP BY article_num
     ) AS heart_counts ON board.article_num = heart_counts.article_num
-    LEFT JOIN fileupload ON board.article_num = fileupload.article_num;
+    LEFT JOIN fileupload ON board.article_num = fileupload.article_num
+    LEFT JOIN member m ON board.user_id = m.user_id
     ")->result();
 
     }

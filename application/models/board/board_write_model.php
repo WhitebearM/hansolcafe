@@ -96,7 +96,7 @@ class board_write_model extends CI_Model
     }
 
     function select_file_board($article_num){
-        $this->db->query("select file_num from fileupload where article_num = '$article_num'");
+        return $this->db->query("select file_num from fileupload where article_num = '$article_num'")->result_array();
     }
 
     function modify_delete_file($file_num){
