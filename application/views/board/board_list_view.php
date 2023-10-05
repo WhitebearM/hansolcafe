@@ -59,7 +59,7 @@
                                             <input type="hidden" class="option3" value="<?= $option3 ?>">
                                         <? } ?>
                                         <span class="option_right">
-                                            <select id="footer_search_select_number" class="form-select"
+                                            <select id="footer_search_select_number"
                                                 aria-label="Default select example" onchange="changeSearchPerpage(this)">
                                                 <option value="5" <?= ($per_page == 5) ? 'selected' : '' ?>>5개</option>
                                                 <option value="10" <?= ($per_page == 10) ? 'selected' : '' ?>>10개</option>
@@ -71,7 +71,7 @@
                                         </span>
                                     <? } else if ($division == "nomal") { ?>
                                             <span class="option_right">
-                                                <select id="board_select_number" class="form-select"
+                                                <select id="board_select_number"
                                                     aria-label="Default select example" onchange="changePerpage(this)">
                                                     <option value="5" <?= ($per_page == 5) ? 'selected' : '' ?>>5개</option>
                                                     <option value="10" <?= ($per_page == 10) ? 'selected' : '' ?>>10개</option>
@@ -86,7 +86,7 @@
                                                     <input type="hidden" class="select_date_result" value="<?= $select_date ?>">
                                         <? } ?>
                                                 <span class="option_right">
-                                                    <select id="date_select_search_number" class="form-select"
+                                                    <select id="date_select_search_number"
                                                         aria-label="Default select example" onchange="changedatePerpage(this)">
                                                         <option value="5" <?= ($per_page == 5) ? 'selected' : '' ?>>5개</option>
                                                         <option value="10" <?= ($per_page == 10) ? 'selected' : '' ?>>10개</option>
@@ -153,8 +153,8 @@
                                                         name="exception_category_num" value="<?= $board->category_num ?>">
                                                 </span>
                                             <? } else { ?>
-                                                <span id="nonecheked">
-                                                    <input type="checkbox" id="gost_ck">
+                                                <span id="board_check">
+                                                    <?=$board->article_num?>
                                                 </span>
 
                                             <? } ?>

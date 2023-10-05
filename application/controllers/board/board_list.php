@@ -30,7 +30,7 @@ class board_list extends CI_Controller
 
         $config['total_rows'] = $this->board_list_model->board_count($category_num);
         if ($select_val == null) {
-            $per_page = $config['per_page'] = 5;
+            $per_page = $config['per_page'] = 10;
         } else {
             $per_page = $config['per_page'] = $select_val;
         }
@@ -108,7 +108,7 @@ class board_list extends CI_Controller
 
         $config['total_rows'] = $this->board_list_model->board_count($category_num);
         if ($select_val == null) {
-            $per_page = $config['per_page'] = 5;
+            $per_page = $config['per_page'] = 10;
         } else {
             $per_page = $config['per_page'] = $select_val;
         }
@@ -250,7 +250,7 @@ class board_list extends CI_Controller
 
         $config['total_rows'] = $this->board_list_model->footer_search_count($category_num, $search_option1, $search_option2, $search_title3);
         if ($select_val == null) {
-            $per_page = $config['per_page'] = 5;
+            $per_page = $config['per_page'] = 10;
         } else {
             $per_page = $config['per_page'] = $select_val;
         }
@@ -339,7 +339,7 @@ class board_list extends CI_Controller
             $config['last_link'] = '마지막으로';
 
             if ($select_val == null) {
-                $per_page = $config['per_page'] = 5;
+                $per_page = $config['per_page'] = 10;
             } else {
                 $per_page = $config['per_page'] = $select_val;
             }

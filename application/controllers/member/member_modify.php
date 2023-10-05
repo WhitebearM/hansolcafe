@@ -86,4 +86,25 @@ class member_modify extends CI_Controller
             }
         }
     }
+
+    function check_Email(){
+        $this->form_validation->set_rules('user_email', 'user_email', 'required');
+
+        if ($this->form_validation->run() == false){            
+            $id = $this->session->get_userdata('id');
+            $result = $this->member_modify_model->member_info($id);
+    
+            echo "<script>
+            alert('내용을 입력해주세요');</script>";
+
+            $this->load->view("/member/member_modify_view", array("info" => $result,
+                                                                  "id" => $id));
+        }else{
+            $user_email = $this->input->post("user_email");
+
+            $isDuplicate = $this->member_modify_model->ck_email($user_email);
+            
+            echo json_encode(array('isDuplicate' => $isDuplicate));
+        }
+    }
 }

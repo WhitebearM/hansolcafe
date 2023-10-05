@@ -1,8 +1,9 @@
 
 document.addEventListener('DOMContentLoaded', function () {
+  const registerForm = document.getElementById("main_form");
   const registerButton = document.getElementById("formbtn");
 
-  registerButton.style.display = 'none';
+  // registerButton.style.display = 'none';
 
   document.getElementById('profilePicInput').addEventListener('change', function () {
     const previewImage = document.getElementById('previewImage');
@@ -48,6 +49,15 @@ document.addEventListener('DOMContentLoaded', function () {
     checkFormValidity();
   });
 
+  //피드백 추가부분 disabled가 아닌 preventDefault로 막은뒤에 유효성검사 결과로 조건판단
+  registerForm.addEventListener('submit', function(event){
+    if(!checkFormValidity()){
+      event.preventDefault();
+    }else{
+      registerForm.submit();
+    }
+  });
+
   // 폼 입력 값 변경 이벤트 등록
   function checkFormValidity() {
     const user_id_error = document.getElementById('userid_error').textContent;
@@ -63,19 +73,8 @@ document.addEventListener('DOMContentLoaded', function () {
       user_email_error === '정확히 입력하셨습니다.' &&
       user_name_error === '정확히 입력하셨습니다.';
 
-    // 버튼의 disabled 속성 설정
-    if(user_id_error ==='사용 가능한 아이디 입니다.'
-     && user_pw_error === '올바른 비밀번호입니다.'
-      && user_confirm_error === '비밀번호가 일치합니다!' 
-       && user_email_error === '정확히 입력하셨습니다.'
-        && user_name_error === '정확히 입력하셨습니다.'){
-      const registerButton = document.getElementById("formbtn");
-      registerButton.disabled = !isFormValid;
-      registerButton.style.display = 'block';
-      registerButton.style.marginLeft = '280px';
-    }
-
-    return isFormValid;
+    return isFormValid; 
+   
   }
 
   // 아이디 중복확인
@@ -190,7 +189,7 @@ function checkPasswordMatch() {
     if (userpw !== userpwVerify) {
       document.getElementById('userpw_verify_error').textContent = "비밀번호가 일치 하지 않습니다.";
       document.getElementById('userpw_verify_error').style.color = 'red';
-    } else if (userpw === '') {
+    } else if (userpw === '' || userpw === null) {
       document.getElementById('userpw_verify_error').textContent = "비밀번호를 입력해주세요.";
     } else {
       document.getElementById('userpw_verify_error').textContent = '비밀번호가 일치합니다!';

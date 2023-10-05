@@ -12,7 +12,7 @@
     margin: 15px auto 30px 30px;
 }
 /* 왼쪽상단 카테고리 이동 색상조정 */
-#category_move_detail{
+#detail_category_title p{
     color:rgb(97, 161, 0);
 }
 /* 상단 공지 표시 제목 위치조정 */
@@ -124,8 +124,8 @@
     padding: 15px;
 }
 #detail_comments_write_text{
-    height: 30px;
-    width: 550px;
+    width: 650px;
+    min-height: 100px;
     height: auto;
     border: none;
     resize: none;
@@ -288,16 +288,13 @@
 .comment_btnss{
     margin:-40px auto auto auto;
 }
-#detail_previewImage{
-    width:50px;
-    height: 50px;
-}
 #detail_previewImage img{
     width:50px;
     height: 50px;
 }
 .detail_comment_btn_right{
-    height: auto;
+    text-align: right;
+    margin:auto -25px -10px auto ;
 }
 .comment_boxing{
     text-align: center;
@@ -322,6 +319,7 @@
     height: 20px;
 }
 .file_content_box{
+    text-align: right;
     margin: auto 10px auto auto;
 }
 .file_content_box div{
@@ -332,7 +330,4 @@
 }
 .detail_group_option{
     clear: both;
-}
-.comment_btn_detail_right{
-    float: right;
 }

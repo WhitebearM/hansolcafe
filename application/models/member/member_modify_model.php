@@ -34,4 +34,16 @@ class member_modify_model extends CI_Model{
             $this->db->query("update member set user_nickname = '$nickname', user_email = '$email' where user_id= '$user_id'");
 
     }
+
+
+    function ck_email($email){
+        $query = $this->db->get_where('users' ,array('email' => $email));
+        $result = $query->row();
+
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

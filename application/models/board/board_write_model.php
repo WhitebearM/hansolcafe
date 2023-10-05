@@ -95,9 +95,23 @@ class board_write_model extends CI_Model
         }
     }
 
+    function select_file_board($article_num){
+        $this->db->query("select file_num from fileupload where article_num = '$article_num'");
+    }
+
+    function modify_delete_file($file_num){
+        $this->db->query("delete from fileupload where file_num = '$file_num'");
+    }
+
+    function modify_file($article_num){
+        $sql = $this->db->query("select * from fileupload where article_num = '$article_num'")->result();
+
+        return $sql;
+    }
+
     function board_modify($board_num, $gongji, $dcsr, $category, $title, $content)
     {
-        $this->db->query("delete from fileupload where article_num = '$board_num'");
+        // $this->db->query("delete from fileupload where article_num = '$board_num'");
         $this->db->query("update board set main_status = '$gongji',disclosure = '$dcsr',category_num = '$category',title = '$title',content= '$content' where article_num = '$board_num'");
 
         $sql = $this->db->query("select * from board where article_num = '$board_num'")->result();

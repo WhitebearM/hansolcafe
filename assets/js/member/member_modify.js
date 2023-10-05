@@ -1,8 +1,8 @@
 
 
- // passwordPattern을 함수 외부에 선언 (어느곳에서도 사용하기위해)
- const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
+// passwordPattern을 함수 외부에 선언 (어느곳에서도 사용하기위해)
+const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
  document.addEventListener('DOMContentLoaded', function() {
      document.getElementById('check_pw').addEventListener('input', checkFormValidity);
      document.getElementById('check_confirm').addEventListener('input', checkFormValidity);
@@ -60,9 +60,37 @@
      document.getElementById('modifybtn').disabled = !isAllValid;
  }
 
- function checkEmailValidity() {
+/*  function checkEmailValidity() {
      const userEmailInput = document.getElementById('user_email');
      const userEmail = userEmailInput.value;
      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
      return emailPattern.test(userEmail);
  }
+
+ function checkEmailDup(){
+  const userEmailInput = $('user_email').val();
+
+  $.ajax({
+    type: "POST",
+    url: "/member/member_modify/check_Email",
+    data: {user_email : userEmailInput},
+    dataType: "json",
+    success: function(response){
+      if(response.isDuplicate){
+        document.getElementById('change_email_error').textContent = '이미 사용 중인 이메일 주소입니다.';
+        document.getElementById('change_email_error').style.color = 'red';
+        document.getElementById('modifybtn').disabled = true;
+      }else{
+        document.getElementById('change_email_error').textContent = '사용 가능한 이메일 주소입니다.';
+        document.getElementById('change_email_error').style.color = 'green';
+        // 모든 유효성 검사를 통과하고 이메일이 중복되지 않는 경우에만 버튼 활성화
+        if (isPasswordValid && isConfirmValid) {
+            document.getElementById('modifybtn').disabled = false;
+        }
+      }
+    },
+    error: function(){
+      alert('이메일 중복확인체크에 실패하셨습니다.')
+    }
+  })
+} */

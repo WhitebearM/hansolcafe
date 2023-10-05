@@ -28,6 +28,35 @@ class member_activity_model extends CI_Model{
         board.*,
         COALESCE(comment_counts.comment_count, 0) AS comment_count,
         COALESCE(heart_counts.heart_count, 0) AS heart_count,
+        (
+            SELECT file_path
+            FROM fileupload
+            WHERE fileupload.article_num = board.article_num
+            LIMIT 1
+        ) AS file_path
+    FROM 
+        board
+    LEFT JOIN (
+        SELECT article_num, COUNT(*) AS comment_count
+        FROM comments
+        WHERE user_id = '$id'
+        GROUP BY article_num
+    ) AS comment_counts ON board.article_num = comment_counts.article_num
+    LEFT JOIN (
+        SELECT article_num, COUNT(*) AS heart_count
+        FROM heart
+        WHERE user_id = '$id'
+        GROUP BY article_num
+    ) AS heart_counts ON board.article_num = heart_counts.article_num
+    WHERE 
+        board.user_id = '$id';        
+    ")->result();
+    }
+    // 멤버활동내역 게시물 파일 중복만큼 출력되는 쿼리문
+    /* select distinct 
+        board.*,
+        COALESCE(comment_counts.comment_count, 0) AS comment_count,
+        COALESCE(heart_counts.heart_count, 0) AS heart_count,
         fileupload.file_path
     FROM 
         board
@@ -48,9 +77,7 @@ class member_activity_model extends CI_Model{
         FROM fileupload
     ) AS fileupload ON board.article_num = fileupload.article_num
     WHERE 
-        board.user_id = '$id';    
-    ")->result();
-    }
+        board.user_id = '$id';    */
 
     function member_act_comments($id){
         return $this->db->query("select 

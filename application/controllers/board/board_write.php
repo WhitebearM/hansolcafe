@@ -47,12 +47,16 @@ class board_write extends CI_Controller
         $board_num = $this->input->get("board_num");
 
         $result = $this->board_write_model->modify_sel_board($board_num);
+        $result_file = $this->board_write_model->modify_file($board_num);
         if ($id) {
             if($id == $result->user_id){
                 $data['write'] = $write;
                 $data['result'] = $this->board_write_model->list_category();
                 $data['board'] = $result;
                 $data['authority'] = $authority;
+                if($result_file != ""){
+                    $data['result_file'] = $result_file;
+                }
                 $this->load->view("/board/board_write_view", $data);
             }else{
                 echo "<script>
@@ -220,9 +224,12 @@ class board_write extends CI_Controller
             $this->db->trans_start();
             $id = $this->session->userdata("id");
             if ($id) {
+                $ori_file_num = $this->input->post('ori_file');// 첨부파일 파일고유번호
                 $gongji = $this->input->post("announcement"); //공지사항권한
                 $dcsr = $this->input->post("disclosure"); // 공개범위
                 $board_num = $this->input->post("board_num"); //글수정 게시글 고유번호 가져오기
+                
+                
                 if (!$this->input->post("announcement")) {
                     $gongji = 1;
                 }
@@ -296,9 +303,9 @@ class board_write extends CI_Controller
                     location.href='/login/login';</script>";
                 }
 
-                echo "<script>
+             /*    echo "<script>
                 alert('글수정이 완료되었습니다.');
-                location.href='/board/board_detail?category=$modify_board_data->category_num&board_num=$modify_board_data->article_num';</script>";
+                location.href='/board/board_detail?category=$modify_board_data->category_num&board_num=$modify_board_data->article_num';</script>"; */
             } else {
                 echo "<script>
                 alert('오류발생');

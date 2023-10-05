@@ -57,14 +57,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var searchText = $('#sh_text').val();
 
-        var sanitizedText = searchText.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\s]/gi, '');
+        if(searchText === ''){
+            alert('검색어를 입력해주세요!');
+        }else{
 
-        $('#sh_text').val(sanitizedText);
-
-        $('#header_search_form').get(0).submit();
-
+            var sanitizedText = searchText.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\s]/gi, '');
+            
+            $('#sh_text').val(sanitizedText);
+            
+            $('#header_search_form').get(0).submit();
+        }
     });
-
 });
 
 // 카페정보부분

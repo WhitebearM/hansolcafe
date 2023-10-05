@@ -81,21 +81,27 @@
                 <label for="fileupload">파일 업로드</label>
                 <input type="file" name="file[]" id="fileupload" onchange="fileName()" multiple>
                 <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 자동으로 취소됩니다.</br>재업로드 해주세요.</div>
-                   <div id="file_list"></div>
-                </div>
+                <div id="file_list"></div>
+            </div>
             </div>
             <select class="move" name="category_pick">
                 <? foreach ($result as $category_list) { ?>
                     <? if ($category_list['category_num'] != 0) { ?>
-                        <?if(isset($category_num)){?>
-                            <?if($category_num == $category_list['category_num']){?>
-                                <option value="<?= $category_list['category_num'] ?>" selected><?= $category_list['category_name'] ?></option>
-                            <?}else{?>
-                                <option value="<?= $category_list['category_num'] ?>"><?= $category_list['category_name'] ?></option>
-                            <?}?>
-                        <?}else{?>
-                            <option value="<?= $category_list['category_num'] ?>"><?= $category_list['category_name'] ?></option>
-                        <?}?>
+                        <? if (isset($category_num)) { ?>
+                            <? if ($category_num == $category_list['category_num']) { ?>
+                                <option value="<?= $category_list['category_num'] ?>" selected>
+                                    <?= $category_list['category_name'] ?>
+                                </option>
+                            <? } else { ?>
+                                <option value="<?= $category_list['category_num'] ?>">
+                                    <?= $category_list['category_name'] ?>
+                                </option>
+                            <? } ?>
+                        <? } else { ?>
+                            <option value="<?= $category_list['category_num'] ?>">
+                                <?= $category_list['category_name'] ?>
+                            </option>
+                        <? } ?>
                     <? } ?>
                 <? } ?>
             </select>
@@ -137,11 +143,11 @@
             <hr>
             <input type="hidden" name="board_num" value="<?= $board->article_num ?>">
             <? if ($authority == 2) { ?>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" name="announcement" id="announcementCheckbox">
-                <label class="form-check-label" for="announcementCheckbox">공지사항 등록</label>
-            </div>
-            <?}?>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" name="announcement" id="announcementCheckbox">
+                    <label class="form-check-label" for="announcementCheckbox">공지사항 등록</label>
+                </div>
+            <? } ?>
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" name="disclosure" id="disclosureCheckbox">
                 <label class="form-check-label" for="disclosureCheckbox">전체공개(비회원)</label>
@@ -151,13 +157,24 @@
                 <label for="fileupload">파일 업로드</label>
                 <input type="file" name="file[]" id="fileupload" onchange="fileName()" multiple>
                 <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 자동으로 취소됩니다.</br>재업로드 해주세요.</div>
-                   <div id="file_list"></div>
-                </div>
+                <div id="file_list"></div>
+                <?if($result_file != ""){?>
+                    <?foreach($result_file as $file){?>
+                        <div class="ori_file_list">
+                            <div><?=$file->file_name?><button type="button" class="delete-button" data-file-num="<?=$file->file_num?>">x</button></div>
+                            <input type="hidden" name="ori_file[]" id="ori_file" value="<?=$file->file_num?>">
+                        </div>
+                    <?}?>
+                <?}else{?>
+                    <div id="file_list"></div>
+                <?}?>
             </div>
             <select class="move" name="category_pick">
                 <? foreach ($result as $category_list) { ?>
                     <? if ($category_list['category_num'] != 0) { ?>
-                        <option value="<?= $category_list['category_num'] ?>"><?= $category_list['category_name'] ?></option>
+                        <option value="<?= $category_list['category_num'] ?>">
+                            <?= $category_list['category_name'] ?>
+                        </option>
                     <? } ?>
                 <? } ?>
             </select>
@@ -196,11 +213,11 @@
             </div>
             <hr>
             <? if ($authority == 2) { ?>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" name="announcement" id="announcementCheckbox">
-                <label class="form-check-label" for="announcementCheckbox">공지사항 등록</label>
-            </div>
-            <?}?>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" name="announcement" id="announcementCheckbox">
+                    <label class="form-check-label" for="announcementCheckbox">공지사항 등록</label>
+                </div>
+            <? } ?>
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" name="disclosure" id="disclosureCheckbox">
                 <label class="form-check-label" for="disclosureCheckbox">전체공개(비회원)</label>
@@ -210,8 +227,8 @@
                 <label for="fileupload">파일 업로드</label>
                 <input type="file" name="file[]" id="fileupload" onchange="fileName()" multiple>
                 <div id="fileSizeError">파일 크기가 너무 큽니다<br> 2mb 이하의 파일을 업로드하세요.<br>파일 업로드가 자동으로 취소됩니다.</br>재업로드 해주세요.</div>
-                   <div id="file_list"></div>
-                </div>
+                <div id="file_list"></div>
+            </div>
             </div>
             <input class="move" name="category_pick" type="hidden" value="<?= $parent_info->category_num ?>">
 

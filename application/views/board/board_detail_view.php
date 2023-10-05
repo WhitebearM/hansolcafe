@@ -12,12 +12,18 @@
         <ul id="detail_header_menu">
             <li>
                 <div id="detail_category_title">
+                    <?if($category->category_num != 0){?>
                     <a href="/board/board_list?name=<?= $category->category_name ?>&num=<?= $category->category_num ?>"
                         id="category_move_detail">
                         <p>
                             <?= $category->category_name ?> >
                         </p>
                     </a>
+                    <?}else{?>
+                        <p>
+                            <?= $category->category_name ?> >
+                        </p>
+                    <?}?>
                 </div>
             </li>
 
@@ -110,6 +116,7 @@
         <div id="detail_heart">
             <ul>
 
+                <?if(isset($id)){?>
                 <li>
                     <a href="#" class="heart_up" data-article="<?= $board->article_num ?>">
                         <? if ($heart_check == false) { ?>
@@ -117,10 +124,12 @@
                         <? } else { ?>
                             <img src="/assets/images/full_heart.png" width="20" height="20">
                         <? } ?>
-                    </a>좋아요<span class="heart_count">
+                        </a>
+                        좋아요<span class="heart_count">
                         <?= $heart_num ?>
                     </span>
                 </li>
+                <?}?>
                 <li>
                     <img src="/assets/images/comment_img.png" width="20" height="20">
                     <span>댓글
@@ -258,8 +267,8 @@
                                             name="detail_comments_write_text"></textarea></textarea>
                                     </li>
                                 </ul>
+                                <span id="detail_previewImage"></span>
                                 <ul class="detail_comment_btn_right">
-                                    <li><span id="detail_previewImage"></span></li>
                                     <li class="comment_btn_detail_right"><label for="detail_comments_file" class="comments_poto">
                                             <img src="/assets/images/comment_camera.png" alt="alt" width="25" height="25">
                                         </label>

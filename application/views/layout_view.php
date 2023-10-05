@@ -191,7 +191,7 @@
                 </div>
             </a>
 
-            <? if ($authority == 2) { ?>
+            <? if ($authority == 2 && isset($id)) { ?>
                 <div class="btn-group">
                     <span><img alt="가위" src="/assets/images/cut.png" width="15" height="15">카테고리 추가/제거</span>
                     <button type="button" class="ct_plus" data-bs-toggle="modal"

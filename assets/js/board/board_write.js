@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
             width: 800, // 최대 이미지 폭
             height: 600 // 최대 이미지 높이
         },
-        
+
 
 
         file_picker_callback: function (callback, value, meta) {
@@ -84,6 +84,27 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    
+    document.querySelectorAll('.delete-button').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var fileNumToDelete = this.getAttribute('data-file-num');
+
+            // ori_file 배열에서 해당 값 제거
+            var oriFileArray = document.querySelectorAll('input[name="ori_file[]"]');
+            for (var i = 0; i < oriFileArray.length; i++) {
+                if (oriFileArray[i].value == fileNumToDelete) {
+                    oriFileArray[i].remove(); // 해당 input 요소 삭제
+                    break;
+                }
+            }
+
+            console.log(oriFileArray.values())
+            // 화면에서 해당 요소 제거
+            var parentElement = this.parentNode;
+            parentElement.remove();
+        });
+    });
+
 });
 
 
@@ -96,7 +117,7 @@ function goBack() {
 function fileName() {
     const fileInput = document.getElementById("fileupload"); //file 업로드부분 가져오기
     const fileList = document.getElementById("file_list"); //파일 이름 출력부분
-    
+
 
     fileSizeError.style.display = "none"; // 파일 크기 오류 메시지 초기화
     fileList.innerHTML = ""; // 파일 목록 초기화

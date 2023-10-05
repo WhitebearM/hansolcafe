@@ -73,8 +73,7 @@
                                             <? if (strpos($board->content, "<img")) { ?>
                                                 <span><img src="/assets/images/img.png" width="25" height="25"></span>
                                             <? } ?>
-                                            <span id="comment_count">[
-                                                <?= $board->comment_count ?>]
+                                            <span id="comment_count">[<?= $board->comment_count ?>]
                                             </span>
                                         </li>
                                         <li class="member_activity_date">

@@ -164,6 +164,7 @@ a{
 /* 카테고리 추가제거 버튼 위치조정 */
 .btn-group{
     float: right;
+    margin: auto auto 15px auto;
 }
 .btn-group span{
     padding-top: 11px;
@@ -185,7 +186,7 @@ a{
     clear: both;
     font-size: 10px;
     width:200px;
-    margin: 70px auto 7px auto;
+    margin: 10px auto 7px auto;
     border-top: 2px solid gray;
     border-bottom: 2px solid gray;
 }
@@ -256,6 +257,8 @@ a{
     margin-right: 150px;;
 }
 #date_board{
+    text-align: left;
+    padding-left: 25px;
     background-color: #c7c7c77e;
     width:200px;
     font-weight: bold;
@@ -266,6 +269,8 @@ a{
     height: 20px;
 }
 .board_tttt li{
+    width: 150px;
+    margin-top:10px;
     margin-left: -30px;
     white-space: nowrap;
     overflow : hidden;

@@ -132,7 +132,7 @@ class board_detail extends CI_Controller
             } else if ($board_detail_info->disclosure != "") {
                 echo "<script>
             alert('로그인후 볼수있습니다!.');
-            location.href='/layout';</script>";
+            location.href='/login/login';</script>";
             } else {
                 echo "<script>
             alert('로그인후 확인가능합니다.');

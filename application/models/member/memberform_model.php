@@ -17,5 +17,11 @@ class memberform_model extends CI_Model{
     public function emailck($email){
         return $this->db->query("select user_email from member where user_email = '$email'")->result();
     }
+
+    function ch_user_id($user_id){
+        $query = $this->db->query("select user_id from member where user_id = '$user_id'")->row();
+
+        return $query;
+    }
 }
 ?>

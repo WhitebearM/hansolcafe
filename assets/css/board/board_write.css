@@ -126,3 +126,13 @@ hr {
     border:none;
     margin-left: 10px;
 }
+.ori_file_list div{
+    font-size: 12px;
+    height: auto;
+    margin: 8px auto;
+}
+.ori_file_list button{
+    text-align: right;
+    border:none;
+    margin-left: 10px;
+}

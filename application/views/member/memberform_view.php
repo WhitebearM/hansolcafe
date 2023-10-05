@@ -30,7 +30,7 @@
                     placeholder="비밀번호 확인" required></li>
             <li><span class="error" id="userpw_verify_error" style="color: red;"></span></li>
 
-            <li><input class="input_move" type="text" name="user_email" id="user_email" placeholder="이메일" required></li>
+            <li><input class="input_move" type="email" name="user_email" id="user_email" placeholder="이메일" required></li>
             <li><span class="error" id="useremail_error" style="color: red;"></span></li>
 
             <li><input class="input_move" type="text" name="user_name" id="user_name" placeholder="이름" required></li>
@@ -42,7 +42,7 @@
             <img id="previewImage" src="/assets/images/profile.png" alt="프로필 사진 미리보기" width="150px" height="150px">
         </div>
         <div id="success">
-            <button id="formbtn" type="submit" disabled>회원가입</button>
+            <button id="formbtn" type="submit">회원가입</button>
         </div>
     </form>
 </body>
