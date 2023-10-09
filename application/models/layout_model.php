@@ -303,23 +303,26 @@ class layout_model extends CI_Model
 
         return $this->db->count_all_results();
     }
-
     function header_search_list($per_page, $offset, $search_title)
     {
-
         $this->db->distinct();
-        $this->db->select('board.*, COALESCE(comment_counts.comment_count, 0) AS comment_count, COALESCE(heart_counts.heart_count, 0) AS heart_count, fileupload.file_path');
+        $this->db->select('board.*, COALESCE(comment_counts.comment_count, 0) AS comment_count, COALESCE(heart_counts.heart_count, 0) AS heart_count, member.user_nickname,file_counts.file_path');
         $this->db->from('board');
         $this->db->join('(SELECT article_num, COUNT(*) AS comment_count FROM comments GROUP BY article_num) AS comment_counts', 'board.article_num = comment_counts.article_num', 'left');
         $this->db->join('(SELECT article_num, COUNT(*) AS heart_count FROM heart GROUP BY article_num) AS heart_counts', 'board.article_num = heart_counts.article_num', 'left');
-        $this->db->join('fileupload', 'board.article_num = fileupload.article_num', 'left');
+        $this->db->join('member', 'board.user_id = member.user_id', 'left');
         $this->db->like('board.title', $search_title);
         $this->db->or_like('board.content', $search_title);
         $this->db->or_like('board.user_id', $search_title);
         $this->db->where('board.board_status', 1);
+    
+        // 서브쿼리를 사용하여 파일 갯수 조회
+        $subquery = '(SELECT article_num,file_path, COUNT(*) AS file_count FROM fileupload GROUP BY article_num)';
+        $this->db->join($subquery . ' AS file_counts', 'board.article_num = file_counts.article_num', 'left');
+    
         $this->db->order_by('board.write_date', 'DESC');
         $this->db->limit($per_page, $offset);
-
+    
         return $this->db->get()->result();
     }
 
