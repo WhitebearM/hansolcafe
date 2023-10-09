@@ -213,7 +213,7 @@ class board_list_model extends CI_Model
             JOIN
                 PostHierarchy ph ON b.parent_id = ph.article_num
         )
-        SELECT DISTINCT
+        SELECT
             ph.article_num,
             ph.category_num,
             ph.title,
@@ -224,9 +224,11 @@ class board_list_model extends CI_Model
             (SELECT COUNT(*) FROM board WHERE parent_id = ph.article_num) AS child_count,
             COALESCE(comment_counts.comment_count, 0) AS comment_count,
             COALESCE(heart_counts.heart_count, 0) AS heart_count,
-            fu.file_path,
+            COALESCE(file_counts.file_count, 0) AS file_count,
+            GROUP_CONCAT(DISTINCT fu.file_path SEPARATOR ', ') AS file_path,
             b.content,
             b.user_id,
+            m.user_nickname,
             ph.post_write_date AS write_date 
         FROM
             PostHierarchy ph
@@ -240,10 +242,16 @@ class board_list_model extends CI_Model
             FROM heart
             GROUP BY article_num
         ) AS heart_counts ON ph.article_num = heart_counts.article_num
+        LEFT JOIN (
+            SELECT article_num, COUNT(DISTINCT file_path) AS file_count
+            FROM fileupload
+            GROUP BY article_num
+        ) AS file_counts ON ph.article_num = file_counts.article_num 
         LEFT JOIN fileupload fu ON ph.article_num = fu.article_num
         LEFT JOIN board b ON ph.article_num = b.article_num
-        LEFT JOIN comments c ON b.article_num = c.article_num
-        WHERE b.category_num = '$category_num' AND b.board_status = 1
+        LEFT JOIN member m ON b.user_id = m.user_id
+        WHERE b.category_num = '$category_num' AND b.board_status = 1  
+        GROUP BY ph.article_num
         ";
 
         if ($option1 == "all") {

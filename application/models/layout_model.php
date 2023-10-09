@@ -176,24 +176,33 @@ class layout_model extends CI_Model
         $start_date = null;
         $end_date = date('Y-m-d');
 
-        $sql = "select DISTINCT board.*, 
-        COALESCE(comment_counts.comment_count, 0) AS comment_count, 
+        $sql = "select
+        board.*,
+        COALESCE(comment_counts.comment_count, 0) AS comment_count,
         COALESCE(heart_counts.heart_count, 0) AS heart_count,
-        fileupload.file_path
-        FROM board
-        LEFT JOIN (
-            SELECT article_num, COUNT(*) AS comment_count
-            FROM comments
-            GROUP BY article_num
-        ) AS comment_counts ON board.article_num = comment_counts.article_num
-        LEFT JOIN (
-            SELECT article_num, COUNT(*) AS heart_count
-            FROM heart
-            GROUP BY article_num
-        ) AS heart_counts ON board.article_num = heart_counts.article_num
-        LEFT JOIN fileupload ON board.article_num = fileupload.article_num
-        LEFT JOIN comments c ON board.article_num = c.article_num
-        WHERE board.board_status = 1 
+        fileupload.file_path,
+        member.user_nickname
+    FROM
+        board
+    LEFT JOIN (
+        SELECT article_num, COUNT(*) AS comment_count
+        FROM comments
+        GROUP BY article_num
+    ) AS comment_counts ON board.article_num = comment_counts.article_num
+    LEFT JOIN (
+        SELECT article_num, COUNT(*) AS heart_count
+        FROM heart
+        GROUP BY article_num
+    ) AS heart_counts ON board.article_num = heart_counts.article_num
+    LEFT JOIN (
+        SELECT article_num, GROUP_CONCAT(file_path) AS file_path
+        FROM fileupload
+        GROUP BY article_num
+    ) AS fileupload ON board.article_num = fileupload.article_num
+    LEFT JOIN comments c ON board.article_num = c.article_num
+    LEFT JOIN member ON board.user_id = member.user_id
+    WHERE board.board_status = 1
+    
         ";
 
         if ($option1 == "all") {
@@ -314,6 +323,7 @@ class layout_model extends CI_Model
         $this->db->like('board.title', $search_title);
         $this->db->or_like('board.content', $search_title);
         $this->db->or_like('board.user_id', $search_title);
+        $this->db->or_like('member.user_nickname',$search_title);
         $this->db->where('board.board_status', 1);
     
         // 서브쿼리를 사용하여 파일 갯수 조회

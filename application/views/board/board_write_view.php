@@ -26,7 +26,7 @@
     </div>
     <a href="/layout">
         <div id="banner">
-            <img src="/assets/images/banner.jpg" width="1175px" height="300px">
+            <img src="/assets/images/maple_banner.jpg" width="1175px" height="300px">
         </div>
     </a>
     <div id="write_title">

@@ -81,7 +81,7 @@
 
         <!-- 배너부분 -->
         <div id="banner">
-            <a href="/layout"><img src="/assets/images/banner.jpg" width="1080x" height="300px"></a>
+            <a href="/layout"><img src="/assets/images/maple_banner.jpg" width="1080x" height="300px"></a>
         </div>
         <!-- 검색창 -->
         <div id="hdsearch">
