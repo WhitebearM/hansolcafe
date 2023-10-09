@@ -115,21 +115,25 @@ class board_list_model extends CI_Model
         COALESCE(heart_counts.heart_count, 0) AS heart_count,
         fileupload.file_path,
         m.user_nickname
-    FROM 
-        board
-    LEFT JOIN (
+        FROM board
+        LEFT JOIN (
         SELECT article_num, COUNT(*) AS comment_count
         FROM comments
         GROUP BY article_num
-    ) AS comment_counts ON board.article_num = comment_counts.article_num
-    LEFT JOIN (
+        ) AS comment_counts ON board.article_num = comment_counts.article_num
+        LEFT JOIN (
         SELECT article_num, COUNT(*) AS heart_count
         FROM heart
         GROUP BY article_num
-    ) AS heart_counts ON board.article_num = heart_counts.article_num
-    LEFT JOIN fileupload ON board.article_num = fileupload.article_num
-    LEFT JOIN member m ON board.user_id = m.user_id
-    ")->result();
+        ) AS heart_counts ON board.article_num = heart_counts.article_num
+        LEFT JOIN (
+        SELECT article_num, MAX(file_path) AS file_path
+        FROM fileupload
+        GROUP BY article_num
+        ) AS fileupload ON board.article_num = fileupload.article_num
+        LEFT JOIN member m ON board.user_id = m.user_id
+        order by board.write_date desc  
+        ")->result();
 
     }
 
@@ -338,14 +342,14 @@ class board_list_model extends CI_Model
 
 
 
-    function date_search_count($select_date,$category_num)
+    function date_search_count($select_date, $category_num)
     {
         $sql = "select COUNT(*) as count FROM board WHERE write_date >= '$select_date 00:00:00' AND write_date <= '$select_date 23:59:59'AND category_num = '$category_num' AND board_status = 1;";
 
         return $this->db->query($sql)->row_array();
     }
 
-    function date_search($select_date,$category_num, $per_page, $offset)
+    function date_search($select_date, $category_num, $per_page, $offset)
     {
         $sql = "select 
         b.*,
@@ -379,10 +383,11 @@ class board_list_model extends CI_Model
         return $this->db->query($sql)->result();
     }
 
-    function find_board($post_num){
+    function find_board($post_num)
+    {
         $sql = "select * from board where article_num = '$post_num'";
-    
+
         return $this->db->query($sql)->row();
-    
+
     }
 }

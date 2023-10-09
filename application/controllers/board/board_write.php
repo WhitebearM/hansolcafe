@@ -237,11 +237,17 @@ class board_write extends CI_Controller
                 },$result_file_num);
 
                 //두개의 배열을 비교해서 없는값만 추출
-                $diff = array_diff($result_file_num, $ori_file_num);
-
-                //없는값을 
-                foreach($diff as $sb){
-                    $this->board_write_model->modify_delete_file($sb);
+                if($result_file_num != "" && $ori_file_num != ""){
+                    $diff = array_diff($result_file_num, $ori_file_num);
+    
+                    //없는값을 
+                    foreach($diff as $sb){
+                        $this->board_write_model->modify_delete_file($sb);
+                    }
+                }else if($result_file_num != "" && $ori_file_num == ""){
+                    foreach($result_file_num as $sb){
+                        $this->board_write_model->modify_delete_file($sb);
+                    }
                 }
 
                 if (!$this->input->post("announcement")) {

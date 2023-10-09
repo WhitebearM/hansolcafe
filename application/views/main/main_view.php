@@ -33,7 +33,7 @@
 
                 <div>
                     <div>
-                            <? foreach ($result as $board) { ?>
+                            <? foreach ($gongji as $board) { ?>
                             <? if ($board->main_status == 2 && $board->board_status == 1) { ?>
                                 <div id="main_status_move">
                                     <ul>
@@ -43,7 +43,7 @@
                                                 href="/board/board_detail?category=<?= $board->category_num ?>&board_num=<?= $board->article_num ?>"><?= $board->title ?></a>
                                         </li>
                                         <li id="main_name" class="text-center col-1">
-                                            <?= $board->user_id ?>
+                                            <?= $board->user_nickname ?>
                                         </li>
                                         <li id="main_common" class="text-center col-2">
                                             <?= $board->comment_count ?>
@@ -192,7 +192,7 @@
             </div>
             <div id="footer_btn">
                 <ul id="footer_option">
-                    <li>
+                    <li id="pagi_btn_right">
                         <span id="main_pagination"><?= $pagination ?></span>
                     </li>
                     <li class="board_btn_right">

@@ -62,7 +62,7 @@
                 <? } ?>
                 <ul>
                     <li>
-                        <?= $board->user_id ?>
+                        <?= $board->user_nickname ?>
                     </li>
                     <li>
                         <?= date('Y-m-d H:i', strtotime($board->write_date)) ?>
@@ -155,7 +155,7 @@
                     <? $depth = $comment->depth;
                     $margin_left = $depth * 25;
                     ?>
-                    <div class="comment-container" style="margin-left:<?= $margin_left ?>px;">
+                    <div class="comment-container" style="padding-left:<?= $margin_left ?>px;">
                         <? if ($comment->image_path != "") { ?>
                             <img id="picture" src="<?= $comment->image_path ?>" width="40" height="40">
                         <? } else { ?>
@@ -163,7 +163,7 @@
                         <? } ?>
                         <ul>
                             <li>
-                                <?= $comment->user_id ?>
+                                <?= $comment->user_nickname ?>
                             </li>
                             <li id="detail_comment_write_name">
                                 <? if ($board->user_id == $comment->user_id) { ?>
@@ -330,7 +330,7 @@
                                         <?= $semi_list->title ?>
                                     </a></li>
                                 <li id="semi_middle">
-                                    <?= $semi_list->user_id ?>
+                                    <?= $semi_list->user_nickname ?>
                                 </li>
                                 <li id="semi_last">
                                     <?= date('Y-m-d', strtotime($semi_list->write_date)) ?>

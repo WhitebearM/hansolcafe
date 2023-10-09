@@ -103,7 +103,7 @@ class board_detail extends CI_Controller
                 $comments = $this->board_detail_model->board_comment($board_num);
 
                 //하단 해당 게시글의 게시글 최근글 5개
-                $mini_list = $this->board_detail_model->board_semi_list($board_num);
+                $mini_list = $this->board_detail_model->board_semi_list($category);
 
                 $file_info = $this->board_detail_model->get_board_file_info($board_num);
 

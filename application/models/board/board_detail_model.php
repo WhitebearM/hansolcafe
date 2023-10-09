@@ -24,7 +24,11 @@ class board_detail_model extends CI_Model
 
     function board_detail($board_num)
     {
-        $result = $this->db->query("select * FROM board WHERE article_num = '$board_num'")->result();
+        $result = $this->db->query("select board.*,
+        member.user_nickname 
+        FROM board 
+        LEFT JOIN member ON board.user_id = member.user_id
+        WHERE article_num = '$board_num'")->result();
 
         foreach ($result as $row) {
             return $row;
@@ -57,7 +61,11 @@ class board_detail_model extends CI_Model
 
     function board_semi_list($category_num)
     {
-        return $this->db->query("select * from board where category_num = '$category_num' order by write_date desc limit 5")->result();
+        return $this->db->query("select board.*,
+        member.user_nickname 
+        from board 
+        LEFT JOIN member ON board.user_id = member.user_id
+        where category_num = '$category_num' order by write_date desc limit 5")->result();
 
     }
 
@@ -137,7 +145,8 @@ class board_detail_model extends CI_Model
                 c.depth,
                 c.article_num,
                 c.image_path as img_path,
-                m.image_path 
+                m.image_path,
+                m.user_nickname 
             FROM
                 comments c
             LEFT JOIN
@@ -156,7 +165,8 @@ class board_detail_model extends CI_Model
                 c.depth,
                 c.article_num,
                 c.image_path as img_path,
-                m.image_path
+                m.image_path,
+                m.user_nickname
             FROM
                 comments c
             JOIN
@@ -175,7 +185,8 @@ class board_detail_model extends CI_Model
             depth,
             article_num,
             img_path,
-            image_path 
+            image_path,
+            user_nickname
         FROM
             CommentHierarchy
         WHERE
@@ -291,7 +302,8 @@ class board_detail_model extends CI_Model
                 c.depth,
                 c.article_num,
                 c.image_path as img_path,
-                m.image_path  
+                m.image_path,
+                m.user_nickname
             FROM
                 comments c
             LEFT JOIN
@@ -310,7 +322,8 @@ class board_detail_model extends CI_Model
                 c.depth,
                 c.article_num,
                 c.image_path as img_path,
-                m.image_path
+                m.image_path,
+                m.user_nickname
             FROM
                 comments c
             JOIN
@@ -329,7 +342,8 @@ class board_detail_model extends CI_Model
             depth,
             article_num,
             img_path,
-            image_path 
+            image_path,
+            user_nickname
         FROM
             CommentHierarchy
         WHERE
@@ -353,7 +367,8 @@ class board_detail_model extends CI_Model
                 c.depth,
                 c.article_num,
                 c.image_path as img_path,
-                m.image_path 
+                m.image_path,
+                m.user_nickname
             FROM
                 comments c
             LEFT JOIN
@@ -372,7 +387,8 @@ class board_detail_model extends CI_Model
                 c.depth,
                 c.article_num,
                 c.image_path as img_path,
-                m.image_path
+                m.image_path,
+                m.user_nickname
             FROM
                 comments c
             JOIN
@@ -391,7 +407,8 @@ class board_detail_model extends CI_Model
             depth,
             article_num,
             img_path,
-            image_path 
+            image_path,
+            user_nickname
         FROM
             CommentHierarchy
         WHERE

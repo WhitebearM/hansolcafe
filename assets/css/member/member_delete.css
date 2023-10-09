@@ -1,6 +1,7 @@
 body{
     width: 1000px;
     margin: 0 auto;
+    background-color: #f0f0f0;
 }
 .delete_logo{
     margin: 100px auto 50px 100px;

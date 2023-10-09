@@ -21,12 +21,14 @@ class layout extends CI_Controller
     {
         $ct_num = 1;
         $result = $this->layout_model->main_list();
+        $gongji = $this->layout_model->gongji_board();
 
         $this->layout_common->view(
             "/main/main_view",
             array(
                 "result" => $result,
-                "ct_num" => $ct_num
+                "ct_num" => $ct_num,
+                "gongji" => $gongji
             )
         );
 

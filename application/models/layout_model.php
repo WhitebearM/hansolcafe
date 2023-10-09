@@ -330,21 +330,26 @@ class layout_model extends CI_Model
         member.user_nickname,
         COALESCE(comment_counts.comment_count, 0) AS comment_count,
         COALESCE(heart_counts.heart_count, 0) AS heart_count,
-        fileupload.file_path 
-        FROM board
-        LEFT JOIN member ON board.user_id = member.user_id
-        LEFT JOIN (
+        COALESCE(fileupload.file_path, '') AS file_path
+    FROM board
+    LEFT JOIN member ON board.user_id = member.user_id
+    LEFT JOIN (
         SELECT article_num, COUNT(*) AS comment_count
         FROM comments
         GROUP BY article_num
-        ) AS comment_counts ON board.article_num = comment_counts.article_num
-        LEFT JOIN (
+    ) AS comment_counts ON board.article_num = comment_counts.article_num
+    LEFT JOIN (
         SELECT article_num, COUNT(*) AS heart_count
         FROM heart
         GROUP BY article_num
-        ) AS heart_counts ON board.article_num = heart_counts.article_num
-        LEFT JOIN fileupload ON board.article_num = fileupload.article_num
-        order by board.write_date desc")->result();
+    ) AS heart_counts ON board.article_num = heart_counts.article_num
+    LEFT JOIN (
+        SELECT article_num, MAX(file_path) AS file_path
+        FROM fileupload
+        GROUP BY article_num
+    ) AS fileupload ON board.article_num = fileupload.article_num
+    ORDER BY board.write_date DESC
+    ")->result();
     }
 
     function main_date_search_count($select_date){

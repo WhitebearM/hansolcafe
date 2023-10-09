@@ -153,7 +153,7 @@
                                                         name="exception_category_num" value="<?= $board->category_num ?>">
                                                 </span>
                                             <? } else { ?>
-                                                <span id="board_check">
+                                                <span id="board_check" <?if($authority == 1){?>style="margin:auto 10px auto 40px;"<?}?>>
                                                     <?=$board->article_num?>
                                                 </span>
 
@@ -213,17 +213,17 @@
                                                 </a>
                                             </span>
                                             <?}else{?>
-                                            <span id="board_write_name" class="text-center">
+                                            <span <?if($authority == 1){?>style="padding-left: 35px;"<?}?> id="board_write_name" class="text-center">
                                                     <?= $board->user_nickname ?>
                                             </span>
                                             <?}?>
-                                            <span id="board_comment" class="text-center">
+                                            <span <?if($authority == 1){?>style="padding-left: 40px;"<?}?> id="board_comment" class="text-center">
                                                 <?= $board->comment_count ?>
                                             </span>
-                                            <span id="board_date" class="text-center">
+                                            <span <?if($authority == 1){?>style="padding-left: 40px;"<?}?> id="board_date" class="text-center">
                                                 <?= (strtotime('now') - strtotime($board->write_date)) / (60 * 60) < 12 ? date('H:i', strtotime($board->write_date)) : date('Y-m-d', strtotime($board->write_date)); ?>
                                             </span>
-                                            <span id="board_heart" class="text-center">
+                                            <span <?if($authority == 1){?>style="padding-left: 28px;"<?}?> id="board_heart" class="text-center">
                                                 <?= $board->heart_count ?>
                                             </span>
                                         </div>

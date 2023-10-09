@@ -23,7 +23,7 @@
                     </li>
                     <li id="member_profile_info">
                         <span>
-                            <?= $member->user_nickname ?> [<?= $member->user_id ?> ]
+                            <?= $member->user_nickname ?> [ <?= $member->user_id ?> ]
                         </span><br>
                         <span>작성글
                             <?= $member->board_num ?> 개

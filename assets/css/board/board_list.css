@@ -36,10 +36,10 @@
 }
 /* 게시물 리스트 기준 */
 .title_title{
-    margin-left: 200px;
+    margin-left: 225px;
 }
 .title_writer{
-    margin-left:235px;
+    margin-left:210px;
 }
 .title_comment{
     margin-left:75px;
@@ -60,7 +60,6 @@
     padding-top: 15px;
     border-bottom: 1px solid gainsboro;
     list-style: none;
-    padding-left: 30px;
 }
 .board_list:hover{
     background-color: #d4d4d4;
@@ -81,9 +80,9 @@
 /* 게시물 제목 */
 #board_write_title{
     text-align: left;
-    padding-left: 50px;
+    /* padding-left: 50px; */
     display: inline-block;
-    width:320px;
+    width:305px;
     font-size: 12px;
     white-space: nowrap;
     overflow : hidden;
@@ -93,7 +92,7 @@
 #board_write_name{
     text-align: center;
     display: inline-block;
-    width:180px;
+    width:160px;
     white-space: nowrap;
     overflow : hidden;
     text-overflow: ellipsis;
@@ -102,10 +101,10 @@
 #board_comment{
     display: inline-block;
     text-align: center;
-    width: 25px;
+    width: 45px;
 }
 #board_date{
-    width:170px;
+    width:150px;
     display: inline-block;
     text-align: center;
 }
@@ -114,6 +113,7 @@
     margin: auto auto auto -2px;
     display: inline-block;
     text-align: center;
+    width: 20px;
 }
 #footer_button{
   float: right;
@@ -166,7 +166,11 @@
 /* 공지 제목 */
 #main_title_b{
     width:325px;
+    
     text-align: center;
+    white-space: nowrap;
+    overflow : hidden;
+    text-overflow: ellipsis;
 }
 #main_title_b a{
     color: red;
@@ -209,7 +213,7 @@
 /* 하단 검색창 위치조정 및 크기 조정 */
 #category_board_search{
     margin: 50px auto;
-    width: 880px;
+    width: 860px;
     height: 100px;
     float: right;
     text-align: center;
@@ -283,6 +287,9 @@
 #board_list_pagination span a{
     margin: auto 5px;
 }
+#board_list_pagination span{
+    font-size: 16px;
+}
 #parent_del{
     color: #fc5d5d;
 }
@@ -293,4 +300,7 @@
     text-align: center;
     width: 50px;
     border-radius: 10px;
+}
+#main_pagination{
+    font-size: 16px;
 }

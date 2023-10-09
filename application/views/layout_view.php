@@ -14,11 +14,12 @@
     <link rel="icon" href="/path/to/your/favicon.ico" type="image/x-icon">
 
 </head>
+
 <body>
     <!-- 헤더부분 -->
     <div id="header">
         <div id="logo">
-            <a href="/layout"><img src="/assets/images/logolo.png" width="75px" height="75px"></a>
+            <a href="/layout"><img src="/assets/images/icon-cafe.png" width="75px" height="75px"></a>
         </div>
         <? if (isset($id)) { ?>
             <div class="member_btn">
@@ -85,11 +86,11 @@
         <!-- 검색창 -->
         <div id="hdsearch">
             <form action="/layout/board_search" method="get" id="header_search_form">
-                <?if(!isset($search_title)){?>
+                <? if (!isset($search_title)) { ?>
                     <input id="sh_text" type="text" name="hd_search">
-                <?}else if($search_title != ""){?>
-                    <input id="sh_text" type="text" name="hd_search" value="<?=$search_title?>">
-                <?}?>
+                <? } else if ($search_title != "") { ?>
+                        <input id="sh_text" type="text" name="hd_search" value="<?= $search_title ?>">
+                <? } ?>
                 <button class="sh_btn" type="submit">검색</button>
             </form>
         </div>
@@ -155,7 +156,8 @@
                     <div id="profile_info">
                         <ul>
                             <li>
-                                <span><img src="/assets/images/member_modify_icon.png" rel="게시글 설정" width="10" height="10"></span>
+                                <span><img src="/assets/images/member_modify_icon.png" rel="게시글 설정" width="10"
+                                        height="10"></span>
                                 <span class="ft_size">
                                     <a href="/member/member_activity">
                                         <?= $member->user_nickname ?> 님
@@ -201,8 +203,8 @@
                     <button type="button" class="ct_minus" id="delete_category" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">-</button>
                 </div>
-            <? }else{ ?>
-            <?}?>
+            <? } else { ?>
+            <? } ?>
 
             <!-- foreach문돌리기 -->
             <div id="category_list">
@@ -229,7 +231,9 @@
                 <? foreach ($date_board as $board) { ?>
                     <ul class="board_tttt">
                         <li><a
-                                href="/board/board_detail?category=<?= $board->category_num ?>&board_num=<?= $board->article_num ?>"><?= $board->title ?></a></li>
+                                href="/board/board_detail?category=<?= $board->category_num ?>&board_num=<?= $board->article_num ?>">
+                                <?= $board->title ?>
+                            </a></li>
                     </ul>
                 <? } ?>
             </div>
@@ -238,60 +242,65 @@
                     <span class="member_delete"><a href="/member/member_delete">회원탈퇴</a></span>
                 </div>
             <? } ?>
+            <!--             <div id="kanzi_banner">
+                <img src="/assets/images/비드.png">
+            </div> -->
         </div>
     </div>
 
-    <?if($authority == 2){?>
-    <!-- 카테고리 추가 모달창 -->
-    <div class="modal fade" id="addCategoryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="addCategoryModalLabel" aria-hidden="true">
-        <div class="modal-dialog" id="center">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addCategoryModalLabel">카테고리 추가</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="categoryForm" action="/layout/category_insert" method="post">
-                        <input type="text" name="category_name" id="category_name" placeholder="카테고리 이름" required>
-                        <div id="category_error"></div>
-                        <button type="button" class="btn btn-secondary" id="submitCategory" disabled>추가</button>
-                    </form>
+    <? if ($authority == 2) { ?>
+        <!-- 카테고리 추가 모달창 -->
+        <div class="modal fade" id="addCategoryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="center">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addCategoryModalLabel">카테고리 추가</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="categoryForm" action="/layout/category_insert" method="post">
+                            <input type="text" name="category_name" id="category_name" placeholder="카테고리 이름" required>
+                            <div id="category_error"></div>
+                            <button type="button" class="btn btn-secondary" id="submitCategory" disabled>추가</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <?}?>
+    <? } ?>
 
-    <?if($authority == 2){?>
-    <!-- 카테고리 제거 모달창 -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">카테고리 제거</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="/layout/del_cate" method="post">
-                        <select name="del_list" id="del_list">
-                            <? foreach ($category_list as $delete_list) { ?>
-                                <? if ($delete_list->category_num != 0) { ?>
-                                    <option value="<?= $delete_list->category_num ?>"><?= $delete_list->category_name ?>
-                                    </option>
+    <? if ($authority == 2) { ?>
+        <!-- 카테고리 제거 모달창 -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">카테고리 제거</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/layout/del_cate" method="post">
+                            <select name="del_list" id="del_list">
+                                <? foreach ($category_list as $delete_list) { ?>
+                                    <? if ($delete_list->category_num != 0) { ?>
+                                        <option value="<?= $delete_list->category_num ?>">
+                                            <?= $delete_list->category_name ?>
+                                        </option>
+                                    <? } ?>
                                 <? } ?>
-                            <? } ?>
-                        </select>
-                        <div id="delete_btn">
-                            <button type="submit" class="btn btn-secondary" id="delete">제거</button>
-                        </div>
-                    </form>
+                            </select>
+                            <div id="delete_btn">
+                                <button type="submit" class="btn btn-secondary" id="delete">제거</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <?}?>
+    <? } ?>
+
 
     <!-- 콘텐츠부분 -->
     <div class="layout_content">
@@ -301,7 +310,6 @@
     <footer id="footer">
         <a id="footer_move" href="/layout/full_board_list">Hansol CAFE</a>
     </footer>
-
 </body>
 
 </html>
