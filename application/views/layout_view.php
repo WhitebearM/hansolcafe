@@ -165,16 +165,16 @@
                                 </span>
                             </li>
                             <li>
-                                <span class="ft_size">작성한 게시글 :
+                                <span class="ft_size">
                                     <a href="/member/member_activity">
-                                        <?= $board_count->total_board ?>개
+                                    작성한 게시글 : <?= $board_count->total_board ?>개
                                     </a>
                                 </span>
                             </li>
                             <li>
-                                <span class="ft_size">작성한 댓글
+                                <span class="ft_size">
                                     <a href="/member/member_activity">
-                                        <?= $comment_count->total_comments ?>개
+                                    작성한 댓글 : <?= $comment_count->total_comments ?>개
                                     </a>
                                 </span>
                             </li>

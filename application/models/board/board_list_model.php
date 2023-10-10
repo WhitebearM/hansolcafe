@@ -184,7 +184,7 @@ class board_list_model extends CI_Model
         $end_date = date('Y-m-d');
 
         $sql = "with RECURSIVE PostHierarchy AS (
-            SELECT 
+            SELECT DISTINCT
                 article_num,
                 category_num,
                 title,
@@ -198,7 +198,7 @@ class board_list_model extends CI_Model
             WHERE
                 parent_id = 0 
                 AND category_num = '$category_num'
-            UNION ALL
+            UNION
             SELECT
                 b.article_num,
                 b.category_num,
@@ -224,12 +224,17 @@ class board_list_model extends CI_Model
             (SELECT COUNT(*) FROM board WHERE parent_id = ph.article_num) AS child_count,
             COALESCE(comment_counts.comment_count, 0) AS comment_count,
             COALESCE(heart_counts.heart_count, 0) AS heart_count,
-            COALESCE(file_counts.file_count, 0) AS file_count,
-            GROUP_CONCAT(DISTINCT fu.file_path SEPARATOR ', ') AS file_path,
+            CASE WHEN (SELECT board_status FROM board WHERE article_num = ph.parent_id) = 2 THEN 0 ELSE 1 END AS parent_valid,
+            (
+                SELECT GROUP_CONCAT(DISTINCT fu.file_path SEPARATOR ', ')
+                FROM fileupload fu
+                WHERE fu.article_num = ph.article_num
+            ) AS file_path,
             b.content,
             b.user_id,
             m.user_nickname,
-            ph.post_write_date AS write_date 
+            ph.post_write_date AS write_date,
+            (SELECT c.content FROM comments c WHERE c.article_num = ph.article_num LIMIT 1) AS first_comment
         FROM
             PostHierarchy ph
         LEFT JOIN (
@@ -242,16 +247,10 @@ class board_list_model extends CI_Model
             FROM heart
             GROUP BY article_num
         ) AS heart_counts ON ph.article_num = heart_counts.article_num
-        LEFT JOIN (
-            SELECT article_num, COUNT(DISTINCT file_path) AS file_count
-            FROM fileupload
-            GROUP BY article_num
-        ) AS file_counts ON ph.article_num = file_counts.article_num 
-        LEFT JOIN fileupload fu ON ph.article_num = fu.article_num
         LEFT JOIN board b ON ph.article_num = b.article_num
         LEFT JOIN member m ON b.user_id = m.user_id
-        WHERE b.category_num = '$category_num' AND b.board_status = 1  
-        GROUP BY ph.article_num
+        LEFT JOIN comments c ON b.article_num = c.article_num
+        WHERE b.category_num = '$category_num' AND b.board_status = 1 
         ";
 
         if ($option1 == "all") {
@@ -363,7 +362,7 @@ class board_list_model extends CI_Model
         b.*,
         f.file_path,
         IFNULL(h.heart_count, 0) AS heart_count,
-        IFNULL(c.comment_count, 0) AS comment_count
+        IFNULL(c.comment_count, 0) AS comment_count,
     FROM board AS b
     LEFT JOIN (
         SELECT article_num, MAX(file_path) AS file_path
@@ -387,6 +386,7 @@ class board_list_model extends CI_Model
         AND b.category_num = '$category_num'
         limit $offset, $per_page;
     ";
+    
 
         return $this->db->query($sql)->result();
     }

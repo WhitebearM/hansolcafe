@@ -99,7 +99,7 @@ class layout_model extends CI_Model
         member.user_nickname,
         COALESCE(comment_counts.comment_count, 0) AS comment_count,
         COALESCE(heart_counts.heart_count, 0) AS heart_count,
-        COALESCE(GROUP_CONCAT(fileupload.file_path SEPARATOR ', '), '') AS file_path
+        COALESCE(GROUP_CONCAT(fileupload.file_path SEPARATOR ', '), '') AS file_count
         FROM
         board
         LEFT JOIN member ON board.user_id = member.user_id
@@ -133,7 +133,7 @@ class layout_model extends CI_Model
     member.user_nickname,
     COALESCE(comment_counts.comment_count, 0) AS comment_count,
     COALESCE(heart_counts.heart_count, 0) AS heart_count,
-    COALESCE(GROUP_CONCAT(fileupload.file_path SEPARATOR ', '), '') AS file_path
+    COALESCE(GROUP_CONCAT(fileupload.file_path SEPARATOR ', '), '') AS file_count
     FROM
     board
     LEFT JOIN (
@@ -176,33 +176,28 @@ class layout_model extends CI_Model
         $start_date = null;
         $end_date = date('Y-m-d');
 
-        $sql = "select
+        $sql = "SELECT 
         board.*,
         COALESCE(comment_counts.comment_count, 0) AS comment_count,
         COALESCE(heart_counts.heart_count, 0) AS heart_count,
-        fileupload.file_path,
-        member.user_nickname
-    FROM
+        COALESCE(file_counts.file_count, 0) AS file_count
+        FROM
         board
-    LEFT JOIN (
+        LEFT JOIN (
         SELECT article_num, COUNT(*) AS comment_count
         FROM comments
         GROUP BY article_num
-    ) AS comment_counts ON board.article_num = comment_counts.article_num
-    LEFT JOIN (
+        ) AS comment_counts ON board.article_num = comment_counts.article_num
+        LEFT JOIN (
         SELECT article_num, COUNT(*) AS heart_count
         FROM heart
         GROUP BY article_num
-    ) AS heart_counts ON board.article_num = heart_counts.article_num
-    LEFT JOIN (
-        SELECT article_num, GROUP_CONCAT(file_path) AS file_path
-        FROM fileupload
-        GROUP BY article_num
-    ) AS fileupload ON board.article_num = fileupload.article_num
-    LEFT JOIN comments c ON board.article_num = c.article_num
-    LEFT JOIN member ON board.user_id = member.user_id
-    WHERE board.board_status = 1
-    
+        ) AS heart_counts ON board.article_num = heart_counts.article_num
+	LEFT JOIN (
+        SELECT article_num , COUNT(*) AS file_count
+        FROM fileupload ) AS file_counts ON board.article_num = file_counts.article_num
+        LEFT JOIN comments c ON board.article_num = c.article_num
+        WHERE board.board_status = 1
         ";
 
         if ($option1 == "all") {
@@ -315,7 +310,7 @@ class layout_model extends CI_Model
     function header_search_list($per_page, $offset, $search_title)
     {
         $this->db->distinct();
-        $this->db->select('board.*, COALESCE(comment_counts.comment_count, 0) AS comment_count, COALESCE(heart_counts.heart_count, 0) AS heart_count, member.user_nickname,file_counts.file_path');
+        $this->db->select('board.*, COALESCE(comment_counts.comment_count, 0) AS comment_count, COALESCE(heart_counts.heart_count, 0) AS heart_count, member.user_nickname,file_counts.file_count');
         $this->db->from('board');
         $this->db->join('(SELECT article_num, COUNT(*) AS comment_count FROM comments GROUP BY article_num) AS comment_counts', 'board.article_num = comment_counts.article_num', 'left');
         $this->db->join('(SELECT article_num, COUNT(*) AS heart_count FROM heart GROUP BY article_num) AS heart_counts', 'board.article_num = heart_counts.article_num', 'left');
@@ -323,7 +318,6 @@ class layout_model extends CI_Model
         $this->db->like('board.title', $search_title);
         $this->db->or_like('board.content', $search_title);
         $this->db->or_like('board.user_id', $search_title);
-        $this->db->or_like('member.user_nickname',$search_title);
         $this->db->where('board.board_status', 1);
     
         // 서브쿼리를 사용하여 파일 갯수 조회
@@ -365,7 +359,7 @@ class layout_model extends CI_Model
     ")->result();
     }
 
-    function main_date_search_count($select_date){
+    /* function main_date_search_count($select_date){
         $sql = "select COUNT(*) as count FROM board WHERE write_date >= '$select_date 00:00:00' AND write_date <= '$select_date 23:59:59' AND board_status = 1;";
 
         return $this->db->query($sql)->row_array();
@@ -401,5 +395,5 @@ class layout_model extends CI_Model
     ";
 
         return $this->db->query($sql)->result();
-    }
+    } */
 }

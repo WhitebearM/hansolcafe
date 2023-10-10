@@ -89,11 +89,11 @@ class layout extends CI_Controller
         $search_sel = $this->input->get("category_option_2");
         $search_title = $this->input->get("board_footer_search");
 
-        if($search_title == ''){
+/*         if($search_title == ''){
             echo "<script>
             alert('검색어를 입력해주세요!');
             location.href='/layout/full_board_list';</script>";
-        }else{
+        }else{ */
             $config['base_url'] = base_url("/layout/full_board_list_search?category_option1=$day&category_option_2=$search_sel&board_footer_seach=$search_title");
             $config['uri_segment'] = 4;
             $config['total_rows'] = $this->layout_model->main_board_search_count($day, $search_sel, $search_title);
@@ -138,7 +138,7 @@ class layout extends CI_Controller
                     "search_title_footer" => $search_title
                 )
             );
-        }
+        // }
     }
 
     function full_board_list_date()

@@ -60,8 +60,8 @@ document.addEventListener("DOMContentLoaded", function () {
             // 파일 선택 창 열기 위해 input 태그를 클릭
             input.click();
         },
-        plugins: 'image link table code',
-        toolbar: 'image | bold italic underline | numlist bullist | link image | table | code',
+        plugins: 'image link code',
+        toolbar: 'image | bold italic underline | numlist bullist | link image | code',
 
 
     });

@@ -202,8 +202,6 @@ class board_list extends CI_Controller
 
             $select_article_num = json_decode($select_board);
 
-
-
             $gtr_name = $this->board_list_model->get_category_name($select_category);
             foreach ($select_article_num as $sel_list) {
                 $this->board_list_model->select_board_move($sel_list, $select_category);

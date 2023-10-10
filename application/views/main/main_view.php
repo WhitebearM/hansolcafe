@@ -43,7 +43,7 @@
                                                 href="/board/board_detail?category=<?= $board->category_num ?>&board_num=<?= $board->article_num ?>"><?= $board->title ?></a>
                                         </li>
                                         <li id="main_name" class="text-center col-1">
-                                            <?= $board->user_nickname ?>
+                                            <?= $board->user_id ?>
                                         </li>
                                         <li id="main_common" class="text-center col-2">
                                             <?= $board->comment_count ?>
@@ -71,7 +71,7 @@
                                         <span id="new_board">
                                                     <?= (strtotime('now') - strtotime($board->write_date)) / (60 * 60) < 12 ? "[new]" : ""; ?>
                                         </span>
-                                        <? if (!$board->file_path == "") { ?>
+                                        <? if (!$board->file_count == "") { ?>
                                             <img src="/assets/images/fileimg.png" width="20px" height="20px">
                                         <? } ?>
                                         <? if (strpos($board->content, "<img")) { ?>
@@ -82,7 +82,7 @@
                                         <? } ?>
                                     </li>
                                     <li id="board_write_name" class="text-center col-2">
-                                        <?= $board->user_nickname ?>
+                                        <?= $board->user_id ?>
                                     </li>
                                     <li id="board_comment" class="text-center col-1">
                                         <?= $board->comment_count ?>
@@ -132,7 +132,7 @@
                                                 href="/board/board_detail?category=<?= $gong->category_num ?>&board_num=<?= $gong->article_num ?>"><?= $gong->title ?></a>
                                         </li>
                                         <li id="main_name" class="text-center">
-                                            <?= $gong->user_nickname ?>
+                                            <?= $gong->user_id ?>
                                         </li>
                                         <li id="main_common" class="text-center">
                                             <?= $gong->comment_count ?>
@@ -162,7 +162,7 @@
                                         <span id="new_board">
                                                     <?= (strtotime('now') - strtotime($board->write_date)) / (60 * 60) < 12 ? "[new]" : ""; ?>
                                                 </span>
-                                        <? if (!$board->file_path == "") { ?>
+                                        <? if (!$board->file_count != 0) { ?>
                                             <img src="/assets/images/fileimg.png" width="20px" height="20px">
                                         <? } ?>
                                         <? if (strpos($board->content, "<img")) { ?>
@@ -173,7 +173,7 @@
                                         <? } ?>
                                     </li>
                                     <li id="board_write_name" class="text-center col-2">
-                                        <?= $board->user_nickname ?>
+                                        <?= $board->user_id ?>
                                     </li>
                                     <li id="board_comment" class="text-center col-1">
                                         <?= $board->comment_count ?>
@@ -289,11 +289,11 @@
                         <input type="text" name="board_footer_search" id="main_footer_go" value="<?=$search_title_footer?>">
                     <?}?>
                     <button class="custom-btn btn-16" type="submit">검색</button>
-                    <span id="main_date_box">날짜로만 검색 : 
+                 <!--    <span id="main_date_box">날짜로만 검색 : 
                     <input type="date" name="main_search_date" id="main_search_date"
                     <?if(isset($date)){?>
                     value="<?=$date?>"></span>
-                    <?}?>
+                    <?}?> -->
                 </form>
             </div>
         </div>

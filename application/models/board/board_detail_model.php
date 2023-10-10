@@ -349,7 +349,7 @@ class board_detail_model extends CI_Model
         WHERE
             article_num = '$board_num'
         ORDER BY
-        grp desc, seq,write_date DESC
+        grp desc, seq
         ")->result();
     }
 
@@ -414,7 +414,7 @@ class board_detail_model extends CI_Model
         WHERE
             article_num = '$board_num'
         ORDER BY
-            grp, seq;
+            grp asc, seq 
         ")->result();
     }
 }

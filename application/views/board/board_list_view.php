@@ -122,7 +122,7 @@
                                                     href="/board/board_detail?category=<?= $category_num ?>&board_num=<?= $gongji_board->article_num ?>"><?= $gongji_board->title ?></a>
                                             </li>
                                             <li id="main_name_b">
-                                                <?= $gongji_board->user_nickname ?>
+                                                <?= $gongji_board->user_id ?>
                                             </li>
                                             <li id="main_common_b">
                                                 <?= $gongji_board->comment_count ?>
@@ -206,15 +206,15 @@
                                                     <?= (strtotime('now') - strtotime($board->write_date)) / (60 * 60) < 12 ? "[new]" : ""; ?>
                                                 </span>
                                             </span>
-                                            <?if($id == $board->user_nickname){?>
+                                            <?if($id == $board->user_id){?>
                                             <span id="board_write_name" class="text-center">
                                                 <a href="/member/member_activity">
-                                                    <?= $board->user_nickname ?>
+                                                    <?= $board->user_id ?>
                                                 </a>
                                             </span>
                                             <?}else{?>
                                             <span <?if($authority == 1){?>style="padding-left: 35px;"<?}?> id="board_write_name" class="text-center">
-                                                    <?= $board->user_nickname ?>
+                                                    <?= $board->user_id ?>
                                             </span>
                                             <?}?>
                                             <span <?if($authority == 1){?>style="padding-left: 40px;"<?}?> id="board_comment" class="text-center">
@@ -352,9 +352,6 @@
                         <input type="text" name="board_footer_search" id="footer_search_gogo" value="<?=$option3?>">
                     <?}?>
                     <button class="custom-btn btn-16" type="submit">검색</button>
-                    <span id="board_list_date_box">날짜로만 검색 : 
-                    <input type="date" name="search_date" id="search_date" <? if (isset($select_date)) { ?> value="<?= $select_date ?>">
-                    <? } ?></span>
                 </form>
             </div>
 

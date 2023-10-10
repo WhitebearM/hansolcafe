@@ -16,18 +16,24 @@ class member_activity extends CI_Controller
     {
         $id = $this->session->userdata("id");
 
-        $act_board = $this->member_activity_model->member_act_board($id);
-        $act_comments = $this->member_activity_model->member_act_comments($id);
-        $member_info = $this->member_activity_model->member_info($id);
-
-        $this->layout_common->view(
-            "/member/member_activity_view",
-            array(
-                "act_board" => $act_board,
-                "act_comments" => $act_comments,
-                "member" => $member_info
-            )
-        );
+        if(isset($id)){
+            $act_board = $this->member_activity_model->member_act_board($id);
+            $act_comments = $this->member_activity_model->member_act_comments($id);
+            $member_info = $this->member_activity_model->member_info($id);
+    
+            $this->layout_common->view(
+                "/member/member_activity_view",
+                array(
+                    "act_board" => $act_board,
+                    "act_comments" => $act_comments,
+                    "member" => $member_info
+                )
+            );
+        }else{
+            echo "<script>
+            alert('로그인후 이용가능합니다.');
+            location.href='/login/login';</script>";
+        }
     }
 
 

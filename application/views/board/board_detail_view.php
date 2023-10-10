@@ -62,7 +62,7 @@
                 <? } ?>
                 <ul>
                     <li>
-                        <?= $board->user_nickname ?>
+                        <?= $board->user_id ?>
                     </li>
                     <li>
                         <?= date('Y-m-d H:i', strtotime($board->write_date)) ?>
@@ -116,7 +116,7 @@
         <div id="detail_heart">
             <ul>
 
-                <?if(isset($id)){?>
+                <?if(isset($user_id)){?>
                 <li>
                     <a href="#" class="heart_up" data-article="<?= $board->article_num ?>">
                         <? if ($heart_check == false) { ?>
@@ -130,7 +130,7 @@
                     </span>
                 </li>
                 <?}?>
-                <li>
+                <li id="comments_img">
                     <img src="/assets/images/comment_img.png" width="20" height="20">
                     <span>댓글
                         <?= $comments_num ?>
@@ -163,7 +163,7 @@
                         <? } ?>
                         <ul>
                             <li>
-                                <?= $comment->user_nickname ?>
+                                <?= $comment->user_id ?>
                             </li>
                             <li id="detail_comment_write_name">
                                 <? if ($board->user_id == $comment->user_id) { ?>
@@ -330,7 +330,7 @@
                                         <?= $semi_list->title ?>
                                     </a></li>
                                 <li id="semi_middle">
-                                    <?= $semi_list->user_nickname ?>
+                                    <?= $semi_list->user_id ?>
                                 </li>
                                 <li id="semi_last">
                                     <?= date('Y-m-d', strtotime($semi_list->write_date)) ?>

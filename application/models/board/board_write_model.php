@@ -145,7 +145,9 @@ class board_write_model extends CI_Model
             'parent_id' => $parent_num,
             'grp' => $parent_post->grp,
             'seq' => $parent_post->seq + 1,
-            'depth' => $parent_post->depth + 1
+            'depth' => $parent_post->depth + 1,
+            'main_status' => $gongji,
+            'disclosure' => $dcsr
         );
 
         $this->db->insert('board', $data);
