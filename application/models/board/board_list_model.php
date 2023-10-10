@@ -198,7 +198,7 @@ class board_list_model extends CI_Model
             WHERE
                 parent_id = 0 
                 AND category_num = '$category_num'
-            UNION
+            UNION ALL
             SELECT
                 b.article_num,
                 b.category_num,
@@ -213,7 +213,7 @@ class board_list_model extends CI_Model
             JOIN
                 PostHierarchy ph ON b.parent_id = ph.article_num
         )
-        SELECT
+        SELECT DISTINCT
             ph.article_num,
             ph.category_num,
             ph.title,
